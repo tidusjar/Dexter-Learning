@@ -141,6 +141,48 @@
     }
   }
 
+  /* ---------------- speech (pronunciation) ---------------- */
+  var speechOK = 'speechSynthesis' in window;
+  if (speechOK) {
+    try { window.speechSynthesis.getVoices(); } catch (e) { speechOK = false; } // warm the async voice list
+  }
+  function say(text, lang) {
+    if (!speechOK) return;
+    try {
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = lang || 'es-ES';
+      u.rate = 0.85;
+      var voices = window.speechSynthesis.getVoices();
+      for (var i = 0; i < voices.length; i++) {
+        if (voices[i].lang && voices[i].lang.indexOf((lang || 'es').slice(0, 2)) === 0) { u.voice = voices[i]; break; }
+      }
+      window.speechSynthesis.speak(u);
+    } catch (e) {}
+  }
+  function speakerBtn(text, lang) {
+    return el('button', {
+      class: 'say-btn', title: 'Hear it spoken', 'aria-label': 'Hear it spoken', text: '🔊',
+      onclick: function (ev) { ev.stopPropagation(); say(text, lang); }
+    });
+  }
+  function vocabBoard(les) {
+    if (!les.vocab || !speechOK) return null;
+    var board = el('div', { class: 'learn-card vocab-board-wrap' }, [
+      el('h3', { text: '🔊 Say it out loud! Tap a word to hear it in Spanish — then copy it!' })
+    ]);
+    var grid = el('div', { class: 'vocab-board' });
+    les.vocab.forEach(function (v) {
+      grid.appendChild(el('button', {
+        class: 'vocab-btn',
+        html: '🔊 <b>' + esc(v.es) + '</b><span class="vocab-en">' + esc(v.en) + '</span>',
+        onclick: function () { say(v.es, 'es-ES'); }
+      }));
+    });
+    board.appendChild(grid);
+    return board;
+  }
+
   /* ---------------- maths generators ---------------- */
   function fmtMoney(p) {
     return '£' + Math.floor(p / 100) + '.' + String(p % 100).padStart(2, '0');
@@ -312,6 +354,9 @@
       ]));
     });
 
+    var vb = vocabBoard(les);
+    if (vb) wrap.appendChild(vb);
+
     var questions = buildQuestions(les);
     var startLabel = (les.learn && les.learn.length ? 'Start the quiz! 🚀' : 'Start! 🚀');
     wrap.appendChild(el('button', {
@@ -357,6 +402,8 @@
             el('div', { html: card.html })
           ]);
         })));
+        var pvb = vocabBoard(les);
+        if (pvb) peek.appendChild(pvb);
         if (peekOpen) peek.setAttribute('open', '');
         peek.addEventListener('toggle', function () { peekOpen = peek.open; });
         wrap.appendChild(peek);
@@ -1097,22 +1144,27 @@
     var perfect = 0;
     next();
 
-    function bubble(side, html) {
-      chat.appendChild(el('div', { class: 'rp-bubble ' + side, html: html }));
+    function bubble(side, html, sayText) {
+      var b = el('div', { class: 'rp-bubble ' + side, html: html });
+      if (sayText && speechOK) {
+        b.appendChild(speakerBtn(sayText, 'es-ES'));
+        say(sayText, 'es-ES');
+      }
+      chat.appendChild(b);
       chat.scrollTop = chat.scrollHeight;
     }
     function next() {
       optsBox.innerHTML = '';
       if (i >= steps.length) return finish();
       var st = steps[i];
-      bubble('rp-npc', '🍦 ' + esc(st.npc) + (st.npcEn ? '<br><span class="rp-en">(' + esc(st.npcEn) + ')</span>' : ''));
+      bubble('rp-npc', '🍦 ' + esc(st.npc) + (st.npcEn ? '<br><span class="rp-en">(' + esc(st.npcEn) + ')</span>' : ''), st.npc);
       var mistake = false;
       shuffle(st.options.map(function (t, oi) { return { t: t, ok: oi === st.answer }; })).forEach(function (o) {
         var b = el('button', { class: 'option-btn', text: o.t });
         b.addEventListener('click', function () {
           if (o.ok) {
             if (!mistake) perfect++;
-            bubble('rp-me', '🧒 ' + esc(o.t));
+            bubble('rp-me', '🧒 ' + esc(o.t), o.t);
             i++;
             next();
           } else {

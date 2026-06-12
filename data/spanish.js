@@ -11,6 +11,12 @@ window.SUBJECTS.push({
       id: 'flavours-1',
       title: 'Ice cream flavours 1',
       emoji: '🍦',
+      vocab: [
+        { es: 'el helado', en: 'ice cream' }, { es: 'chocolate', en: 'chocolate' },
+        { es: 'fresa', en: 'strawberry' }, { es: 'vainilla', en: 'vanilla' },
+        { es: 'limón', en: 'lemon' }, { es: 'menta', en: 'mint' },
+        { es: 'el helado de fresa', en: 'strawberry ice cream' }
+      ],
       learn: [
         {
           title: 'El helado — ice cream!',
@@ -43,6 +49,11 @@ window.SUBJECTS.push({
       id: 'flavours-2',
       title: 'Ice cream flavours 2',
       emoji: '🍨',
+      vocab: [
+        { es: 'naranja', en: 'orange' }, { es: 'plátano', en: 'banana' },
+        { es: 'coco', en: 'coconut' }, { es: 'café', en: 'coffee' },
+        { es: 'caramelo', en: 'caramel' }, { es: 'el helado de coco', en: 'coconut ice cream' }
+      ],
       learn: [
         {
           title: 'Five more tasty flavours',
@@ -79,6 +90,13 @@ window.SUBJECTS.push({
       id: 'numbers-euros',
       title: 'Numbers and euros',
       emoji: '💶',
+      vocab: [
+        { es: 'uno', en: 'one' }, { es: 'dos', en: 'two' }, { es: 'tres', en: 'three' },
+        { es: 'cuatro', en: 'four' }, { es: 'cinco', en: 'five' }, { es: 'seis', en: 'six' },
+        { es: 'siete', en: 'seven' }, { es: 'ocho', en: 'eight' }, { es: 'nueve', en: 'nine' },
+        { es: 'diez', en: 'ten' }, { es: '¿Cuánto cuesta?', en: 'How much does it cost?' },
+        { es: 'dos euros', en: 'two euros' }
+      ],
       learn: [
         {
           title: 'Counting to 10 in Spanish',
@@ -114,6 +132,13 @@ window.SUBJECTS.push({
       id: 'buying-icecream',
       title: 'At the ice cream shop',
       emoji: '🏪',
+      vocab: [
+        { es: '¡Hola!', en: 'Hello!' }, { es: '¡Buenos días!', en: 'Good morning!' },
+        { es: 'Quisiera un helado, por favor', en: 'I would like an ice cream, please' },
+        { es: 'un cucurucho', en: 'a cone' }, { es: 'una tarrina', en: 'a tub' },
+        { es: 'Aquí tiene', en: 'Here you are' }, { es: 'gracias', en: 'thank you' },
+        { es: 'de nada', en: "you\'re welcome" }, { es: '¡Adiós!', en: 'Goodbye!' }
+      ],
       learn: [
         {
           title: 'Polite shop phrases',
@@ -183,6 +208,12 @@ window.SUBJECTS.push({
       id: 'icecream-challenge',
       title: 'The ice cream final challenge',
       emoji: '🏆',
+      vocab: [
+        { es: 'el helado de chocolate', en: 'chocolate ice cream' },
+        { es: 'el helado de limón', en: 'lemon ice cream' },
+        { es: 'Quisiera un cucurucho de menta, por favor', en: 'I would like a mint cone, please' },
+        { es: '¿Cuánto cuesta?', en: 'How much does it cost?' }
+      ],
       learn: [
         {
           title: 'Everything you know!',

@@ -440,6 +440,35 @@ button {
 .rp-me { background: #d8f3dc; align-self: flex-end; border-bottom-right-radius: 4px; }
 .rp-en { font-size: 0.85rem; color: var(--muted); font-style: italic; }
 
+/* pronunciation */
+.say-btn {
+  background: #fff;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 1rem;
+  margin-left: 8px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+.say-btn:hover { background: #d7e3fc; }
+.vocab-board { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+.vocab-btn {
+  background: #fff;
+  border: 2px solid var(--gold);
+  border-radius: 14px;
+  padding: 10px 12px;
+  font-size: 1.05rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.vocab-btn:hover { background: #fff3dd; transform: scale(1.03); }
+.vocab-en { font-size: 0.82rem; color: var(--muted); font-style: italic; }
+.rp-bubble .say-btn { margin-left: 10px; }
+
 /* circuit lab */
 .big-bulb {
   text-align: center;
