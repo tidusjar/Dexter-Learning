@@ -170,6 +170,7 @@
         if (!best && vl.indexOf(want.slice(0, 2)) === 0) best = voiceCache[i];
       }
       if (best) u.voice = best;
+      window.__keepUtterance = u; // WebKit GC bug: utterance must stay referenced or audio stops
       // Chrome bug: speak() immediately after cancel() can be swallowed —
       // only cancel when something is playing, and delay the new utterance.
       if (synth.speaking || synth.pending) {
@@ -1589,6 +1590,66 @@
     });
     if (!anyWriting) writes.appendChild(el('p', { text: 'Writing quests will show up here once Dexter starts them.' }));
     app.appendChild(writes);
+
+    // sound check
+    var snd = el('div', { class: 'panel' });
+    snd.appendChild(el('h2', { text: '🔊 Sound check (for Spanish pronunciation)' }));
+    snd.appendChild(el('p', { html: 'Two tests: the <b>beep</b> uses normal media sound; the <b>voice</b> uses the speech engine. On iPhones/iPads the speech engine follows the <b>ringer volume and silent switch</b>, while the beep ignores them — so if you hear the beep but not the voice, flip the silent switch OFF and press the volume-up button.' }));
+    var sndStatus = el('p', { style: 'font-family:monospace;font-size:0.85rem;white-space:pre-wrap;background:#f8f9fa;padding:10px;border-radius:10px', text: 'Press a test button to see results here.' });
+    function speechReport() {
+      if (!('speechSynthesis' in window)) return 'Speech support: NO — this browser cannot speak.';
+      var synth = window.speechSynthesis;
+      var vs = [];
+      try { vs = synth.getVoices() || []; } catch (e) {}
+      var es = vs.filter(function (v) { return (v.lang || '').toLowerCase().indexOf('es') === 0; });
+      return 'Speech support: yes\nVoices loaded: ' + vs.length + ' (Spanish: ' + es.length +
+        (es.length ? ' — ' + es.slice(0, 3).map(function (v) { return v.name; }).join(', ') : '') + ')\n' +
+        'Engine state: ' + (synth.paused ? 'PAUSED' : synth.speaking ? 'speaking' : 'idle');
+    }
+    function beepDataUri() {
+      var rate = 8000, n = Math.floor(rate * 0.6);
+      var buf = new Uint8Array(44 + n);
+      function w(o, s) { for (var i = 0; i < s.length; i++) buf[o + i] = s.charCodeAt(i); }
+      function u32(o, v) { buf[o] = v & 255; buf[o + 1] = (v >> 8) & 255; buf[o + 2] = (v >> 16) & 255; buf[o + 3] = (v >> 24) & 255; }
+      function u16(o, v) { buf[o] = v & 255; buf[o + 1] = (v >> 8) & 255; }
+      w(0, 'RIFF'); u32(4, 36 + n); w(8, 'WAVEfmt '); u32(16, 16); u16(20, 1); u16(22, 1);
+      u32(24, rate); u32(28, rate); u16(32, 1); u16(34, 8); w(36, 'data'); u32(40, n);
+      for (var i = 0; i < n; i++) buf[44 + i] = 128 + Math.round(100 * Math.sin(2 * Math.PI * 440 * i / rate) * Math.min(1, (n - i) / n));
+      var bin = '';
+      for (var j = 0; j < buf.length; j++) bin += String.fromCharCode(buf[j]);
+      return 'data:audio/wav;base64,' + btoa(bin);
+    }
+    snd.appendChild(el('div', { class: 'quiz-actions' }, [
+      el('button', { class: 'big-btn secondary', text: '🎵 Play test beep', onclick: function () {
+        try {
+          var a = new Audio(beepDataUri());
+          a.play().then(function () {
+            sndStatus.textContent = speechReport() + '\nBeep: playing — did you hear it?';
+          }).catch(function (e) {
+            sndStatus.textContent = speechReport() + '\nBeep failed to play: ' + e;
+          });
+        } catch (e) { sndStatus.textContent = speechReport() + '\nBeep threw: ' + e.message; }
+      } }),
+      el('button', { class: 'big-btn', text: '🔊 Speak test (Spanish)', onclick: function () {
+        if (!('speechSynthesis' in window)) { sndStatus.textContent = speechReport(); return; }
+        try {
+          var synth = window.speechSynthesis;
+          var u = new SpeechSynthesisUtterance('¡Hola! Me gusta el helado de chocolate.');
+          u.lang = 'es-ES'; u.volume = 1; u.rate = 0.85;
+          window.__keepUtterance = u;
+          var evs = ['requested'];
+          function upd() { sndStatus.textContent = speechReport() + '\nSpeak test: ' + evs.join(' → '); }
+          u.onstart = function () { evs.push('started'); upd(); };
+          u.onend = function () { evs.push('finished. If you heard nothing, the device muted it — check the silent switch and press volume-up.'); upd(); };
+          u.onerror = function (e) { evs.push('ERROR: ' + (e.error || 'unknown')); upd(); };
+          synth.resume();
+          synth.speak(u);
+          upd();
+        } catch (e) { sndStatus.textContent = speechReport() + '\nSpeak test threw: ' + e.message; }
+      } })
+    ]));
+    snd.appendChild(sndStatus);
+    app.appendChild(snd);
 
     // backup
     var backup = el('div', { class: 'panel' });
