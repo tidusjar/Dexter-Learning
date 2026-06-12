@@ -180,23 +180,29 @@ window.SUBJECTS.push({
       ]
     },
     {
-      id: 'write-algorithm',
-      title: 'Writing quest: program the Robo-Viking!',
+      id: 'code-lab',
+      title: 'Code Lab: program the Robo-Viking!',
       emoji: '🦾',
-      write: {
-        prompt: 'The Hairy Hooligans have built a <b>Robo-Viking</b>, but it has no brain! Write an <b>algorithm</b> (numbered steps) to teach it ONE task: making a jam sandwich, getting ready for school, or feeding a dragon. Be PRECISE — the robot does exactly what you say. Include at least one <b>loop</b> (like "repeat 4 times: …").',
-        minWords: 30,
-        checklist: [
-          'I wrote <b>numbered steps</b> in the right order',
-          'Each step starts with a <b>bossy (imperative) verb</b> — Pick up, Spread, Turn…',
-          'My steps are <b>precise</b> — numbers and exact actions, nothing vague',
-          'I included a <b>loop</b> ("repeat … times")',
-          'I tested it by reading it back like a robot — no missing steps!'
-        ]
-      },
       learn: [
-        { title: 'Robot rules', html: '<p>Remember, Dexter: the Robo-Viking does EXACTLY what you write — nothing more! If you don\'t tell it to open the cupboard, it will smack straight into the door. Be precise, keep the steps in order, and use a loop for anything that repeats.</p>' }
-      ]
+        {
+          title: 'Real block coding — just like Scratch!',
+          html: '<p>The Hairy Hooligans built a <b>Robo-Viking</b>, but it has no brain — YOU are the programmer now, Dexter!</p>' +
+                '<ul><li>Tap the coloured <b>blocks</b> to build your program: <b>⬆️ move forward</b>, <b>↩️↪️ turns</b>, and the mighty <b>🔁 repeat</b> loop (don\'t forget <b>⤴ end repeat</b> to close it!).</li>' +
+                '<li>Press <b>▶️ Run</b> and watch the Robo-Viking follow your program EXACTLY — the arrow shows which way it is facing.</li>' +
+                '<li>Guide it to the treasure 💰. If it crashes into a rock 🪨, <b>debug</b> your program and run it again!</li></ul>' +
+                '<p>🌟 Top coders use <b>loops</b> to keep programs short — watch for the hints!</p>'
+        }
+      ],
+      blocks: {
+        challenges: [
+          { name: 'First steps', map: ['S..G'], hint: 'Three moves forward does it!', solution: ['F', 'F', 'F'] },
+          { name: 'Turn the corner', map: ['S..', '##.', '##G'], hint: 'Move, move… then turn right and keep going!', solution: ['F', 'F', 'R', 'F', 'F'] },
+          { name: 'The winding path', map: ['#.G', '#.#', 'S.#'], hint: 'You\'ll need BOTH turns for this one.', solution: ['F', 'L', 'F', 'F', 'R', 'F'] },
+          { name: 'The long march', map: ['S.....G'], hint: 'Top coders solve this with just 2 blocks: repeat ×6 and move!', solution: ['F', 'F', 'F', 'F', 'F', 'F'] },
+          { name: 'The staircase', map: ['S.##', '#..#', '##..', '###G'], hint: 'Spot the pattern: move, turn right, move, turn left… repeat ×3!', solution: ['F', 'R', 'F', 'L', 'F', 'R', 'F', 'L', 'F', 'R', 'F'] },
+          { name: 'Around the lake', map: ['S....', '.###.', '.###.', '....G'], hint: 'March along the top (repeat ×4), turn right, then march down!', solution: ['F', 'F', 'F', 'F', 'R', 'F', 'F', 'F'] }
+        ]
+      }
     }
   ]
 });

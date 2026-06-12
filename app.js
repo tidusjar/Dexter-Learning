@@ -267,6 +267,7 @@
       var p = getLessonProg(sub.id, les.id);
       var desc;
       if (les.gen) desc = 'Practice game — play it as many times as you like!';
+      else if (les.blocks) desc = 'Coding lab — ' + les.blocks.challenges.length + ' block-coding challenges';
       else if (les.write) desc = 'Writing quest';
       else desc = (les.questions ? les.questions.length : 0) + ' questions';
       if (p && p.best) desc += ' · best score ' + p.best + '%';
@@ -293,6 +294,7 @@
     app.appendChild(el('h1', { text: (les.emoji || '') + ' ' + les.title }));
 
     if (les.write) return renderWriting(sub, les);
+    if (les.blocks) return renderBlocks(sub, les);
 
     var wrap = el('div');
     app.appendChild(wrap);
@@ -595,6 +597,248 @@
       });
       pool.appendChild(chip);
     });
+  }
+
+  /* ---------------- block coding lab ---------------- */
+  var DIRS = [[0, -1], [1, 0], [0, 1], [-1, 0]]; // N E S W
+  var DIR_ARROWS = ['⬆️', '➡️', '⬇️', '⬅️'];
+  var DIR_NAMES = { N: 0, E: 1, S: 2, W: 3 };
+
+  function renderBlocks(sub, les) {
+    var key = lessonKey(sub.id, les.id);
+    var wrap = el('div');
+    app.appendChild(wrap);
+
+    (les.learn || []).forEach(function (card) {
+      wrap.appendChild(el('div', { class: 'learn-card' }, [
+        card.title ? el('h3', { text: '📖 ' + card.title }) : null,
+        el('div', { html: card.html })
+      ]));
+    });
+
+    var challenges = les.blocks.challenges;
+    var done = store.checks[key] || {};
+    var ci = 0;
+    while (ci < challenges.length - 1 && done[ci]) ci++;
+    var lab = el('div');
+    wrap.appendChild(lab);
+    show();
+
+    function doneCount() {
+      var n = 0;
+      for (var i = 0; i < challenges.length; i++) if (done[i]) n++;
+      return n;
+    }
+
+    function show() {
+      lab.innerHTML = '';
+      var ch = challenges[ci];
+      var map = ch.map;
+      var cols = map[0].length;
+      var start = null;
+      map.forEach(function (row, y) {
+        var x = row.indexOf('S');
+        if (x !== -1) start = { x: x, y: y };
+      });
+      var startDir = DIR_NAMES[ch.dir || 'E'];
+      var pos = { x: start.x, y: start.y };
+      var dir = startDir;
+      var program = []; // tokens: {t:'F'|'L'|'R'} | {t:'REP',n} | {t:'END'}
+      var running = false;
+      var timer = null;
+
+      var head = el('div', { class: 'quiz-head' }, [
+        el('span', { class: 'quiz-progress', text: '🧩 Challenge ' + (ci + 1) + ' of ' + challenges.length + ': ' + ch.name + (done[ci] ? ' ✅' : '') }),
+        el('span', { class: 'progress-label', text: doneCount() + ' of ' + challenges.length + ' solved' })
+      ]);
+      lab.appendChild(head);
+
+      var nav = el('div', { class: 'quiz-actions', style: 'margin:0 0 10px' });
+      challenges.forEach(function (c, i) {
+        nav.appendChild(el('button', {
+          class: 'chal-tab' + (i === ci ? ' active' : ''),
+          text: (done[i] ? '✅' : (i + 1)),
+          title: c.name,
+          onclick: function () { if (!running) { ci = i; show(); } }
+        }));
+      });
+      lab.appendChild(nav);
+
+      var card = el('div', { class: 'question-card' });
+      lab.appendChild(card);
+      card.appendChild(el('p', { class: 'question-text', html: '🚩 <b>Mission:</b> guide the Robo-Viking to the treasure 💰. Tap blocks to build your program, then press Run!' + (ch.hint ? '<br><span class="progress-label">🌟 ' + ch.hint + '</span>' : '') }));
+
+      // grid
+      var grid = el('div', { class: 'code-grid', style: 'grid-template-columns:repeat(' + cols + ', 44px)' });
+      card.appendChild(grid);
+      function drawGrid() {
+        grid.innerHTML = '';
+        map.forEach(function (row, y) {
+          for (var x = 0; x < cols; x++) {
+            var c = row[x];
+            var t = c === '#' ? '🪨' : c === 'G' ? '💰' : '';
+            if (pos.x === x && pos.y === y) t = DIR_ARROWS[dir];
+            grid.appendChild(el('div', { class: 'code-cell' + (c === '#' ? ' rock' : ''), text: t }));
+          }
+        });
+      }
+      drawGrid();
+
+      var msg = el('div');
+      card.appendChild(msg);
+
+      // program list
+      card.appendChild(el('h3', { text: '📜 My program (tap a block to remove it)' }));
+      var progBox = el('div', { class: 'program-list' });
+      card.appendChild(progBox);
+      function blockLabel(tok) {
+        if (tok.t === 'F') return '⬆️ move forward';
+        if (tok.t === 'L') return '↩️ turn left';
+        if (tok.t === 'R') return '↪️ turn right';
+        if (tok.t === 'REP') return '🔁 repeat ×' + tok.n + ' ⤵';
+        return '⤴ end repeat';
+      }
+      function drawProgram() {
+        progBox.innerHTML = '';
+        if (!program.length) {
+          progBox.appendChild(el('p', { class: 'progress-label', text: 'No blocks yet — tap the coloured blocks below to add them!' }));
+          return;
+        }
+        var depth = 0;
+        program.forEach(function (tok, i) {
+          if (tok.t === 'END' && depth > 0) depth--;
+          var cls = 'code-block ' + (tok.t === 'F' ? 'b-move' : (tok.t === 'L' || tok.t === 'R') ? 'b-turn' : 'b-loop');
+          progBox.appendChild(el('button', {
+            class: cls,
+            style: 'margin-left:' + (depth * 22) + 'px',
+            text: blockLabel(tok),
+            onclick: function () { if (!running) { program.splice(i, 1); drawProgram(); } }
+          }));
+          if (tok.t === 'REP') depth++;
+        });
+      }
+      drawProgram();
+
+      // palette
+      card.appendChild(el('h3', { text: '🧱 Blocks' }));
+      var repCount = el('select', { class: 'rep-count' });
+      for (var n = 2; n <= 6; n++) repCount.appendChild(el('option', { value: n, text: '×' + n }));
+      function add(tok) {
+        if (running) return;
+        if (program.length >= 30) return;
+        program.push(tok);
+        drawProgram();
+      }
+      var palette = el('div', { class: 'palette' }, [
+        el('button', { class: 'code-block b-move', 'data-cmd': 'F', text: '⬆️ move forward', onclick: function () { add({ t: 'F' }); } }),
+        el('button', { class: 'code-block b-turn', 'data-cmd': 'L', text: '↩️ turn left', onclick: function () { add({ t: 'L' }); } }),
+        el('button', { class: 'code-block b-turn', 'data-cmd': 'R', text: '↪️ turn right', onclick: function () { add({ t: 'R' }); } }),
+        el('span', { class: 'loop-group' }, [
+          el('button', { class: 'code-block b-loop', text: '🔁 repeat', onclick: function () { add({ t: 'REP', n: Number(repCount.value) }); } }),
+          repCount,
+          el('button', { class: 'code-block b-loop', text: '⤴ end repeat', onclick: function () { add({ t: 'END' }); } })
+        ])
+      ]);
+      card.appendChild(palette);
+
+      var runBtn = el('button', { id: 'run-btn', class: 'big-btn', text: '▶️ Run!' });
+      var clearBtn = el('button', { class: 'big-btn secondary', text: '🗑️ Clear' });
+      card.appendChild(el('div', { class: 'quiz-actions' }, [runBtn, clearBtn]));
+      clearBtn.addEventListener('click', function () {
+        if (running) return;
+        program = [];
+        pos = { x: start.x, y: start.y }; dir = startDir;
+        msg.innerHTML = '';
+        drawProgram(); drawGrid();
+      });
+
+      function expand(tokens) {
+        var out = [];
+        function walk(i, into) {
+          while (i < tokens.length) {
+            var tok = tokens[i];
+            if (tok.t === 'REP') {
+              var body = [];
+              i = walk(i + 1, body);
+              for (var r = 0; r < tok.n; r++) body.forEach(function (b) { into.push(b); });
+            } else if (tok.t === 'END') {
+              return i + 1;
+            } else {
+              into.push(tok.t);
+              i++;
+            }
+            if (into.length > 300) return tokens.length;
+          }
+          return i;
+        }
+        walk(0, out);
+        return out.slice(0, 300);
+      }
+
+      runBtn.addEventListener('click', function () {
+        if (running || !program.length) return;
+        running = true;
+        msg.innerHTML = '';
+        pos = { x: start.x, y: start.y }; dir = startDir;
+        drawGrid();
+        var cmds = expand(program);
+        var step = 0;
+        timer = setInterval(function () {
+          if (step >= cmds.length) { stop(); fail('🤖 The Robo-Viking stopped before reaching the treasure. Add more blocks and try again!'); return; }
+          var c = cmds[step++];
+          if (c === 'L') dir = (dir + 3) % 4;
+          else if (c === 'R') dir = (dir + 1) % 4;
+          else {
+            var nx = pos.x + DIRS[dir][0], ny = pos.y + DIRS[dir][1];
+            if (ny < 0 || ny >= map.length || nx < 0 || nx >= cols || map[ny][nx] === '#') {
+              stop(); crash(); return;
+            }
+            pos = { x: nx, y: ny };
+            if (map[ny][nx] === 'G') { drawGrid(); stop(); win(); return; }
+          }
+          drawGrid();
+        }, 300);
+      });
+
+      function stop() { clearInterval(timer); running = false; }
+      function fail(text) {
+        msg.innerHTML = '';
+        msg.appendChild(el('div', { class: 'feedback bad', html: text }));
+      }
+      function crash() {
+        fail('💥 CRASH! The Robo-Viking bumped into something. Debug your program and run it again!');
+        setTimeout(function () {
+          pos = { x: start.x, y: start.y }; dir = startDir;
+          drawGrid();
+        }, 1200);
+      }
+      function win() {
+        confetti();
+        var first = !done[ci];
+        done[ci] = true;
+        store.checks[key] = done;
+        saveStore();
+        recordResult(sub.id, les.id, Math.round(doneCount() / challenges.length * 100));
+        msg.innerHTML = '';
+        var allDone = doneCount() === challenges.length;
+        var fb = el('div', { class: 'feedback good challenge-success' }, [
+          el('b', { text: allDone ? '🏆 TREASURE! You solved every challenge — you\'re a real programmer, Dexter!' : '🎉 TREASURE! Challenge solved' + (first ? '' : ' (again!)') + '!' }),
+          el('div', { class: 'quiz-actions' }, [
+            el('button', {
+              id: 'next-challenge', class: 'big-btn',
+              text: allDone ? 'Back to ' + sub.name + ' ➡️' : 'Next challenge ➡️',
+              onclick: function () {
+                if (allDone) { location.hash = '#/subject/' + sub.id; return; }
+                ci = (ci + 1) % challenges.length;
+                while (done[ci] && doneCount() < challenges.length) ci = (ci + 1) % challenges.length;
+                show();
+              }
+            })
+          ])
+        ]);
+        msg.appendChild(fb);
+      }
+    }
   }
 
   /* ---------------- writing quests ---------------- */

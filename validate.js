@@ -32,6 +32,36 @@ for (const s of SUBJECTS) {
       if (!l.write.prompt || !Array.isArray(l.write.checklist) || !l.write.checklist.length) err(`${where}: bad write block`);
       continue;
     }
+    if (l.blocks) {
+      const chs = l.blocks.challenges;
+      if (!Array.isArray(chs) || chs.length < 3) { err(`${where}: needs >=3 challenges`); continue; }
+      for (const [i, ch] of chs.entries()) {
+        const tag = `${where} challenge${i + 1}`;
+        const map = ch.map || [];
+        if (!map.length || map.some(r => r.length !== map[0].length)) { err(`${tag}: ragged map`); continue; }
+        const flat = map.join('');
+        if ((flat.match(/S/g) || []).length !== 1 || (flat.match(/G/g) || []).length !== 1) err(`${tag}: needs exactly one S and one G`);
+        if (/[^S G#.]/.test(flat.replace(/\./g, ' '))) err(`${tag}: unknown map character`);
+        // simulate the provided solution: it must reach the treasure
+        const dirs = [[0, -1], [1, 0], [0, 1], [-1, 0]];
+        let dir = { N: 0, E: 1, S: 2, W: 3 }[ch.dir || 'E'];
+        let y = map.findIndex(r => r.includes('S'));
+        let x = map[y].indexOf('S');
+        let won = false;
+        for (const c of ch.solution || []) {
+          if (c === 'L') dir = (dir + 3) % 4;
+          else if (c === 'R') dir = (dir + 1) % 4;
+          else if (c === 'F') {
+            const nx = x + dirs[dir][0], ny = y + dirs[dir][1];
+            if (ny < 0 || ny >= map.length || nx < 0 || nx >= map[0].length || map[ny][nx] === '#') { err(`${tag}: solution crashes`); break; }
+            x = nx; y = ny;
+            if (map[ny][nx] === 'G') { won = true; break; }
+          } else { err(`${tag}: bad solution command "${c}"`); break; }
+        }
+        if (!won) err(`${tag}: solution does not reach the treasure`);
+      }
+      continue;
+    }
     if (!Array.isArray(l.questions) || l.questions.length < 5) err(`${where}: needs >=5 questions`);
     for (const [i, q] of (l.questions || []).entries()) {
       totalQuestions++;
