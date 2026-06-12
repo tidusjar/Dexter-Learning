@@ -32,7 +32,8 @@ window.SUBJECTS.push({
         { type: 'sort', q: 'Sort these amounts: are they MORE or LESS than £2?', buckets: ['More than £2', 'Less than £2'], items: [
           { text: '£2.05', bucket: 0 }, { text: '199p', bucket: 1 }, { text: '£1.99', bucket: 1 },
           { text: '250p', bucket: 0 }, { text: '£0.95', bucket: 1 }, { text: '201p', bucket: 0 }
-        ], explain: 'Turning everything into pence makes comparing easy: £2 = 200p.' }
+        ], explain: 'Turning everything into pence makes comparing easy: £2 = 200p.' },
+        { type: 'coins', q: '🪙 You\'re the shopkeeper! Put coins in the till to make exactly <b>£1.35</b>, then press Pay.', target: 135, explain: '£1 + 20p + 10p + 5p is one way — there are lots of others!' }
       ]
     },
     {
@@ -57,7 +58,9 @@ window.SUBJECTS.push({
         { type: 'type', q: 'Dexter buys 3 stickers at 30p each. How much does he spend? (in pence)', answer: ['90', '90p'], explain: '3 × 30p = 90p.' },
         { type: 'type', q: 'A sandwich costs £2.25 and crisps cost 80p. Total? (like £1.95)', answer: ['£3.05', '3.05', '305p'], explain: '£2.25 + 80p: 25p + 80p = 105p = £1.05, so £3.05.' },
         { type: 'choice', q: 'You have £10. You spend £6.50. Do you have enough left to buy something for £3.49?', options: ['Yes — you have £3.50 left', 'No — you only have £3.40 left', 'No — you have nothing left'], answer: 0, explain: '£10 − £6.50 = £3.50, which is just enough!' },
-        { type: 'type', q: 'Two friends share the cost of an £8.40 pizza equally. How much does each pay? (like £2.15)', answer: ['£4.20', '4.20', '420p'], explain: '£8.40 ÷ 2 = £4.20.' }
+        { type: 'type', q: 'Two friends share the cost of an £8.40 pizza equally. How much does each pay? (like £2.15)', answer: ['£4.20', '4.20', '420p'], explain: '£8.40 ÷ 2 = £4.20.' },
+        { type: 'coins', q: '🍎 An apple costs <b>85p</b>. Put exactly the right coins in the till and press Pay!', target: 85, explain: '50p + 20p + 10p + 5p works — or 20p + 20p + 20p + 20p + 5p!' },
+        { type: 'coins', q: '⛑️ A toy Viking helmet costs <b>£2.40</b>. Pay exactly!', target: 240, explain: '£2 + 20p + 20p is the quickest way.' }
       ]
     },
     {
@@ -88,8 +91,12 @@ window.SUBJECTS.push({
         }
       ],
       questions: [
-        { type: 'choice', q: 'The long hand points at 6 and the short hand is between 2 and 3. What time is it?', options: ['Half past 2', 'Half past 6', 'Quarter past 2', '6 o\'clock'], answer: 0, explain: 'Long hand on 6 = half past; the hour hand has passed 2.' },
-        { type: 'choice', q: 'The long hand points at 9 and the short hand is nearly at 5. What time is it?', options: ['Quarter to 5', 'Quarter past 5', 'Quarter to 9', 'Half past 9'], answer: 0, explain: 'Long hand on 9 = quarter to the next hour: quarter to 5.' },
+        { type: 'clock', h: 3, m: 0, q: '🕒 The Viking feast starts at the time on this clock. What time is it?', options: ['3 o\'clock', '12 o\'clock', 'Quarter past 3', 'Half past 3'], answer: 0, explain: 'The long hand is on 12 (o\'clock) and the short hand points at 3.' },
+        { type: 'clock', h: 7, m: 30, q: '🕢 The longship sets sail at this time. What does the clock say?', options: ['Half past 7', 'Half past 6', '7 o\'clock', 'Quarter to 7'], answer: 0, explain: 'Long hand on 6 = half past, and the hour hand is between 7 and 8.' },
+        { type: 'clock', h: 4, m: 15, q: '🕓 Dragon training begins now! Read the clock:', options: ['Quarter past 4', 'Quarter to 4', 'Quarter past 3', 'Half past 4'], answer: 0, explain: 'Long hand on 3 = quarter past, hour hand just past 4.' },
+        { type: 'clock', h: 11, m: 45, q: '🕦 The raid must end at this time. What is it?', options: ['Quarter to 12', 'Quarter past 11', 'Quarter to 11', 'Half past 11'], answer: 0, explain: 'Long hand on 9 = quarter TO the NEXT hour — quarter to 12.' },
+        { type: 'clock', h: 6, m: 20, q: '🕕 Supper time at the longhouse! Read this clock:', options: ['Twenty past 6', 'Twenty to 6', 'Ten past 6', 'Quarter past 6'], answer: 0, explain: 'The long hand on 4 means 4 × 5 = 20 minutes past.' },
+        { type: 'clock', h: 9, m: 55, q: '🕘 Nearly bedtime — what time does this clock show?', options: ['Five to 10', 'Five past 9', 'Quarter to 10', 'Five to 9'], answer: 0, explain: 'The long hand on 11 means 5 minutes TO the next hour: five to 10.' },
         { type: 'type', q: 'The long hand points at the 4. How many minutes past the hour is that?', answer: ['20', '20 minutes'], explain: 'Each clock number is 5 minutes: 4 × 5 = 20.' },
         { type: 'type', q: 'Write 3pm in 24-hour time (like 17:00).', answer: ['15:00', '1500', '15.00'], explain: '3 + 12 = 15, so 3pm is 15:00.' },
         { type: 'type', q: 'Write 7pm in 24-hour time (like 14:00).', answer: ['19:00', '1900', '19.00'], explain: '7 + 12 = 19.' },
@@ -178,6 +185,10 @@ window.SUBJECTS.push({
         { type: 'choice', q: 'A longship sails from (1, 1) to (1, 6). How did it move?', options: ['5 squares up', '5 squares right', '6 squares up', '1 square up'], answer: 0, explain: 'The across number stayed at 1; up went from 1 to 6 — that is 5 up.' },
         { type: 'choice', q: 'What is a translation?', options: ['Sliding a shape without turning it', 'Turning a shape around', 'Making a shape bigger', 'Cutting a shape in half'], answer: 0, explain: 'A translation slides a shape — same size, same way up.' },
         { type: 'choice', q: 'Start at (3, 5). Move 1 left and 2 down. Where do you end up?', options: ['(2, 3)', '(4, 7)', '(1, 3)', '(2, 7)'], answer: 0, explain: 'Left takes 1 off across (3→2); down takes 2 off up (5→3).' },
+        { type: 'gridpick', q: '🏴‍☠️ Dig for treasure at <b>(3, 2)</b>! Tap that square on the grid.', cols: 6, rows: 5, target: [3, 2], explain: '3 along the corridor, then 2 up the stairs!' },
+        { type: 'gridpick', q: 'Tap the point <b>(0, 4)</b> — careful, ACROSS comes first!', cols: 6, rows: 5, target: [0, 4], explain: 'Across 0 means stay by the left edge, then climb 4 up.' },
+        { type: 'gridpick', q: 'The longship 🚢 sails <b>2 squares right and 1 up</b>. Tap the square where it lands!', cols: 6, rows: 5, marks: [{ x: 1, y: 1, emoji: '🚢' }], target: [3, 2], explain: 'From (1, 1): right 2 makes the across number 3, up 1 makes the up number 2 — it lands at (3, 2).' },
+        { type: 'gridpick', q: 'The dragon 🐉 at (4, 3) flies <b>3 squares LEFT</b>. Tap where it lands!', cols: 6, rows: 5, marks: [{ x: 4, y: 3, emoji: '🐉' }], target: [1, 3], explain: 'Left takes away from the across number: 4 − 3 = 1, so it lands at (1, 3).' },
         { type: 'match', q: 'Match the move to what happens to the coordinates:', pairs: [
           ['Move right', 'Across number gets bigger'], ['Move left', 'Across number gets smaller'],
           ['Move up', 'Up number gets bigger'], ['Move down', 'Up number gets smaller']

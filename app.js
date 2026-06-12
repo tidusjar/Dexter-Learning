@@ -268,6 +268,9 @@
       var desc;
       if (les.gen) desc = 'Practice game — play it as many times as you like!';
       else if (les.blocks) desc = 'Coding lab — ' + les.blocks.challenges.length + ' block-coding challenges';
+      else if (les.keylab) desc = 'Detective game — identify the mystery creatures!';
+      else if (les.roleplay) desc = 'Role-play game — ' + les.roleplay.steps.length + ' lines of real conversation';
+      else if (les.circuit) desc = 'Building lab — ' + les.circuit.challenges.length + ' circuits to build';
       else if (les.write) desc = 'Writing quest';
       else desc = (les.questions ? les.questions.length : 0) + ' questions';
       if (p && p.best) desc += ' · best score ' + p.best + '%';
@@ -295,6 +298,9 @@
 
     if (les.write) return renderWriting(sub, les);
     if (les.blocks) return renderBlocks(sub, les);
+    if (les.keylab) return renderKeylab(sub, les);
+    if (les.roleplay) return renderRoleplay(sub, les);
+    if (les.circuit) return renderCircuit(sub, les);
 
     var wrap = el('div');
     app.appendChild(wrap);
@@ -395,6 +401,9 @@
     if (q.type === 'match') return qMatch(q, card, done);
     if (q.type === 'sort') return qSort(q, card, done);
     if (q.type === 'order') return qOrder(q, card, done);
+    if (q.type === 'clock') return qClock(q, card, done);
+    if (q.type === 'gridpick') return qGridpick(q, card, done);
+    if (q.type === 'coins') return qCoins(q, card, done);
     // unknown type: skip but count as correct so data typos never block progress
     done(1);
   }
@@ -414,6 +423,10 @@
 
   function qChoice(q, card, done) {
     card.appendChild(el('p', { class: 'question-text', html: q.q }));
+    qChoiceCore(q, card, done);
+  }
+
+  function qChoiceCore(q, card, done) {
     var opts = q.options.map(function (text, i) { return { text: text, correct: i === q.answer }; });
     if (q.keepOrder !== true) opts = shuffle(opts);
     var box = el('div', { class: 'options' });
@@ -597,6 +610,124 @@
       });
       pool.appendChild(chip);
     });
+  }
+
+  /* ---- analogue clock questions ---- */
+  function clockSvg(h, m) {
+    var hourA = (((h % 12) + m / 60) * 30) * Math.PI / 180;
+    var minA = (m * 6) * Math.PI / 180;
+    var s = '<svg viewBox="0 0 200 200" class="clock-face" role="img" aria-label="clock">';
+    s += '<circle cx="100" cy="100" r="95" fill="#fffbe9" stroke="#1d3557" stroke-width="6"/>';
+    for (var i = 1; i <= 12; i++) {
+      var a = i * 30 * Math.PI / 180;
+      s += '<text x="' + (100 + Math.sin(a) * 76) + '" y="' + (100 - Math.cos(a) * 76 + 7) + '" text-anchor="middle" font-size="20" font-weight="bold" fill="#1d3557">' + i + '</text>';
+      s += '<line x1="' + (100 + Math.sin(a) * 87) + '" y1="' + (100 - Math.cos(a) * 87) + '" x2="' + (100 + Math.sin(a) * 93) + '" y2="' + (100 - Math.cos(a) * 93) + '" stroke="#1d3557" stroke-width="3"/>';
+    }
+    s += '<line x1="100" y1="100" x2="' + (100 + Math.sin(hourA) * 45) + '" y2="' + (100 - Math.cos(hourA) * 45) + '" stroke="#e63946" stroke-width="9" stroke-linecap="round"/>';
+    s += '<line x1="100" y1="100" x2="' + (100 + Math.sin(minA) * 68) + '" y2="' + (100 - Math.cos(minA) * 68) + '" stroke="#1d3557" stroke-width="5" stroke-linecap="round"/>';
+    s += '<circle cx="100" cy="100" r="6" fill="#1d3557"/></svg>';
+    return s;
+  }
+
+  function qClock(q, card, done) {
+    card.appendChild(el('p', { class: 'question-text', html: q.q }));
+    card.appendChild(el('div', { class: 'clock-wrap', html: clockSvg(q.h, q.m) }));
+    qChoiceCore(q, card, done);
+  }
+
+  /* ---- tap-the-coordinates questions ---- */
+  function qGridpick(q, card, done) {
+    card.appendChild(el('p', { class: 'question-text', html: q.q }));
+    var cols = q.cols, rows = q.rows;
+    var grid = el('div', { class: 'coord-wrap', style: 'grid-template-columns:30px repeat(' + cols + ', 46px)' });
+    var answered = false;
+    function markAt(x, y) {
+      var emoji = '';
+      (q.marks || []).forEach(function (mk) { if (mk.x === x && mk.y === y) emoji = mk.emoji; });
+      return emoji;
+    }
+    for (var y = rows - 1; y >= 0; y--) {
+      grid.appendChild(el('div', { class: 'coord-label', text: String(y) }));
+      for (var x = 0; x < cols; x++) {
+        (function (x, y) {
+          var cell = el('button', { class: 'code-cell coord-cell', 'data-x': x, 'data-y': y, text: markAt(x, y) });
+          cell.addEventListener('click', function () {
+            if (answered) return;
+            answered = true;
+            var ok = x === q.target[0] && y === q.target[1];
+            cell.classList.add(ok ? 'cell-good' : 'cell-bad');
+            var t = grid.querySelector('[data-x="' + q.target[0] + '"][data-y="' + q.target[1] + '"]');
+            if (t) { t.classList.add('cell-good'); if (!t.textContent) t.textContent = '⭐'; }
+            feedbackAndNext(card, ok, (ok ? '' : 'You tapped (' + x + ', ' + y + ') — the star shows the right spot. ') + (q.explain || ''), done, ok ? 1 : 0);
+          });
+          grid.appendChild(cell);
+        })(x, y);
+      }
+    }
+    grid.appendChild(el('div', { class: 'coord-label', text: '' }));
+    for (var x2 = 0; x2 < cols; x2++) grid.appendChild(el('div', { class: 'coord-label', text: String(x2) }));
+    card.appendChild(grid);
+    card.appendChild(el('p', { class: 'progress-label', text: 'Remember: along the corridor (across), THEN up the stairs!' }));
+  }
+
+  /* ---- coin till questions ---- */
+  var COIN_SET = [
+    { v: 200, l: '£2', c: 'coin-two' }, { v: 100, l: '£1', c: 'coin-gold' },
+    { v: 50, l: '50p', c: 'coin-silver' }, { v: 20, l: '20p', c: 'coin-silver' },
+    { v: 10, l: '10p', c: 'coin-silver' }, { v: 5, l: '5p', c: 'coin-silver' },
+    { v: 2, l: '2p', c: 'coin-bronze' }, { v: 1, l: '1p', c: 'coin-bronze' }
+  ];
+  function qCoins(q, card, done) {
+    card.appendChild(el('p', { class: 'question-text', html: q.q }));
+    var till = [];
+    var mistakes = 0;
+    var finished = false;
+    var tillBox = el('div', { class: 'till' });
+    var totalLbl = el('p', { class: 'till-total' });
+    var msg = el('div');
+    function total() { return till.reduce(function (a, c) { return a + c; }, 0); }
+    function redraw() {
+      tillBox.innerHTML = '';
+      if (!till.length) tillBox.appendChild(el('span', { class: 'progress-label', text: 'Tap coins below to put them in the till — tap a coin in the till to take it back out.' }));
+      till.forEach(function (v, i) {
+        var def = null;
+        COIN_SET.forEach(function (c) { if (c.v === v) def = c; });
+        tillBox.appendChild(el('button', {
+          class: 'coin ' + def.c, text: def.l,
+          onclick: function () { if (finished) return; till.splice(i, 1); redraw(); }
+        }));
+      });
+      totalLbl.textContent = 'In the till: ' + fmtMoney(total()) + '  ·  Target: ' + fmtMoney(q.target);
+    }
+    card.appendChild(el('h3', { text: '🧾 The till' }));
+    card.appendChild(tillBox);
+    card.appendChild(totalLbl);
+    card.appendChild(el('h3', { text: '🪙 Your coins' }));
+    var rowC = el('div', { class: 'coin-row' });
+    COIN_SET.forEach(function (c) {
+      rowC.appendChild(el('button', {
+        class: 'coin ' + c.c, 'data-coin': c.v, text: c.l,
+        onclick: function () { if (!finished && till.length < 20) { till.push(c.v); redraw(); } }
+      }));
+    });
+    card.appendChild(rowC);
+    var payBtn = el('button', { id: 'pay-btn', class: 'big-btn', text: '💰 Pay!' });
+    payBtn.addEventListener('click', function () {
+      if (finished) return;
+      msg.innerHTML = '';
+      var t = total();
+      if (t === q.target) {
+        finished = true;
+        var points = mistakes === 0 ? 1 : (mistakes <= 2 ? 0.5 : 0);
+        feedbackAndNext(card, mistakes === 0, 'Exactly ' + fmtMoney(q.target) + '!' + (mistakes ? ' (' + mistakes + ' wrong tr' + (mistakes > 1 ? 'ies' : 'y') + ' on the way.)' : '') + ' ' + (q.explain || ''), done, points);
+      } else {
+        mistakes++;
+        msg.appendChild(el('div', { class: 'feedback bad', html: t > q.target ? 'Too much! You have ' + fmtMoney(t) + ' — take some coins out.' : 'Not enough yet — you have ' + fmtMoney(t) + ' and need ' + fmtMoney(q.target) + '.' }));
+      }
+    });
+    card.appendChild(el('div', { class: 'quiz-actions' }, [payBtn]));
+    card.appendChild(msg);
+    redraw();
   }
 
   /* ---------------- block coding lab ---------------- */
@@ -838,6 +969,327 @@
         ]);
         msg.appendChild(fb);
       }
+    }
+  }
+
+  /* ---------------- classification key lab ---------------- */
+  function renderKeylab(sub, les) {
+    var key = lessonKey(sub.id, les.id);
+    var wrap = el('div');
+    app.appendChild(wrap);
+    (les.learn || []).forEach(function (card) {
+      wrap.appendChild(el('div', { class: 'learn-card' }, [
+        card.title ? el('h3', { text: '📖 ' + card.title }) : null,
+        el('div', { html: card.html })
+      ]));
+    });
+
+    var tree = les.keylab.tree;
+    var leaves = [];
+    (function collect(n) {
+      if (n.animal) { leaves.push(n); return; }
+      collect(n.yes); collect(n.no);
+    })(tree);
+    var done = store.checks[key] || {};
+    var round = 0;
+    while (round < leaves.length - 1 && done[round]) round++;
+    var lab = el('div');
+    wrap.appendChild(lab);
+    show();
+
+    function doneCount() {
+      var n = 0;
+      for (var i = 0; i < leaves.length; i++) if (done[i]) n++;
+      return n;
+    }
+    function contains(node, animal) {
+      if (node.animal) return node.animal === animal;
+      return contains(node.yes, animal) || contains(node.no, animal);
+    }
+
+    function show() {
+      lab.innerHTML = '';
+      var target = leaves[round];
+      var node = tree;
+      var mistakes = 0;
+      lab.appendChild(el('div', { class: 'quiz-head' }, [
+        el('span', { class: 'quiz-progress', text: '🕵️ Mystery creature ' + (round + 1) + ' of ' + leaves.length + (done[round] ? ' ✅' : '') }),
+        el('span', { class: 'progress-label', text: doneCount() + ' of ' + leaves.length + ' identified' })
+      ]));
+      var card = el('div', { class: 'question-card' });
+      lab.appendChild(card);
+      card.appendChild(el('p', { class: 'question-text', html: 'Use the key to identify this creature: <span id="key-target" data-animal="' + esc(target.animal) + '" style="font-size:2rem">' + target.emoji + '</span> <b>' + esc(target.animal) + '</b><br><span class="progress-label">Answer each question ABOUT the ' + esc(target.animal).toLowerCase() + ' — the key will lead you to its name!</span>' }));
+      var stage = el('div');
+      card.appendChild(stage);
+      step();
+
+      function step() {
+        stage.innerHTML = '';
+        stage.appendChild(el('div', { class: 'sort-item', html: '❓ ' + node.q }));
+        var row = el('div', { class: 'bucket-row' });
+        ['yes', 'no'].forEach(function (branch) {
+          row.appendChild(el('button', {
+            id: 'key-' + branch, class: 'bucket-btn', text: branch === 'yes' ? '✅ Yes' : '❌ No',
+            onclick: function () {
+              var ok = contains(node[branch], target.animal);
+              if (!ok) {
+                mistakes++;
+                stage.appendChild(el('div', { class: 'feedback bad', html: '🔍 Look again at the ' + esc(target.animal).toLowerCase() + ' ' + target.emoji + ' — think carefully and try once more!' }));
+                row.querySelectorAll('button').forEach(function (b) { b.disabled = true; });
+                setTimeout(step, 1600);
+                return;
+              }
+              node = node[branch];
+              if (node.animal) {
+                var first = !done[round];
+                done[round] = true;
+                store.checks[key] = done;
+                saveStore();
+                recordResult(sub.id, les.id, Math.round(doneCount() / leaves.length * 100));
+                confetti();
+                var all = doneCount() === leaves.length;
+                stage.innerHTML = '';
+                stage.appendChild(el('div', { class: 'feedback good challenge-success' }, [
+                  el('b', { text: '🎉 The key says: ' + node.emoji + ' ' + node.animal + '! ' + (mistakes === 0 ? 'Perfect detective work!' : 'You got there!') }),
+                  el('div', { class: 'quiz-actions' }, [
+                    el('button', {
+                      id: 'next-challenge', class: 'big-btn',
+                      text: all ? 'All creatures identified! Back to ' + sub.name + ' ➡️' : 'Next mystery creature ➡️',
+                      onclick: function () {
+                        if (all) { location.hash = '#/subject/' + sub.id; return; }
+                        round = (round + 1) % leaves.length;
+                        while (done[round] && doneCount() < leaves.length) round = (round + 1) % leaves.length;
+                        show();
+                      }
+                    })
+                  ])
+                ]));
+                void first;
+              } else {
+                step();
+              }
+            }
+          }));
+        });
+        stage.appendChild(row);
+      }
+    }
+  }
+
+  /* ---------------- role-play (conversation) lab ---------------- */
+  function renderRoleplay(sub, les) {
+    var wrap = el('div');
+    app.appendChild(wrap);
+    (les.learn || []).forEach(function (card) {
+      wrap.appendChild(el('div', { class: 'learn-card' }, [
+        card.title ? el('h3', { text: '📖 ' + card.title }) : null,
+        el('div', { html: card.html })
+      ]));
+    });
+    var steps = les.roleplay.steps;
+    var card = el('div', { class: 'question-card' });
+    wrap.appendChild(card);
+    var chat = el('div', { class: 'rp-chat' });
+    card.appendChild(chat);
+    var optsBox = el('div', { id: 'rp-options', class: 'options', style: 'margin-top:14px' });
+    card.appendChild(optsBox);
+    var i = 0;
+    var perfect = 0;
+    next();
+
+    function bubble(side, html) {
+      chat.appendChild(el('div', { class: 'rp-bubble ' + side, html: html }));
+      chat.scrollTop = chat.scrollHeight;
+    }
+    function next() {
+      optsBox.innerHTML = '';
+      if (i >= steps.length) return finish();
+      var st = steps[i];
+      bubble('rp-npc', '🍦 ' + esc(st.npc) + (st.npcEn ? '<br><span class="rp-en">(' + esc(st.npcEn) + ')</span>' : ''));
+      var mistake = false;
+      shuffle(st.options.map(function (t, oi) { return { t: t, ok: oi === st.answer }; })).forEach(function (o) {
+        var b = el('button', { class: 'option-btn', text: o.t });
+        b.addEventListener('click', function () {
+          if (o.ok) {
+            if (!mistake) perfect++;
+            bubble('rp-me', '🧒 ' + esc(o.t));
+            i++;
+            next();
+          } else {
+            mistake = true;
+            b.classList.add('wrong', 'shake');
+            b.disabled = true;
+            setTimeout(function () { b.classList.remove('shake'); }, 400);
+            if (st.explain && !optsBox.querySelector('.feedback')) {
+              optsBox.appendChild(el('div', { class: 'feedback bad', html: '💡 ' + st.explain }));
+            }
+          }
+        });
+        optsBox.appendChild(b);
+      });
+    }
+    function finish() {
+      var pct = Math.round(perfect / steps.length * 100);
+      recordResult(sub.id, les.id, pct);
+      if (pct >= 70) confetti();
+      bubble('rp-npc', '🍦 ¡Muy bien! 👏');
+      optsBox.appendChild(el('div', { class: 'feedback ' + (pct >= 50 ? 'good' : 'bad') + ' challenge-success' }, [
+        el('b', { text: pct === 100 ? '🏆 ¡Perfecto! A flawless conversation, Dexter!' : 'You finished the conversation — ' + perfect + ' of ' + steps.length + ' lines first try (' + pct + '%).' }),
+        el('div', { class: 'quiz-actions' }, [
+          el('button', { class: 'big-btn secondary', text: 'Try again 🔁', onclick: function () { renderLesson(sub, les); } }),
+          el('a', { id: 'next-challenge', class: 'big-btn', style: 'text-decoration:none', href: '#/subject/' + sub.id, text: 'Back to ' + sub.name + ' ➡️' })
+        ])
+      ]));
+    }
+  }
+
+  /* ---------------- circuit building lab ---------------- */
+  var PART_DEFS = {
+    battery: { l: '🔋 Battery', conducts: true },
+    bulb: { l: '💡 Bulb', conducts: true },
+    wire: { l: '〰️ Wire', conducts: true },
+    'switch': { l: '🔘 Switch', conducts: 'toggle' },
+    spoon: { l: '🥄 Plastic spoon', conducts: false },
+    duck: { l: '🦆 Rubber duck', conducts: false }
+  };
+  function renderCircuit(sub, les) {
+    var key = lessonKey(sub.id, les.id);
+    var wrap = el('div');
+    app.appendChild(wrap);
+    (les.learn || []).forEach(function (card) {
+      wrap.appendChild(el('div', { class: 'learn-card' }, [
+        card.title ? el('h3', { text: '📖 ' + card.title }) : null,
+        el('div', { html: card.html })
+      ]));
+    });
+    var challenges = les.circuit.challenges;
+    var done = store.checks[key] || {};
+    var ci = 0;
+    while (ci < challenges.length - 1 && done[ci]) ci++;
+    var lab = el('div');
+    wrap.appendChild(lab);
+    show();
+
+    function doneCount() {
+      var n = 0;
+      for (var i = 0; i < challenges.length; i++) if (done[i]) n++;
+      return n;
+    }
+
+    function show() {
+      lab.innerHTML = '';
+      var ch = challenges[ci];
+      var slots = []; // {part: name|null, closed: bool}
+      for (var s = 0; s < ch.slots; s++) slots.push({ part: null, closed: false });
+      var pool = ch.parts.slice(); // remaining palette part names
+      var selected = null;
+      var solved = false;
+
+      lab.appendChild(el('div', { class: 'quiz-head' }, [
+        el('span', { class: 'quiz-progress', text: '🔌 Circuit ' + (ci + 1) + ' of ' + challenges.length + ': ' + ch.name + (done[ci] ? ' ✅' : '') }),
+        el('span', { class: 'progress-label', text: doneCount() + ' of ' + challenges.length + ' built' })
+      ]));
+      var card = el('div', { class: 'question-card' });
+      lab.appendChild(card);
+      card.appendChild(el('p', { class: 'question-text', html: '🚩 <b>Mission:</b> fill every gap in the loop so the bulb lights up!' + (ch.hint ? '<br><span class="progress-label">🌟 ' + ch.hint + '</span>' : '') }));
+
+      var bigBulb = el('div', { class: 'big-bulb', text: '💡' });
+      card.appendChild(bigBulb);
+      var loop = el('div', { class: 'circuit-loop' });
+      card.appendChild(loop);
+      card.appendChild(el('p', { class: 'progress-label', text: 'Tap a part below, then tap a gap to place it. Tap a placed switch to flip it open/closed; tap other placed parts to take them out.' }));
+      card.appendChild(el('h3', { text: '🧰 Parts box' }));
+      var paletteBox = el('div', { class: 'palette' });
+      card.appendChild(paletteBox);
+      var msg = el('div');
+      card.appendChild(msg);
+
+      function evaluate() {
+        var full = slots.every(function (s) { return s.part; });
+        if (!full) return null;
+        var batteries = 0, bulbs = 0, flowing = true;
+        slots.forEach(function (s) {
+          var def = PART_DEFS[s.part];
+          if (s.part === 'battery') batteries++;
+          if (s.part === 'bulb') bulbs++;
+          if (def.conducts === false) flowing = false;
+          if (def.conducts === 'toggle' && !s.closed) flowing = false;
+        });
+        if (flowing && batteries >= 1 && bulbs >= 1) return true;
+        return false;
+      }
+
+      function redraw() {
+        loop.innerHTML = '';
+        slots.forEach(function (s, i) {
+          var label = s.part ? PART_DEFS[s.part].l + (s.part === 'switch' ? (s.closed ? ' (closed ✅)' : ' (open ⛔)') : '') : '➕ gap';
+          loop.appendChild(el('button', {
+            class: 'slot' + (s.part ? ' filled' : '') + (s.part === 'switch' && !s.closed ? ' open-switch' : ''),
+            'data-slot': i, html: label,
+            onclick: function () {
+              if (solved) return;
+              if (!s.part && selected) {
+                s.part = selected;
+                s.closed = false;
+                pool.splice(pool.indexOf(selected), 1);
+                selected = null;
+              } else if (s.part === 'switch') {
+                if (s.closed) { pool.push(s.part); s.part = null; }
+                else s.closed = true;
+              } else if (s.part) {
+                pool.push(s.part);
+                s.part = null;
+              }
+              redraw();
+            }
+          }));
+        });
+        paletteBox.innerHTML = '';
+        pool.forEach(function (p) {
+          paletteBox.appendChild(el('button', {
+            class: 'code-block b-part' + (selected === p && pool.indexOf(p) === pool.indexOf(selected) ? ' part-selected' : ''),
+            'data-part': p, text: PART_DEFS[p].l,
+            onclick: function () { if (!solved) { selected = (selected === p ? null : p); redraw(); } }
+          }));
+        });
+        var result = evaluate();
+        bigBulb.className = 'big-bulb' + (result === true ? ' lit' : '');
+        msg.innerHTML = '';
+        if (result === true && !solved) {
+          solved = true;
+          confetti();
+          done[ci] = true;
+          store.checks[key] = done;
+          saveStore();
+          recordResult(sub.id, les.id, Math.round(doneCount() / challenges.length * 100));
+          var all = doneCount() === challenges.length;
+          msg.appendChild(el('div', { class: 'feedback good challenge-success' }, [
+            el('b', { text: '💡 IT LIGHTS UP! The circuit is complete — electricity can flow all the way round!' }),
+            el('div', { class: 'quiz-actions' }, [
+              el('button', {
+                id: 'next-challenge', class: 'big-btn',
+                text: all ? 'All circuits built! Back to ' + sub.name + ' ➡️' : 'Next circuit ➡️',
+                onclick: function () {
+                  if (all) { location.hash = '#/subject/' + sub.id; return; }
+                  ci = (ci + 1) % challenges.length;
+                  while (done[ci] && doneCount() < challenges.length) ci = (ci + 1) % challenges.length;
+                  show();
+                }
+              })
+            ])
+          ]));
+        } else if (result === false) {
+          var reason = 'The loop is full but the bulb stays dark. ';
+          var hasInsulator = slots.some(function (s) { return PART_DEFS[s.part].conducts === false; });
+          var openSwitch = slots.some(function (s) { return s.part === 'switch' && !s.closed; });
+          if (hasInsulator) reason += 'Something in the loop is an INSULATOR — electricity can\'t get through it!';
+          else if (openSwitch) reason += 'The switch is OPEN — tap it to close the gap!';
+          else if (!slots.some(function (s) { return s.part === 'battery'; })) reason += 'There\'s no battery to push the electricity!';
+          else if (!slots.some(function (s) { return s.part === 'bulb'; })) reason += 'There\'s no bulb in the loop!';
+          msg.appendChild(el('div', { class: 'feedback bad', html: '🔎 ' + reason }));
+        }
+      }
+      redraw();
     }
   }
 

@@ -32,6 +32,50 @@ for (const s of SUBJECTS) {
       if (!l.write.prompt || !Array.isArray(l.write.checklist) || !l.write.checklist.length) err(`${where}: bad write block`);
       continue;
     }
+    if (l.keylab) {
+      const leaves = [];
+      let bad = false;
+      (function walk(n, depth) {
+        if (!n || depth > 10) { err(`${where}: malformed key tree`); bad = true; return; }
+        if (n.animal) { if (!n.emoji) err(`${where}: leaf ${n.animal} missing emoji`); leaves.push(n.animal); return; }
+        if (!n.q || !n.yes || !n.no) { err(`${where}: key node missing q/yes/no`); bad = true; return; }
+        walk(n.yes, depth + 1); walk(n.no, depth + 1);
+      })(l.keylab.tree, 0);
+      if (!bad && (leaves.length < 4 || new Set(leaves).size !== leaves.length)) err(`${where}: needs >=4 unique animals`);
+      continue;
+    }
+    if (l.roleplay) {
+      const steps = l.roleplay.steps;
+      if (!Array.isArray(steps) || steps.length < 4) { err(`${where}: needs >=4 roleplay steps`); continue; }
+      for (const [i, st] of steps.entries()) {
+        if (!st.npc || !Array.isArray(st.options) || st.options.length < 2) err(`${where} step${i + 1}: bad step`);
+        else if (!Number.isInteger(st.answer) || st.answer < 0 || st.answer >= st.options.length) err(`${where} step${i + 1}: answer out of range`);
+        else if (new Set(st.options).size !== st.options.length) err(`${where} step${i + 1}: duplicate options`);
+      }
+      continue;
+    }
+    if (l.circuit) {
+      const chs = l.circuit.challenges;
+      if (!Array.isArray(chs) || chs.length < 2) { err(`${where}: needs >=2 circuit challenges`); continue; }
+      const conducting = ['battery', 'bulb', 'wire', 'switch'];
+      const known = [...conducting, 'spoon', 'duck'];
+      for (const [i, ch] of chs.entries()) {
+        const tag = `${where} circuit${i + 1}`;
+        if (!ch.slots || !Array.isArray(ch.parts) || !Array.isArray(ch.solution)) { err(`${tag}: missing fields`); continue; }
+        if (ch.parts.some(p => !known.includes(p))) err(`${tag}: unknown part`);
+        if (ch.solution.length !== ch.slots) err(`${tag}: solution length != slots`);
+        // solution must be buildable from parts and actually light the bulb
+        const pool = [...ch.parts];
+        for (const p of ch.solution) {
+          const idx = pool.indexOf(p);
+          if (idx === -1) { err(`${tag}: solution uses unavailable part "${p}"`); break; }
+          pool.splice(idx, 1);
+        }
+        if (!ch.solution.includes('battery') || !ch.solution.includes('bulb')) err(`${tag}: solution lacks battery or bulb`);
+        if (ch.solution.some(p => !conducting.includes(p))) err(`${tag}: solution contains an insulator`);
+      }
+      continue;
+    }
     if (l.blocks) {
       const chs = l.blocks.challenges;
       if (!Array.isArray(chs) || chs.length < 3) { err(`${where}: needs >=3 challenges`); continue; }
@@ -66,7 +110,20 @@ for (const s of SUBJECTS) {
     for (const [i, q] of (l.questions || []).entries()) {
       totalQuestions++;
       const tag = `${where} q${i + 1}`;
-      if (q.type === 'choice') {
+      if (q.type === 'clock') {
+        if (!Number.isInteger(q.h) || q.h < 0 || q.h > 12 || !Number.isInteger(q.m) || q.m < 0 || q.m > 59) err(`${tag}: bad clock time`);
+        if (!Array.isArray(q.options) || !Number.isInteger(q.answer) || q.answer < 0 || q.answer >= q.options.length) err(`${tag}: bad clock options/answer`);
+      } else if (q.type === 'gridpick') {
+        if (!q.cols || !q.rows || !Array.isArray(q.target)) err(`${tag}: bad gridpick`);
+        else {
+          if (q.target[0] < 0 || q.target[0] >= q.cols || q.target[1] < 0 || q.target[1] >= q.rows) err(`${tag}: target off grid`);
+          for (const mk of q.marks || []) {
+            if (mk.x < 0 || mk.x >= q.cols || mk.y < 0 || mk.y >= q.rows || !mk.emoji) err(`${tag}: mark off grid`);
+          }
+        }
+      } else if (q.type === 'coins') {
+        if (!Number.isInteger(q.target) || q.target < 1 || q.target > 1000) err(`${tag}: bad coins target`);
+      } else if (q.type === 'choice') {
         if (!Array.isArray(q.options) || q.options.length < 2) err(`${tag}: bad options`);
         if (!Number.isInteger(q.answer) || q.answer < 0 || q.answer >= q.options.length) err(`${tag}: answer index out of range`);
         if (new Set(q.options).size !== q.options.length) err(`${tag}: duplicate options`);

@@ -172,6 +172,45 @@ window.SUBJECTS.push({
       ]
     },
     {
+      id: 'mystery-animal',
+      title: 'Key detective: mystery creatures!',
+      emoji: '🕵️',
+      learn: [
+        {
+          title: 'Use a REAL classification key',
+          html: '<p>Now it\'s time to use a classification key for real, Dexter! You\'ll be shown a <b>mystery creature</b>. Answer each yes/no question ABOUT that creature — look at it carefully! — and the key will lead you to its name.</p>' +
+                '<p>Think like a scientist: count the legs, look for wings, fins, feathers or fur. One creature at a time — can you identify all six?</p>'
+        }
+      ],
+      keylab: {
+        tree: {
+          q: 'Does it have legs?',
+          no: {
+            q: 'Does it have fins?',
+            yes: { animal: 'Fish', emoji: '🐟' },
+            no: { animal: 'Worm', emoji: '🪱' }
+          },
+          yes: {
+            q: 'Does it have exactly 6 legs?',
+            yes: {
+              q: 'Does it have big colourful wings?',
+              yes: { animal: 'Butterfly', emoji: '🦋' },
+              no: { animal: 'Ant', emoji: '🐜' }
+            },
+            no: {
+              q: 'Does it have feathers?',
+              yes: { animal: 'Parrot', emoji: '🦜' },
+              no: {
+                q: 'Does it have 8 legs?',
+                yes: { animal: 'Spider', emoji: '🕷️' },
+                no: { animal: 'Cat', emoji: '🐈' }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
       id: 'life-cycles',
       title: 'Life cycles',
       emoji: '🦋',

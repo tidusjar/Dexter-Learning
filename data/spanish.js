@@ -157,6 +157,29 @@ window.SUBJECTS.push({
       ]
     },
     {
+      id: 'heladeria-roleplay',
+      title: 'Role-play: at the ice cream shop! 🍦',
+      emoji: '🎭',
+      learn: [
+        {
+          title: 'Your turn at la heladería!',
+          html: '<p>You\'re in Spain, standing at the ice cream shop counter — and the shopkeeper only speaks Spanish! Have the WHOLE conversation: greet them, order your ice cream, pay and say goodbye.</p>' +
+                '<p>Pick the right reply each time. If you\'re stuck, the English translation under the shopkeeper\'s words will help. ¡Buena suerte! (Good luck!)</p>'
+        }
+      ],
+      roleplay: {
+        steps: [
+          { npc: '¡Buenos días!', npcEn: 'Good morning!', options: ['¡Buenos días!', '¡Adiós!', 'De nada'], answer: 0, explain: '"Buenos días" means good morning — greet them back! "Adiós" is goodbye.' },
+          { npc: '¿Qué quieres?', npcEn: 'What would you like?', options: ['Quisiera un helado, por favor', 'Me llamo Dexter', 'No hablo'], answer: 0, explain: '"Quisiera un helado, por favor" = I would like an ice cream, please.' },
+          { npc: '¿Un cucurucho o una tarrina?', npcEn: 'A cone or a tub?', options: ['Un cucurucho, por favor', 'Una mesa, por favor', 'Un zapato, por favor'], answer: 0, explain: 'Cucurucho = cone! A "mesa" is a table and a "zapato" is a shoe — tasty!' },
+          { npc: '¿De qué sabor?', npcEn: 'Which flavour?', options: ['De fresa, por favor', 'De lunes, por favor', 'De fútbol, por favor'], answer: 0, explain: '"De fresa" = strawberry. "Lunes" is Monday and "fútbol" is football!' },
+          { npc: 'Aquí tiene. Son dos euros.', npcEn: 'Here you are. That\'s two euros.', options: ['Aquí tiene dos euros', '¡Feliz cumpleaños!', 'Son tres euros'], answer: 0, explain: '"Aquí tiene" = here you are — hand over your two euros!' },
+          { npc: '¡Gracias!', npcEn: 'Thank you!', options: ['De nada', 'Dos euros', 'Un helado grande'], answer: 0, explain: '"De nada" = you\'re welcome.' },
+          { npc: '¡Adiós!', npcEn: 'Goodbye!', options: ['¡Adiós!', '¡Hola!', 'Por favor'], answer: 0, explain: '"Adiós" = goodbye — wave as you leave with your ice cream! 🍓' }
+        ]
+      }
+    },
+    {
       id: 'icecream-challenge',
       title: 'The ice cream final challenge',
       emoji: '🏆',

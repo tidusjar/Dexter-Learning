@@ -154,6 +154,28 @@ window.SUBJECTS.push({
       ]
     },
     {
+      id: 'circuit-lab',
+      title: 'Circuit Lab: make it light up!',
+      emoji: '🔌',
+      learn: [
+        {
+          title: 'Build real circuits',
+          html: '<p>Time to build, Dexter! Fill every gap in the loop with a part. The bulb only lights when:</p>' +
+                '<ul><li>The loop is <b>complete</b> — no gaps!</li>' +
+                '<li>There\'s a <b>battery</b> to push the electricity and a <b>bulb</b> to light.</li>' +
+                '<li>Everything in the loop is a <b>conductor</b> — and any <b>switch</b> is CLOSED.</li></ul>' +
+                '<p>Watch out for sneaky <b>insulators</b> hiding in the parts box — plastic and rubber block electricity!</p>'
+        }
+      ],
+      circuit: {
+        challenges: [
+          { name: 'Light it up!', slots: 4, parts: ['battery', 'bulb', 'wire', 'wire'], solution: ['battery', 'bulb', 'wire', 'wire'], hint: 'Use every part — the loop must be complete all the way round.' },
+          { name: 'Add a switch', slots: 4, parts: ['battery', 'bulb', 'wire', 'switch'], solution: ['battery', 'bulb', 'wire', 'switch'], hint: 'Place everything… then tap the switch to CLOSE it!' },
+          { name: 'Conductor check', slots: 4, parts: ['battery', 'bulb', 'wire', 'wire', 'spoon', 'duck'], solution: ['battery', 'bulb', 'wire', 'wire'], hint: 'Two of these parts are insulators — leave them in the box!' }
+        ]
+      }
+    },
+    {
       id: 'design-torch',
       title: 'Design a torch',
       emoji: '🔦',
