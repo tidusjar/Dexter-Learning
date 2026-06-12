@@ -143,21 +143,42 @@
 
   /* ---------------- speech (pronunciation) ---------------- */
   var speechOK = 'speechSynthesis' in window;
+  var voiceCache = [];
+  function loadVoices() {
+    try { voiceCache = window.speechSynthesis.getVoices() || []; } catch (e) {}
+  }
   if (speechOK) {
-    try { window.speechSynthesis.getVoices(); } catch (e) { speechOK = false; } // warm the async voice list
+    try {
+      loadVoices(); // voices load asynchronously in most browsers
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    } catch (e) { speechOK = false; }
   }
   function say(text, lang) {
     if (!speechOK) return;
     try {
-      window.speechSynthesis.cancel();
+      var synth = window.speechSynthesis;
       var u = new SpeechSynthesisUtterance(text);
+      var want = (lang || 'es-ES').toLowerCase();
       u.lang = lang || 'es-ES';
       u.rate = 0.85;
-      var voices = window.speechSynthesis.getVoices();
-      for (var i = 0; i < voices.length; i++) {
-        if (voices[i].lang && voices[i].lang.indexOf((lang || 'es').slice(0, 2)) === 0) { u.voice = voices[i]; break; }
+      u.volume = 1;
+      if (!voiceCache.length) loadVoices();
+      var best = null;
+      for (var i = 0; i < voiceCache.length; i++) {
+        var vl = (voiceCache[i].lang || '').toLowerCase().replace('_', '-');
+        if (vl === want) { best = voiceCache[i]; break; }
+        if (!best && vl.indexOf(want.slice(0, 2)) === 0) best = voiceCache[i];
       }
-      window.speechSynthesis.speak(u);
+      if (best) u.voice = best;
+      // Chrome bug: speak() immediately after cancel() can be swallowed —
+      // only cancel when something is playing, and delay the new utterance.
+      if (synth.speaking || synth.pending) {
+        synth.cancel();
+        setTimeout(function () { synth.resume(); synth.speak(u); }, 80);
+      } else {
+        synth.resume(); // Chrome can be stuck in a paused state
+        synth.speak(u);
+      }
     } catch (e) {}
   }
   function speakerBtn(text, lang) {
@@ -180,6 +201,7 @@
       }));
     });
     board.appendChild(grid);
+    board.appendChild(el('p', { class: 'progress-label', text: 'Can\'t hear anything? Turn the volume up — and on iPads/iPhones, check the silent (mute) switch is OFF.' }));
     return board;
   }
 
