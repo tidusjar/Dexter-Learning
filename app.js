@@ -640,6 +640,7 @@
       card.appendChild(el('div', { class: 'feedback good', html: '🌟 You already finished this quest — but you can keep improving it!' }));
     }
     doneBtn.addEventListener('click', function () {
+      store.writings[key] = ta.value; // flush now — don't rely on the debounced autosave
       recordResult(sub.id, les.id, 100);
       confetti();
       renderLesson(sub, les);
@@ -660,6 +661,10 @@
       doneBtn.disabled = !(w >= minWords && allChecked);
     }
     var saveTimer = null;
+    ta.addEventListener('blur', function () {
+      store.writings[key] = ta.value;
+      saveStore();
+    });
     ta.addEventListener('input', function () {
       update();
       clearTimeout(saveTimer);

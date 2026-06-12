@@ -12,6 +12,7 @@ An interactive home-learning website covering the **Green Class, Summer 2 "Vikin
 | 🌍 Geography | What settlers need, settlement types, UK place-name detective work (Viking/Saxon/Roman), map skills, design-a-settlement quest |
 | 🏺 History | Who the Vikings were, longships, raiders, traders, daily life — building to the big question: *raiders or traders?* |
 | 🔧 D&T | Healthy eating & picnic planning, electrical circuits & torch design, with planning quests |
+| 💻 Computing | Algorithms, loops, debugging, how the internet works, online safety — plus a program-the-robot writing quest |
 | 🇪🇸 Spanish | Ten ice-cream flavours, numbers & euros, and how to buy an ice cream in Spanish |
 | 💛 PSHE | Friendships, solving fall-outs, growing and changing, big feelings |
 | 🕊️ RE | How Christians, Muslims, Hindus and others describe God — respectfully and simply |
