@@ -210,6 +210,22 @@ button {
 .big-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
 
 /* ---------- quiz ---------- */
+.learn-peek {
+  margin-bottom: 12px;
+}
+.learn-peek summary {
+  cursor: pointer;
+  color: var(--accent);
+  font-weight: bold;
+  background: #edf2fb;
+  border-radius: 12px;
+  padding: 10px 14px;
+  list-style-position: inside;
+}
+.learn-peek summary:hover { background: #d7e3fc; }
+.learn-peek[open] summary { margin-bottom: 10px; }
+
+
 .quiz-head {
   display: flex;
   justify-content: space-between;

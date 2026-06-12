@@ -327,6 +327,7 @@
   function runQuiz(sub, les, questions, wrap) {
     var idx = 0;
     var score = 0; // may be fractional for sort questions
+    var peekOpen = false; // remember if the learn cards are unfolded between questions
     next();
 
     function next() {
@@ -339,6 +340,19 @@
           el('div', { style: 'width:' + Math.round(idx / questions.length * 100) + '%' })
         ])
       ]));
+      if (les.learn && les.learn.length) {
+        var peek = el('details', { class: 'learn-peek' }, [
+          el('summary', { text: '📖 Read the learning cards again (no peeking needed — but they\'re here if you want them!)' })
+        ].concat(les.learn.map(function (card) {
+          return el('div', { class: 'learn-card' }, [
+            card.title ? el('h3', { text: '📖 ' + card.title }) : null,
+            el('div', { html: card.html })
+          ]);
+        })));
+        if (peekOpen) peek.setAttribute('open', '');
+        peek.addEventListener('toggle', function () { peekOpen = peek.open; });
+        wrap.appendChild(peek);
+      }
       var card = el('div', { class: 'question-card' });
       wrap.appendChild(card);
       renderQuestion(q, card, function (points) {
