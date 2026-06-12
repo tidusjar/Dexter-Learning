@@ -22,12 +22,12 @@ window.SUBJECTS.push({
       questions: [
         { type: 'choice', q: 'How many pence are there in £1?', options: ['100p', '10p', '1000p', '12p'], answer: 0, explain: 'There are 100 pence in every pound.' },
         { type: 'type', q: 'Write £3.20 in pence (just the number).', answer: ['320', '320p'], explain: '£3.20 = 300p + 20p = 320p.' },
-        { type: 'type', q: 'Write 408p in pounds (like £4.08).', answer: ['£4.08', '4.08'], explain: '400p is £4, plus 8p = £4.08.' },
+        { type: 'type', q: 'Write 408p in pounds (like £2.36).', answer: ['£4.08', '4.08'], explain: '400p is £4, plus 8p = £4.08.' },
         { type: 'choice', q: 'Which is the <b>largest</b> amount?', options: ['£2.09', '£2.90', '£0.99', '209p'], answer: 1, explain: '£2.90 = 290p, which beats 209p and 99p.' },
         { type: 'choice', q: 'Which is the <b>smallest</b> amount?', options: ['150p', '£1.05', '£1.50', '£5.01'], answer: 1, explain: '£1.05 = 105p — smaller than 150p and the others.' },
         { type: 'choice', q: 'Which two amounts are the SAME?', options: ['£3.07 and 307p', '£3.70 and 307p', '£3.07 and 370p', '£7.30 and 37p'], answer: 0, explain: '£3.07 = 300p + 7p = 307p.' },
         { type: 'order', q: 'Put these amounts in order, <b>smallest first</b>:', items: ['89p', '£1.08', '£1.80', '£8.10'], explain: '89p, then 108p, 180p, 810p.' },
-        { type: 'type', q: 'Dexter has a £2 coin, a 50p coin and a 20p coin. How much does he have? (like £2.70)', answer: ['£2.70', '2.70', '270p', '270'], explain: '£2 + 50p + 20p = £2.70.' },
+        { type: 'type', q: 'Dexter has a £2 coin, a 50p coin and a 20p coin. How much does he have? (like £1.45)', answer: ['£2.70', '2.70', '270p', '270'], explain: '£2 + 50p + 20p = £2.70.' },
         { type: 'choice', q: 'Which set of coins makes exactly £1.35?', options: ['£1 + 20p + 10p + 5p', '£1 + 20p + 20p', '50p + 50p + 20p', '£1 + 5p + 5p'], answer: 0, explain: '100 + 20 + 10 + 5 = 135p = £1.35.' },
         { type: 'sort', q: 'Sort these amounts: are they MORE or LESS than £2?', buckets: ['More than £2', 'Less than £2'], items: [
           { text: '£2.05', bucket: 0 }, { text: '199p', bucket: 1 }, { text: '£1.99', bucket: 1 },
@@ -49,15 +49,15 @@ window.SUBJECTS.push({
       ],
       questions: [
         { type: 'type', q: 'An apple costs 35p and a banana costs 25p. How much altogether? (in pence)', answer: ['60', '60p'], explain: '35 + 25 = 60p.' },
-        { type: 'type', q: '£1.20 + £2.30 = ? (like £3.50)', answer: ['£3.50', '3.50', '350p'], explain: '£1 + £2 = £3, and 20p + 30p = 50p.' },
-        { type: 'type', q: '£2.50 + £1.75 = ? (like £4.25)', answer: ['£4.25', '4.25', '425p'], explain: '50p + 75p = 125p = £1.25, so £3 + £1.25 = £4.25.' },
+        { type: 'type', q: '£1.20 + £2.30 = ? (like £4.95)', answer: ['£3.50', '3.50', '350p'], explain: '£1 + £2 = £3, and 20p + 30p = 50p.' },
+        { type: 'type', q: '£2.50 + £1.75 = ? (like £1.10)', answer: ['£4.25', '4.25', '425p'], explain: '50p + 75p = 125p = £1.25, so £3 + £1.25 = £4.25.' },
         { type: 'type', q: 'A toy Viking ship costs £4.99. You pay with a £5 note. How much change? (in pence)', answer: ['1', '1p'], explain: 'Count up: 99p + 1p = £1, so just 1p change.' },
-        { type: 'type', q: 'A book costs £3.40. You pay £5. How much change? (like £1.60)', answer: ['£1.60', '1.60', '160p', '160'], explain: '£3.40 + 60p = £4, + £1 = £5. Change = £1.60.' },
+        { type: 'type', q: 'A book costs £3.40. You pay £5. How much change? (like £2.05)', answer: ['£1.60', '1.60', '160p', '160'], explain: '£3.40 + 60p = £4, + £1 = £5. Change = £1.60.' },
         { type: 'choice', q: 'An ice cream is £1.85 and a drink is £1.20. Roughly how much is that altogether?', options: ['About £3', 'About £2', 'About £5', 'About £1'], answer: 0, explain: '£1.85 is nearly £2, plus £1.20 — about £3.' },
         { type: 'type', q: 'Dexter buys 3 stickers at 30p each. How much does he spend? (in pence)', answer: ['90', '90p'], explain: '3 × 30p = 90p.' },
-        { type: 'type', q: 'A sandwich costs £2.25 and crisps cost 80p. Total? (like £3.05)', answer: ['£3.05', '3.05', '305p'], explain: '£2.25 + 80p: 25p + 80p = 105p = £1.05, so £3.05.' },
+        { type: 'type', q: 'A sandwich costs £2.25 and crisps cost 80p. Total? (like £1.95)', answer: ['£3.05', '3.05', '305p'], explain: '£2.25 + 80p: 25p + 80p = 105p = £1.05, so £3.05.' },
         { type: 'choice', q: 'You have £10. You spend £6.50. Do you have enough left to buy something for £3.49?', options: ['Yes — you have £3.50 left', 'No — you only have £3.40 left', 'No — you have nothing left'], answer: 0, explain: '£10 − £6.50 = £3.50, which is just enough!' },
-        { type: 'type', q: 'Two friends share the cost of an £8.40 pizza equally. How much does each pay? (like £4.20)', answer: ['£4.20', '4.20', '420p'], explain: '£8.40 ÷ 2 = £4.20.' }
+        { type: 'type', q: 'Two friends share the cost of an £8.40 pizza equally. How much does each pay? (like £2.15)', answer: ['£4.20', '4.20', '420p'], explain: '£8.40 ÷ 2 = £4.20.' }
       ]
     },
     {
@@ -91,8 +91,8 @@ window.SUBJECTS.push({
         { type: 'choice', q: 'The long hand points at 6 and the short hand is between 2 and 3. What time is it?', options: ['Half past 2', 'Half past 6', 'Quarter past 2', '6 o\'clock'], answer: 0, explain: 'Long hand on 6 = half past; the hour hand has passed 2.' },
         { type: 'choice', q: 'The long hand points at 9 and the short hand is nearly at 5. What time is it?', options: ['Quarter to 5', 'Quarter past 5', 'Quarter to 9', 'Half past 9'], answer: 0, explain: 'Long hand on 9 = quarter to the next hour: quarter to 5.' },
         { type: 'type', q: 'The long hand points at the 4. How many minutes past the hour is that?', answer: ['20', '20 minutes'], explain: 'Each clock number is 5 minutes: 4 × 5 = 20.' },
-        { type: 'type', q: 'Write 3pm in 24-hour time (like 15:00).', answer: ['15:00', '1500', '15.00'], explain: '3 + 12 = 15, so 3pm is 15:00.' },
-        { type: 'type', q: 'Write 7pm in 24-hour time (like 19:00).', answer: ['19:00', '1900', '19.00'], explain: '7 + 12 = 19.' },
+        { type: 'type', q: 'Write 3pm in 24-hour time (like 17:00).', answer: ['15:00', '1500', '15.00'], explain: '3 + 12 = 15, so 3pm is 15:00.' },
+        { type: 'type', q: 'Write 7pm in 24-hour time (like 14:00).', answer: ['19:00', '1900', '19.00'], explain: '7 + 12 = 19.' },
         { type: 'choice', q: 'What time is 17:30 on a normal (12-hour) clock?', options: ['5:30pm', '7:30pm', '5:30am', '7:30am'], answer: 0, explain: '17 − 12 = 5, so 17:30 is 5:30 in the afternoon.' },
         { type: 'choice', q: 'Which of these is a MORNING time?', options: ['08:45', '14:20', '19:05', '23:50'], answer: 0, explain: 'Times before 12:00 are in the morning (am).' },
         { type: 'type', q: 'How many minutes are there in one hour?', answer: ['60'], explain: '60 minutes = 1 hour.' },
@@ -123,7 +123,7 @@ window.SUBJECTS.push({
         { type: 'choice', q: 'Dexter\'s Viking lesson is 50 minutes long. It starts at 9:25. When does it end?', options: ['10:15', '10:25', '9:75', '10:05'], answer: 0, explain: '9:25 + 35 min = 10:00, + 15 more = 10:15.' },
         { type: 'type', q: 'How many days are there in 3 weeks?', answer: ['21'], explain: '3 × 7 = 21 days.' },
         { type: 'choice', q: 'Which is the LONGEST time?', options: ['100 minutes', '1 hour', 'Half an hour', '90 seconds'], answer: 0, explain: '100 minutes is 1 hour 40 minutes — longer than the rest.' },
-        { type: 'type', q: 'A cake needs 35 minutes in the oven. It went in at 2:40. What time does it come out? (like 3:15)', answer: ['3:15', '315', '15:15', '3.15'], explain: '2:40 + 20 min = 3:00, + 15 min = 3:15.' },
+        { type: 'type', q: 'A cake needs 35 minutes in the oven. It went in at 2:40. What time does it come out? (like 4:25)', answer: ['3:15', '315', '15:15', '3.15'], explain: '2:40 + 20 min = 3:00, + 15 min = 3:15.' },
         { type: 'order', q: 'Put these units of time in order, <b>shortest first</b>:', items: ['Second', 'Minute', 'Hour', 'Day', 'Week', 'Year'] }
       ]
     },
@@ -172,7 +172,7 @@ window.SUBJECTS.push({
       questions: [
         { type: 'choice', q: 'For the point (4, 2), what does the 4 tell you?', options: ['How far ACROSS to go', 'How far UP to go', 'The size of the point', 'Nothing'], answer: 0, explain: 'Along the corridor first: across 4, then up 2.' },
         { type: 'choice', q: 'Which point is 5 across and 1 up?', options: ['(5, 1)', '(1, 5)', '(5, 5)', '(1, 1)'], answer: 0, explain: 'Across first, up second: (5, 1).' },
-        { type: 'type', q: 'A treasure chest is 0 across and 7 up. Write its coordinates like (0,7).', answer: ['(0,7)', '(0, 7)', '0,7'], explain: 'Across is 0, up is 7 → (0, 7).' },
+        { type: 'type', q: 'A treasure chest is 0 across and 7 up. Write its coordinates like (3,4).', answer: ['(0,7)', '(0, 7)', '0,7'], explain: 'Across is 0, up is 7 → (0, 7).' },
         { type: 'choice', q: 'Start at (2, 3). Move 3 right. Where are you now?', options: ['(5, 3)', '(2, 6)', '(5, 6)', '(3, 3)'], answer: 0, explain: 'Moving right adds to the ACROSS number: 2 + 3 = 5.' },
         { type: 'choice', q: 'Start at (4, 1). Move 2 up. Where are you now?', options: ['(4, 3)', '(6, 1)', '(2, 1)', '(4, 2)'], answer: 0, explain: 'Moving up adds to the UP number: 1 + 2 = 3.' },
         { type: 'choice', q: 'A longship sails from (1, 1) to (1, 6). How did it move?', options: ['5 squares up', '5 squares right', '6 squares up', '1 square up'], answer: 0, explain: 'The across number stayed at 1; up went from 1 to 6 — that is 5 up.' },

@@ -175,7 +175,7 @@
         var p1 = rnd(45, 450), p2 = rnd(30, 400);
         return {
           type: 'type',
-          q: 'A drink costs ' + fmtMoney(p1) + ' and a snack costs ' + fmtMoney(p2) + '. How much altogether? (like £3.45)',
+          q: 'A drink costs ' + fmtMoney(p1) + ' and a snack costs ' + fmtMoney(p2) + '. How much altogether? (like £9.99)',
           answer: [fmtMoney(p1 + p2), fmtMoney(p1 + p2).replace('£', '')]
         };
       }
@@ -184,7 +184,7 @@
       if (Math.random() < 0.4) paidWith = 1000;
       return {
         type: 'type',
-        q: 'You buy something for ' + fmtMoney(cost) + ' and pay with ' + fmtMoney(paidWith) + '. How much change do you get? (like £1.20)',
+        q: 'You buy something for ' + fmtMoney(cost) + ' and pay with ' + fmtMoney(paidWith) + '. How much change do you get? (like £9.99)',
         answer: [fmtMoney(paidWith - cost), fmtMoney(paidWith - cost).replace('£', '')]
       };
     }
