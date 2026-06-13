@@ -36,8 +36,8 @@ window.SUBJECTS.push({
         { type: 'coins', q: '🪙 You\'re the shopkeeper! Put coins in the till to make exactly <b>£1.35</b>, then press Pay.', target: 135, explain: '£1 + 20p + 10p + 5p is one way — there are lots of others!' },
         { type: 'type', q: 'Write 75p in pounds (like £3.20).', answer: ['£0.75', '0.75'], explain: '75p is less than £1, so it is £0.75.' },
         { type: 'type', q: 'Write £5.08 in pence (just the number).', answer: ['508', '508p'], explain: '£5.08 = 500p + 8p = 508p.' },
-        { type: 'choice', q: 'Which is the <b>largest</b> amount?', options: ['305p', '£3.05', '£3.50', '35p'], answer: 2, explain: '£3.50 = 350p, which beats 305p and 35p.' },
-        { type: 'choice', q: 'Which is the <b>smallest</b> amount?', options: ['£2.00', '200p', '£2.01', '£0.99'], answer: 3, explain: '£0.99 = 99p — less than £2 = 200p and the others.' },
+        { type: 'choice', q: 'Which amount is worth the <b>most</b>?', options: ['305p', '£3.05', '£3.50', '35p'], answer: 2, explain: '£3.50 = 350p, which beats 305p and 35p.' },
+        { type: 'choice', q: 'Which amount is worth the <b>least</b>?', options: ['£2.00', '200p', '£2.01', '£0.99'], answer: 3, explain: '£0.99 = 99p — less than £2 = 200p and the others.' },
         { type: 'type', q: 'Dexter has a £1 coin, two 20p coins and a 5p coin. How much does he have? (like £1.45)', answer: ['£1.45', '1.45', '145p', '145'], explain: '100 + 20 + 20 + 5 = 145p = £1.45.' },
         { type: 'order', q: 'Put these amounts in order, <b>largest first</b>:', items: ['£10.00', '£9.99', '999p', '99p'] },
         { type: 'match', q: 'Match each amount in pence to its pounds version:', pairs: [

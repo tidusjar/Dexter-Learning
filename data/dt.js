@@ -199,7 +199,7 @@ window.SUBJECTS.push({
           { text: 'Wire', bucket: 0 }, { text: 'Switch', bucket: 0 }
         ] },
         { type: 'choice', q: 'A circuit has a battery, a bulb and two wires, but the bulb won\'t light. What is probably wrong?', options: ['There is a gap in the loop somewhere', 'The bulb is the wrong colour', 'The battery is too heavy', 'The wires are too long'], answer: 0, explain: 'Any gap stops electricity flowing. Check the loop is complete all the way round!' },
-        { type: 'sort', q: 'Sort these materials: conductor or insulator?', buckets: ['Conductor ⚡', 'Insulator 🚫'], items: [
+        { type: 'sort', q: 'Sort these materials: will electricity flow through them?', buckets: ['Conductor ⚡', 'Insulator 🚫'], items: [
           { text: 'Copper wire', bucket: 0 }, { text: 'Plastic bag', bucket: 1 },
           { text: 'Aluminium foil', bucket: 0 }, { text: 'Wood', bucket: 1 },
           { text: 'Steel spoon', bucket: 0 }, { text: 'Rubber band', bucket: 1 }
