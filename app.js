@@ -397,7 +397,11 @@
       for (var i = 0; i < n; i++) qs.push(fn());
       return qs;
     }
-    return shuffle(les.questions || []);
+    // Cap each play-through so a single session stays ~7-8 minutes. Lessons
+    // with a bigger pool show a fresh random mix each replay (more variety).
+    var PER_SESSION = 20;
+    var qs = shuffle(les.questions || []);
+    return qs.length > PER_SESSION ? qs.slice(0, PER_SESSION) : qs;
   }
 
   function runQuiz(sub, les, questions, wrap) {
