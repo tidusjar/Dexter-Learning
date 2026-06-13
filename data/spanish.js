@@ -42,7 +42,20 @@ window.SUBJECTS.push({
           ['fresa', 'strawberry'], ['vainilla', 'vanilla'], ['menta', 'mint'], ['limón', 'lemon'], ['chocolate', 'chocolate']
         ] },
         { type: 'choice', q: 'Which little word means "of" in "el helado <b>de</b> chocolate"?', options: ['de', 'el', 'la', 'un'], answer: 0, explain: '"De" means "of" — the ice cream OF chocolate.' },
-        { type: 'type', q: 'Say "vanilla ice cream" in Spanish: el helado de ______', answer: ['vainilla', 'vanilla'], explain: 'El helado de vainilla — watch the tricky Spanish spelling: v-a-i-n-i-l-l-a.', hint: 'In Spanish there\'s an extra i: vai…' }
+        { type: 'type', q: 'Say "vanilla ice cream" in Spanish: el helado de ______', answer: ['vainilla', 'vanilla'], explain: 'El helado de vainilla — watch the tricky Spanish spelling: v-a-i-n-i-l-l-a.', hint: 'In Spanish there\'s an extra i: vai…' },
+        { type: 'choice', q: 'Which sentence means "chocolate ice cream" in Spanish?', options: ['El helado de chocolate', 'El chocolate de helado', 'Helado fresa chocolate', 'El helado menta'], answer: 0, explain: 'Always put "el helado de" before the flavour — el helado de chocolate.' },
+        { type: 'type', q: 'Type the Spanish word for <b>mint</b>.', answer: ['menta'], explain: 'Menta — cool and refreshing!', hint: 'It starts with me…' },
+        { type: 'type', q: 'Type the Spanish word for <b>vanilla</b>.', answer: ['vainilla'], explain: 'Vainilla — with two l\'s and an extra i. Tricky but you\'ve got it!', hint: 'Starts with vai…' },
+        { type: 'type', q: 'Type the Spanish word for <b>chocolate</b>.', answer: ['chocolate'], explain: 'Chocolate is almost the same in Spanish — easy, Dexter!', hint: 'It\'s almost the same as English…' },
+        { type: 'sort', q: 'Sort these Spanish words: flavours or other words?', buckets: ['Flavour 🍦', 'Not a flavour ❌'], items: [
+          { text: 'fresa', bucket: 0 }, { text: 'helado', bucket: 1 },
+          { text: 'menta', bucket: 0 }, { text: 'de', bucket: 1 },
+          { text: 'vainilla', bucket: 0 }, { text: 'el', bucket: 1 }
+        ] },
+        { type: 'choice', q: 'Your Spanish friend says "Quiero el helado de menta." What do they want?', options: ['Mint ice cream', 'Strawberry ice cream', 'Lemon ice cream', 'Vanilla ice cream'], answer: 0, explain: 'Menta = mint, so they want mint ice cream. Yum!' },
+        { type: 'match', q: 'Match the English to the Spanish (translate TO Spanish this time!):', pairs: [
+          ['ice cream', 'el helado'], ['strawberry', 'fresa'], ['lemon', 'limón'], ['mint', 'menta'], ['vanilla', 'vainilla']
+        ] }
       ]
     },
     {
@@ -83,7 +96,21 @@ window.SUBJECTS.push({
           { text: 'fresa (strawberry)', bucket: 0 }, { text: 'naranja (orange)', bucket: 1 },
           { text: 'menta (mint)', bucket: 0 }, { text: 'coco (coconut)', bucket: 1 },
           { text: 'limón (lemon)', bucket: 0 }, { text: 'café (coffee)', bucket: 1 }
-        ] }
+        ] },
+        { type: 'type', q: 'Type the Spanish word for <b>banana</b>.', answer: ['plátano', 'platano'], explain: 'Plátano — don\'t forget the accent on the a!', hint: 'It starts with pl…' },
+        { type: 'type', q: 'Type the Spanish word for <b>coconut</b>.', answer: ['coco'], explain: 'Coco — just four letters, easy!', hint: 'A doubled syllable…' },
+        { type: 'type', q: 'Type the Spanish word for <b>coffee</b>.', answer: ['café', 'cafe'], explain: 'Café — same as the English word for a coffee shop!', hint: 'It\'s almost the same as English…' },
+        { type: 'choice', q: 'What does <b>plátano</b> mean in English?', options: ['Banana', 'Pineapple', 'Caramel', 'Coconut'], answer: 0, explain: 'Plátano = banana. Now you can order el helado de plátano!' },
+        { type: 'choice', q: 'Which of these is NOT a real ice cream flavour in the lesson?', options: ['manzana (apple)', 'café (coffee)', 'coco (coconut)', 'naranja (orange)'], answer: 0, explain: 'Manzana means apple — that\'s not one of our ten flavours (though it sounds delicious!).' },
+        { type: 'match', q: 'Match the Spanish flavour to the English (Lesson 2 flavours):', pairs: [
+          ['naranja', 'orange'], ['plátano', 'banana'], ['café', 'coffee'], ['caramelo', 'caramel'], ['coco', 'coconut']
+        ] },
+        { type: 'sort', q: 'Sort into Spanish or English words:', buckets: ['Spanish 🇪🇸', 'English 🇬🇧'], items: [
+          { text: 'naranja', bucket: 0 }, { text: 'coconut', bucket: 1 },
+          { text: 'plátano', bucket: 0 }, { text: 'coffee', bucket: 1 },
+          { text: 'banana', bucket: 1 }, { text: 'caramelo', bucket: 0 }
+        ] },
+        { type: 'order', q: 'Put these five flavours in alphabetical order:', items: ['café', 'caramelo', 'coco', 'naranja', 'plátano'], explain: 'Alphabetical: café, caramelo, coco, naranja, plátano.' }
       ]
     },
     {
@@ -125,7 +152,21 @@ window.SUBJECTS.push({
           ['uno', '1'], ['cuatro', '4'], ['seis', '6'], ['nueve', '9'], ['diez', '10']
         ] },
         { type: 'order', q: 'Put these Spanish numbers in counting order, smallest first:', items: ['uno', 'dos', 'cuatro', 'cinco', 'ocho', 'diez'], explain: '1, 2, 4, 5, 8, 10 — uno, dos, cuatro, cinco, ocho, diez.' },
-        { type: 'choice', q: 'How would the shopkeeper say an ice cream costs <b>4 euros</b>?', options: ['Cuatro euros', 'Catorce euros', 'Cuarenta euros', 'Cinco euros'], answer: 0, explain: 'Cuatro = 4, so "cuatro euros".' }
+        { type: 'choice', q: 'How would the shopkeeper say an ice cream costs <b>4 euros</b>?', options: ['Cuatro euros', 'Catorce euros', 'Cuarenta euros', 'Cinco euros'], answer: 0, explain: 'Cuatro = 4, so "cuatro euros".' },
+        { type: 'type', q: 'Type the Spanish for the number <b>2</b>.', answer: ['dos'], explain: 'Dos = 2. As in "dos euros"!', hint: 'Uno, …, tres.' },
+        { type: 'type', q: 'Type the Spanish for the number <b>5</b>.', answer: ['cinco'], explain: 'Cinco = 5. Almost sounds like "sink-oh"!', hint: 'Cuatro, …, seis.' },
+        { type: 'type', q: 'Type the Spanish for the number <b>8</b>.', answer: ['ocho'], explain: 'Ocho = 8. Say it: "oh-choh"!', hint: 'Siete, …, nueve.' },
+        { type: 'choice', q: 'What number is <b>nueve</b>?', options: ['9', '8', '6', '19'], answer: 0, explain: 'Nueve = 9. Uno, dos, tres… nueve!' },
+        { type: 'choice', q: 'What number is <b>seis</b>?', options: ['6', '7', '16', '60'], answer: 0, explain: 'Seis = 6.' },
+        { type: 'match', q: 'Match the Spanish number to the digit (harder ones this time):', pairs: [
+          ['dos', '2'], ['tres', '3'], ['siete', '7'], ['ocho', '8'], ['nueve', '9']
+        ] },
+        { type: 'sort', q: 'Sort these Spanish numbers: less than 5 or 5 and above?', buckets: ['Less than 5', '5 or more'], items: [
+          { text: 'uno (1)', bucket: 0 }, { text: 'ocho (8)', bucket: 1 },
+          { text: 'tres (3)', bucket: 0 }, { text: 'cinco (5)', bucket: 1 },
+          { text: 'dos (2)', bucket: 0 }, { text: 'siete (7)', bucket: 1 }
+        ] },
+        { type: 'choice', q: 'Your ice cream costs <b>siete euros</b>. How much change from a ten-euro note?', options: ['3 euros', '2 euros', '4 euros', '1 euro'], answer: 0, explain: '10 − 7 = 3. Siete = 7, so you get tres euros back.' }
       ]
     },
     {
@@ -178,7 +219,22 @@ window.SUBJECTS.push({
         { type: 'order', q: 'Put this ice-cream-shop conversation in the right order:', items: [
           'Hola, buenos días.', 'Quisiera un helado de fresa, por favor.', '¿Cuánto cuesta?', 'Dos euros. Aquí tiene.', 'Gracias. ¡Adiós!'
         ], explain: 'Greet → order politely → ask the price → pay and receive → thank and say goodbye.' },
-        { type: 'choice', q: 'How would you order a chocolate ice cream in a CONE?', options: ['Quisiera un cucurucho de chocolate, por favor', 'Quisiera una tarrina, gracias', 'Adiós, chocolate', 'De nada, un helado'], answer: 0, explain: 'Cucurucho = cone, and "Quisiera… por favor" makes it polite.' }
+        { type: 'choice', q: 'How would you order a chocolate ice cream in a CONE?', options: ['Quisiera un cucurucho de chocolate, por favor', 'Quisiera una tarrina, gracias', 'Adiós, chocolate', 'De nada, un helado'], answer: 0, explain: 'Cucurucho = cone, and "Quisiera… por favor" makes it polite.' },
+        { type: 'type', q: 'Type the Spanish for <b>goodbye</b>.', answer: ['adiós', 'adios'], explain: 'Adiós — wave and walk away with your ice cream!', hint: 'It starts with a…' },
+        { type: 'type', q: 'Type the Spanish for <b>good morning</b> (two words).', answer: ['buenos días', 'buenos dias'], explain: 'Buenos días — greet the shopkeeper cheerfully!', hint: 'Buenos …' },
+        { type: 'type', q: 'Type the Spanish word for <b>hello</b>.', answer: ['hola'], explain: 'Hola! The friendliest word in Spanish.', hint: 'It starts with ho…' },
+        { type: 'choice', q: 'You want a TUB of mint ice cream. Which phrase is correct?', options: ['Quisiera una tarrina de menta, por favor', 'Quisiera un cucurucho de menta, por favor', 'Gracias una tarrina', 'Adiós de menta'], answer: 0, explain: 'Tarrina = tub, menta = mint, and don\'t forget "por favor"!' },
+        { type: 'match', q: 'Match each Spanish phrase to its English meaning (shop phrases):', pairs: [
+          ['¡Hola!', 'Hello!'], ['gracias', 'thank you'], ['de nada', 'you\'re welcome'], ['por favor', 'please'], ['adiós', 'goodbye']
+        ] },
+        { type: 'sort', q: 'Who says it — the customer or the shopkeeper?', buckets: ['Customer 🧒', 'Shopkeeper 🧑‍🍳'], items: [
+          { text: 'Quisiera un helado, por favor.', bucket: 0 },
+          { text: 'Aquí tiene.', bucket: 1 },
+          { text: '¿Cuánto cuesta?', bucket: 0 },
+          { text: 'Son dos euros.', bucket: 1 },
+          { text: 'Gracias. ¡Adiós!', bucket: 0 }
+        ] },
+        { type: 'order', q: 'Build the sentence. Put these words in the right order to order a lemon cone:', items: ['Quisiera', 'un', 'cucurucho', 'de', 'limón,', 'por', 'favor.'], explain: 'Quisiera un cucurucho de limón, por favor. — I would like a lemon cone, please.' }
       ]
     },
     {
@@ -241,7 +297,23 @@ window.SUBJECTS.push({
         { type: 'order', q: 'Put the conversation at the heladería in order:', items: [
           'Buenos días.', 'Quisiera un cucurucho de menta, por favor.', '¿Cuánto cuesta?', 'Cuatro euros. Aquí tiene.', 'Gracias.', 'De nada. ¡Adiós!'
         ], explain: 'Greeting → polite order → price question → handing over → thanks → you\'re welcome and goodbye.' },
-        { type: 'choice', q: 'CHAMPION QUESTION: "Quisiera una tarrina de fresa, por favor. ¿Cuánto cuesta?" — what is the customer asking for?', options: ['A tub of strawberry ice cream, and the price', 'A cone of chocolate, for free', 'Directions to the beach', 'A glass of strawberry milk'], answer: 0, explain: 'Tarrina = tub, fresa = strawberry, ¿Cuánto cuesta? = how much? You\'ve cracked it, Dexter — ¡fantástico!' }
+        { type: 'choice', q: 'CHAMPION QUESTION: "Quisiera una tarrina de fresa, por favor. ¿Cuánto cuesta?" — what is the customer asking for?', options: ['A tub of strawberry ice cream, and the price', 'A cone of chocolate, for free', 'Directions to the beach', 'A glass of strawberry milk'], answer: 0, explain: 'Tarrina = tub, fresa = strawberry, ¿Cuánto cuesta? = how much? You\'ve cracked it, Dexter — ¡fantástico!' },
+        { type: 'type', q: 'How do you ask the price in Spanish? (four words)', answer: ['¿Cuánto cuesta?', '¿Cuanto cuesta?', 'Cuánto cuesta', 'Cuanto cuesta'], explain: '¿Cuánto cuesta? — your most useful shopping question!', hint: '¿Cu… …?' },
+        { type: 'type', q: 'Type the Spanish for <b>strawberry</b>.', answer: ['fresa'], explain: 'Fresa — the classic flavour!', hint: 'Starts with fr…' },
+        { type: 'type', q: 'Type the Spanish for <b>banana</b>.', answer: ['plátano', 'platano'], explain: 'Plátano — with the accent on the first a.', hint: 'Starts with pl…' },
+        { type: 'choice', q: 'An ice cream costs <b>nueve euros</b>. How much is that?', options: ['9 euros', '8 euros', '19 euros', '7 euros'], answer: 0, explain: 'Nueve = 9.' },
+        { type: 'choice', q: 'Which phrase is the polite way to say "I would like a tub, please"?', options: ['Quisiera una tarrina, por favor', 'Un cucurucho, gracias', 'Quiero adiós tarrina', 'De nada una tarrina'], answer: 0, explain: 'Quisiera = I would like; tarrina = tub; por favor = please.' },
+        { type: 'match', q: 'Final challenge — match ALL types of words:', pairs: [
+          ['limón', 'lemon'], ['siete', '7'], ['un cucurucho', 'a cone'], ['de nada', 'you\'re welcome'], ['caramelo', 'caramel']
+        ] },
+        { type: 'sort', q: 'Sort these into the right category:', buckets: ['Flavour 🍦', 'Number 🔢', 'Shop phrase 🗣️'], items: [
+          { text: 'naranja', bucket: 0 }, { text: 'ocho', bucket: 1 },
+          { text: 'por favor', bucket: 2 }, { text: 'vainilla', bucket: 0 },
+          { text: 'diez', bucket: 1 }, { text: 'gracias', bucket: 2 }
+        ] },
+        { type: 'order', q: 'Put the whole heladería visit in order one last time:', items: [
+          'Say ¡Buenos días!', 'Say Quisiera un helado, por favor.', 'Ask ¿Cuánto cuesta?', 'Hand over the euros', 'Say gracias and ¡Adiós!'
+        ], explain: 'Greeting → order → price → pay → thanks and goodbye. ¡Perfecto, Dexter!' }
       ]
     }
   ]

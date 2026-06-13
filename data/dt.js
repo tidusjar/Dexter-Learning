@@ -47,7 +47,25 @@ window.SUBJECTS.push({
           ['Fruit and veg', 'Vitamins — aim for 5 a day']
         ] },
         { type: 'choice', q: 'Which of these is the most BALANCED lunch?', options: ['Tuna sandwich, cherry tomatoes, yoghurt and water', 'A big bag of sweets', 'Three packets of crisps', 'Just a slice of cake'], answer: 0, explain: 'It mixes protein, starchy bread, veg and dairy — lots of groups in one lunch!' },
-        { type: 'type', q: 'Milk, cheese and yoghurt all belong to which food group? (one word)', answer: ['dairy'], explain: 'They\'re all dairy foods, full of calcium.', hint: 'It starts with D and comes from milk…' }
+        { type: 'type', q: 'Milk, cheese and yoghurt all belong to which food group? (one word)', answer: ['dairy'], explain: 'They\'re all dairy foods, full of calcium.', hint: 'It starts with D and comes from milk…' },
+        { type: 'choice', q: 'Which food group is the BIGGEST section on the Eatwell Guide plate?', options: ['Fruit and vegetables', 'Carbohydrates', 'Proteins', 'Dairy'], answer: 0, explain: 'Fruit and vegetables take up the biggest slice — that\'s why we aim for 5 a day!' },
+        { type: 'type', q: 'Fill the gap: carbohydrates like bread and pasta give you _______.', answer: ['energy'], explain: 'Carbohydrates are your body\'s fuel for running, thinking and playing.', hint: 'What you need to run around the playground!' },
+        { type: 'choice', q: 'Which of these is a PROTEIN food?', options: ['Eggs', 'Bread', 'Milk', 'Carrot'], answer: 0, explain: 'Eggs are a brilliant protein food — they help your body grow and repair.' },
+        { type: 'choice', q: 'Which of these is a CARBOHYDRATE food?', options: ['Rice', 'Cheese', 'Chicken', 'Grapes'], answer: 0, explain: 'Rice is a starchy carbohydrate that gives you energy.' },
+        { type: 'sort', q: 'Sort these into the correct Eatwell food groups:', buckets: ['Dairy 🥛', 'Proteins 🍗', 'Oils and spreads 🧈'], items: [
+          { text: 'Yoghurt', bucket: 0 }, { text: 'Butter', bucket: 2 },
+          { text: 'Lentils', bucket: 1 }, { text: 'Cheese', bucket: 0 },
+          { text: 'Fish', bucket: 1 }, { text: 'Olive oil', bucket: 2 }
+        ] },
+        { type: 'match', q: 'Match the food to its Eatwell group:', pairs: [
+          ['Apple', 'Fruit and vegetables'],
+          ['Bread', 'Carbohydrates'],
+          ['Chicken', 'Proteins'],
+          ['Yoghurt', 'Dairy']
+        ] },
+        { type: 'choice', q: 'Why is a plate of ONLY chips not a balanced meal?', options: ['It\'s only from one food group — you need a mix', 'Chips are from the protein group', 'Chips are banned from the Eatwell Guide', 'There are too many chips'], answer: 0, explain: 'A balanced meal takes food from SEVERAL groups, not just one.' },
+        { type: 'order', q: 'Put the Eatwell Guide food groups in order from biggest to smallest portion:', items: ['Fruit and vegetables', 'Carbohydrates', 'Proteins', 'Dairy', 'Oils and spreads'], explain: 'Fruit and veg is biggest, then carbs, then proteins, then dairy, and oils and spreads are smallest.' },
+        { type: 'choice', q: 'Which nutrient in dairy foods helps keep your bones and teeth strong?', options: ['Calcium', 'Vitamin C', 'Iron', 'Protein'], answer: 0, explain: 'Calcium is the star of dairy — strong bones and teeth depend on it!' }
       ]
     },
     {
@@ -85,7 +103,28 @@ window.SUBJECTS.push({
         { type: 'order', q: 'Put the picnic-planning steps in a sensible order:', items: [
           'Plan a balanced menu from the food groups', 'Wash your hands', 'Prepare the food and cover it', 'Pack everything into a cool bag', 'Enjoy the picnic!', 'Evaluate: taste, looks, healthiness'
         ], explain: 'Plan → wash → prepare → pack → eat → evaluate. Just like a real designer!' },
-        { type: 'choice', q: 'Dexter\'s picnic has a ham sandwich and water. What is MISSING to make it balanced?', options: ['Some fruit or vegetables', 'Another sandwich', 'A bigger bottle', 'More ham'], answer: 0, explain: 'Adding fruit or veg — like an apple or carrot sticks — would balance it nicely.' }
+        { type: 'choice', q: 'Dexter\'s picnic has a ham sandwich and water. What is MISSING to make it balanced?', options: ['Some fruit or vegetables', 'Another sandwich', 'A bigger bottle', 'More ham'], answer: 0, explain: 'Adding fruit or veg — like an apple or carrot sticks — would balance it nicely.' },
+        { type: 'type', q: 'Fill the gap: before making any picnic food, always w___ your h___.', answer: ['wash your hands', 'wash hands'], explain: 'Washing your hands is the number one food safety rule — clean hands stop germs.', hint: 'Two words — the first rhymes with "gosh"!' },
+        { type: 'choice', q: 'Why do designers EVALUATE their picnic after eating it?', options: ['To find out what worked and what to improve next time', 'To prove they ate everything', 'To fill in a form for school', 'To show off to their friends'], answer: 0, explain: 'Evaluating means looking back honestly — what tasted good, what looked nice, and what would you do differently?' },
+        { type: 'choice', q: 'Which picnic drink choice is healthiest for everyday use?', options: ['Water', 'Sugary lemonade', 'Energy drink', 'Fizzy cola'], answer: 0, explain: 'Water is the perfect everyday drink — zero sugar, zero worries!' },
+        { type: 'sort', q: 'Sort these picnic items: safe food hygiene or unsafe?', buckets: ['Safe 👍', 'Unsafe 👎'], items: [
+          { text: 'Keeping food covered with a lid', bucket: 0 },
+          { text: 'Leaving yoghurt in the sun all day', bucket: 1 },
+          { text: 'Washing hands before touching food', bucket: 0 },
+          { text: 'Letting flies land on sandwiches', bucket: 1 },
+          { text: 'Packing cheese in a cool bag', bucket: 0 }
+        ] },
+        { type: 'match', q: 'Match the picnic food safety rule to the reason why:', pairs: [
+          ['Wash hands', 'Stops germs getting on the food'],
+          ['Use a cool bag', 'Keeps cheese and yoghurt safely cold'],
+          ['Keep food covered', 'Stops insects and dirt landing on it'],
+          ['Evaluate afterwards', 'Helps you improve your design next time']
+        ] },
+        { type: 'order', q: 'A designer plans a healthy picnic. Put the steps in the right order:', items: [
+          'Think about which food groups to include', 'Write out the menu', 'Wash hands before preparing food', 'Prepare and cover the food', 'Pack into a cool bag', 'Enjoy the picnic and then evaluate it'
+        ], explain: 'Think → plan → wash → prepare → pack → enjoy → evaluate. Just like a real DT designer!' },
+        { type: 'choice', q: 'Which of these would make the BEST healthy picnic drink?', options: ['A bottle of water', 'A large sugary energy drink', 'Three cans of cola', 'A carton of pure orange squash'], answer: 0, explain: 'Water is the winner — no added sugar and perfect for staying hydrated!' },
+        { type: 'choice', q: 'A good picnic should have food from how many different Eatwell groups?', options: ['Several groups — a mix', 'Just one group', 'All six groups', 'None — picnics are only treats'], answer: 0, explain: 'A balanced picnic takes something from several food groups, not just one.' }
       ]
     },
     {
@@ -150,7 +189,32 @@ window.SUBJECTS.push({
           ['Wires', 'Carry the electricity around'],
           ['Bulb', 'Lights up when the loop is complete'],
           ['Switch', 'Makes or closes a gap in the loop']
-        ] }
+        ] },
+        { type: 'type', q: 'What do we call materials that do NOT let electricity through? (one word)', answer: ['insulator', 'insulators'], explain: 'Insulators block electricity — plastic, wood and rubber are great examples.', hint: 'The opposite of a conductor — starts with I.' },
+        { type: 'choice', q: 'Which of these is a good INSULATOR?', options: ['Rubber', 'Copper', 'Steel', 'Aluminium'], answer: 0, explain: 'Rubber doesn\'t let electricity through — that\'s why rubber gloves protect electricians.' },
+        { type: 'choice', q: 'Why are wires made of metal (like copper) on the inside?', options: ['Metal is a conductor, so electricity flows through it easily', 'Metal is the cheapest material', 'Metal looks shiny and nice', 'Metal makes electricity faster'], answer: 0, explain: 'Copper is an excellent conductor — electricity travels through it very easily.' },
+        { type: 'sort', q: 'Sort these: part of an electrical circuit or NOT a circuit part?', buckets: ['Circuit part ⚡', 'Not a circuit part ❌'], items: [
+          { text: 'Battery', bucket: 0 }, { text: 'Wooden ruler', bucket: 1 },
+          { text: 'Bulb', bucket: 0 }, { text: 'Rubber duck', bucket: 1 },
+          { text: 'Wire', bucket: 0 }, { text: 'Switch', bucket: 0 }
+        ] },
+        { type: 'choice', q: 'A circuit has a battery, a bulb and two wires, but the bulb won\'t light. What is probably wrong?', options: ['There is a gap in the loop somewhere', 'The bulb is the wrong colour', 'The battery is too heavy', 'The wires are too long'], answer: 0, explain: 'Any gap stops electricity flowing. Check the loop is complete all the way round!' },
+        { type: 'sort', q: 'Sort these materials: conductor or insulator?', buckets: ['Conductor ⚡', 'Insulator 🚫'], items: [
+          { text: 'Copper wire', bucket: 0 }, { text: 'Plastic bag', bucket: 1 },
+          { text: 'Aluminium foil', bucket: 0 }, { text: 'Wood', bucket: 1 },
+          { text: 'Steel spoon', bucket: 0 }, { text: 'Rubber band', bucket: 1 }
+        ] },
+        { type: 'choice', q: 'What happens to a bulb when you CLOSE a switch?', options: ['The circuit is complete, so the bulb lights up', 'The bulb falls out', 'The electricity stops', 'The battery goes flat immediately'], answer: 0, explain: 'Closing the switch removes the gap and completes the loop — light!' },
+        { type: 'sort', q: 'Sort these safety rules: safe with electricity or dangerous?', buckets: ['Safe ✅', 'Dangerous ⚠️'], items: [
+          { text: 'Use a battery circuit from a school kit', bucket: 0 },
+          { text: 'Poke a pencil into a plug socket', bucket: 1 },
+          { text: 'Handle low-voltage school batteries', bucket: 0 },
+          { text: 'Play with mains cables at home', bucket: 1 },
+          { text: 'Ask an adult before using any electrical equipment', bucket: 0 }
+        ] },
+        { type: 'order', q: 'Put these in order to show how a switch turns a bulb on:', items: [
+          'Switch is open — there is a gap in the circuit', 'You press the switch closed', 'The gap disappears and the loop is complete', 'Electricity flows from the battery', 'The bulb lights up!'
+        ], explain: 'Gap → close switch → complete loop → electricity flows → light! Simple and brilliant.' }
       ]
     },
     {
@@ -220,7 +284,29 @@ window.SUBJECTS.push({
           { text: 'Tough case for outdoors', bucket: 0 },
           { text: 'Stays on safely all night', bucket: 1 }
         ] },
-        { type: 'choice', q: 'When you EVALUATE your finished torch, which question helps most?', options: ['Does it work well for the person I designed it for?', 'Is it the same as everyone else\'s?', 'Did I finish first?', 'Is it the most expensive?'], answer: 0, explain: 'Great designers test their product against the user\'s needs — and plan improvements.' }
+        { type: 'choice', q: 'When you EVALUATE your finished torch, which question helps most?', options: ['Does it work well for the person I designed it for?', 'Is it the same as everyone else\'s?', 'Did I finish first?', 'Is it the most expensive?'], answer: 0, explain: 'Great designers test their product against the user\'s needs — and plan improvements.' },
+        { type: 'type', q: 'A torch has a shiny cone behind the bulb that bounces light forward. What is this part called? (one word)', answer: ['reflector'], explain: 'The reflector bounces light into a strong, directed beam. Without it the light goes in all directions!', hint: 'It reflects the light — starts with r…' },
+        { type: 'match', q: 'Match each torch design question to why it matters:', pairs: [
+          ['Who is it for?', 'Helps you choose the size and brightness'],
+          ['Does it need to be waterproof?', 'Vital if it\'s used outside in rain'],
+          ['Small or big?', 'A pocket torch is different from a bedside light'],
+          ['Bright or gentle?', 'Matches the light to what the user needs']
+        ] },
+        { type: 'choice', q: 'Which torch part HOLDS everything together?', options: ['The case', 'The reflector', 'The switch', 'The battery'], answer: 0, explain: 'The case keeps all the parts safe inside — it\'s the body of the torch.' },
+        { type: 'sort', q: 'Sort these: features for an outdoor camping torch or a bedtime reading torch?', buckets: ['Camping torch 🏕️', 'Bedtime torch 🌙'], items: [
+          { text: 'Very bright beam', bucket: 0 },
+          { text: 'Soft, dim glow', bucket: 1 },
+          { text: 'Waterproof case', bucket: 0 },
+          { text: 'Quiet so it doesn\'t wake others', bucket: 1 },
+          { text: 'Clips to a rucksack', bucket: 0 },
+          { text: 'Warm, gentle colour light', bucket: 1 }
+        ] },
+        { type: 'choice', q: 'What does a designer mean when they say they will "evaluate" their torch?', options: ['They check if it works well for the user and think about improvements', 'They give it a score out of ten for looks only', 'They decide how much to sell it for', 'They leave it in a drawer and forget about it'], answer: 0, explain: 'Evaluating means honestly testing whether the design does the job it was made for.' },
+        { type: 'order', q: 'Put the design process for a torch in the right order:', items: [
+          'Decide who the torch is for', 'Ask design questions (waterproof? size? brightness?)', 'Plan and draw the design', 'Build the torch circuit', 'Test and evaluate the finished torch'
+        ], explain: 'User → questions → plan → build → evaluate. That\'s the design cycle, Dexter!' },
+        { type: 'choice', q: 'A torch for a deep-sea diver MUST be what?', options: ['Waterproof', 'Square-shaped', 'Made of wood', 'Pink with glitter'], answer: 0, explain: 'Waterproof is essential underwater — otherwise the circuit would short-circuit immediately!' },
+        { type: 'choice', q: 'Why might an LED be used instead of a traditional bulb in a modern torch?', options: ['LEDs use less power and last longer', 'LEDs are heavier and more expensive', 'LEDs only work in the daytime', 'LEDs make more noise'], answer: 0, explain: 'LEDs are energy-efficient and long-lasting — great for torches where battery life matters.' }
       ]
     },
     {

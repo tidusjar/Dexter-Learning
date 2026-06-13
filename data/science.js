@@ -46,7 +46,32 @@ window.SUBJECTS.push({
         { type: 'sort', q: 'Sort these animals: do they have a backbone or not?', buckets: ['Vertebrate (backbone)', 'Invertebrate (no backbone)'], items: [
           { text: 'Dog', bucket: 0 }, { text: 'Snail', bucket: 1 }, { text: 'Eagle', bucket: 0 },
           { text: 'Spider', bucket: 1 }, { text: 'Salmon', bucket: 0 }, { text: 'Earthworm', bucket: 1 }
-        ], explain: 'Animals like dogs, birds and fish have backbones; snails, spiders and worms do not.' }
+        ], explain: 'Animals like dogs, birds and fish have backbones; snails, spiders and worms do not.' },
+        { type: 'choice', q: 'Why do scientists classify living things into groups?', options: ['So the millions of species are easier to study and talk about', 'So animals know where to live', 'To count how many legs each animal has', 'To make animals easier to catch'], answer: 0, explain: 'Classification helps scientists organise and discuss the huge variety of life on Earth.' },
+        { type: 'choice', q: 'A fallen log was once alive. A stone was never alive. What is the difference between these two non-living things?', options: ['The log was once alive; the stone was never alive', 'There is no difference — both are non-living', 'The stone was once alive; the log was not', 'Both were alive a long time ago'], answer: 0, explain: 'Good thinking, Dexter! Some non-living things were once alive (like wood), while others never were (like rock).' },
+        { type: 'type', q: 'Plants make their own food from ______. (one word)', answer: ['sunlight', 'light', 'the sun'], explain: 'Plants use sunlight, water and air to make food — a clever trick called photosynthesis!' },
+        { type: 'choice', q: 'Which TWO things are true of ALL living things?', options: ['They grow and they reproduce', 'They all have legs and eyes', 'They all live in water', 'They are all the same colour'], answer: 0, explain: 'All living things grow and reproduce (make more of their own kind).' },
+        { type: 'match', q: 'Match each life process to what it means:', pairs: [
+          ['Move', 'Change position or turn towards light'],
+          ['Grow', 'Get bigger over time'],
+          ['Reproduce', 'Make more of their own kind'],
+          ['Feed', 'Take in energy to survive']
+        ] },
+        { type: 'sort', q: 'True or false about vertebrates and invertebrates?', buckets: ['True', 'False'], items: [
+          { text: 'A worm is an invertebrate', bucket: 0 },
+          { text: 'A human is an invertebrate', bucket: 1 },
+          { text: 'Vertebrates have a backbone', bucket: 0 },
+          { text: 'All animals are vertebrates', bucket: 1 },
+          { text: 'A spider has no backbone', bucket: 0 }
+        ], explain: 'Humans and fish are vertebrates; worms and spiders are invertebrates.' },
+        { type: 'choice', q: 'Can a plant move?', options: ['Yes — plants can slowly turn towards light, even though they stay rooted', 'No — plants cannot move at all', 'Only if you water them', 'Only at night'], answer: 0, explain: 'Movement in plants can be very slow, but they do move — turning towards sunlight is a great example!' },
+        { type: 'order', q: 'A scientist is sorting animals into groups. Put these steps in a sensible order:', items: [
+          'Observe the animal carefully',
+          'Ask: does it have a backbone?',
+          'Place it in vertebrate or invertebrate group',
+          'Ask more questions to narrow it down further'
+        ], explain: 'Good classification starts with careful observation, then asks yes/no questions to sort into smaller and smaller groups.' },
+        { type: 'type', q: 'What word means sorting living things into groups based on shared features? (starts with C)', answer: ['classification'], explain: 'Classification — the very foundation of biology!', hint: 'C _ _ _ _ _ _ _ _ _ _ _ _' }
       ]
     },
     {
@@ -87,7 +112,30 @@ window.SUBJECTS.push({
           { text: 'Bat', bucket: 0, why: 'A bat has fur and feeds milk, so it is a mammal.' },
           { text: 'Robin', bucket: 1 }, { text: 'Lizard', bucket: 2 },
           { text: 'Dolphin', bucket: 0 }, { text: 'Owl', bucket: 1 }, { text: 'Tortoise', bucket: 2 }
-        ], explain: 'Fur and milk = mammal; feathers = bird; dry scales and eggs on land = reptile.' }
+        ], explain: 'Fur and milk = mammal; feathers = bird; dry scales and eggs on land = reptile.' },
+        { type: 'choice', q: 'What is special about how most mammals are born, compared to reptiles and birds?', options: ['Most mammals are born live (not hatched from eggs)', 'Mammals hatch from eggs like birds', 'Mammals are born underwater', 'Mammals are always born in winter'], answer: 0, explain: 'Most mammals give birth to live young — unlike reptiles and birds which hatch from eggs.' },
+        { type: 'choice', q: 'A crocodile lays eggs on land and has dry, scaly skin. Which group is it in?', options: ['Reptile', 'Amphibian', 'Mammal', 'Fish'], answer: 0, explain: 'Dry scales and eggs laid on land = reptile. Crocodiles are reptiles.' },
+        { type: 'choice', q: 'Which of these is true of ALL birds?', options: ['They all have feathers', 'They can all fly', 'They all live in trees', 'They all eat insects'], answer: 0, explain: 'All birds have feathers — even penguins that cannot fly!' },
+        { type: 'choice', q: 'A newt lives in water and on land, and has moist skin. Which group does it belong to?', options: ['Amphibian', 'Reptile', 'Mammal', 'Fish'], answer: 0, explain: 'Newts are amphibians, just like frogs — moist skin, water AND land.' },
+        { type: 'type', q: 'How many vertebrate groups are there altogether? (write the number as a word)', answer: ['five', '5'], explain: 'Fish, amphibians, reptiles, birds and mammals — that\'s five groups!' },
+        { type: 'sort', q: 'Sort these animals into the correct vertebrate group:', buckets: ['Fish', 'Amphibian', 'Bird'], items: [
+          { text: 'Salmon', bucket: 0 }, { text: 'Frog', bucket: 1 }, { text: 'Penguin', bucket: 2 },
+          { text: 'Shark', bucket: 0 }, { text: 'Newt', bucket: 1 }, { text: 'Eagle', bucket: 2 }
+        ], explain: 'Fish breathe with gills; amphibians have moist skin; birds have feathers.' },
+        { type: 'match', q: 'Match each fact to the vertebrate group it describes:', pairs: [
+          ['Breathe with gills, have fins and scales', 'Fish'],
+          ['Moist skin, live in water AND on land', 'Amphibian'],
+          ['Dry scaly skin, lay eggs on land', 'Reptile'],
+          ['Have fur or hair, feed babies milk', 'Mammal']
+        ] },
+        { type: 'choice', q: 'Why is a bat classed as a mammal and NOT a bird?', options: ['A bat has fur and feeds its babies milk — birds have feathers', 'Bats cannot fly', 'Bats live in water', 'Bats lay eggs'], answer: 0, explain: 'Fur + milk = mammal. Wings alone don\'t make you a bird!' },
+        { type: 'order', q: 'A scientist is comparing a dolphin and a shark. Put these observations in order from most to least useful for classifying them:', items: [
+          'Does it breathe air or use gills?',
+          'Does it feed its young milk?',
+          'Does it have hair or fur?',
+          'Is it big or small?'
+        ], explain: 'The most useful questions are about key features of each group — breathing, milk and fur. Size tells you very little!' },
+        { type: 'choice', q: 'Dexter spots an animal in a pond. It has gills as a youngster but develops lungs as an adult. Which group is it?', options: ['Amphibian', 'Fish', 'Reptile', 'Mammal'], answer: 0, explain: 'That\'s an amphibian! Frogs start life breathing with gills but grow lungs to live on land.' }
       ]
     },
     {
@@ -127,7 +175,30 @@ window.SUBJECTS.push({
         { type: 'sort', q: 'Sort these minibeasts by counting their legs:', buckets: ['Insect (6 legs)', 'Arachnid (8 legs)'], items: [
           { text: 'Ant', bucket: 0 }, { text: 'Scorpion', bucket: 1 }, { text: 'Beetle', bucket: 0 },
           { text: 'Spider', bucket: 1 }, { text: 'Butterfly', bucket: 0 }, { text: 'Ladybird', bucket: 0 }
-        ], explain: '6 legs = insect; 8 legs = arachnid.' }
+        ], explain: '6 legs = insect; 8 legs = arachnid.' },
+        { type: 'choice', q: 'What are the THREE body parts of an insect, in order from front to back?', options: ['Head, thorax, abdomen', 'Head, body, tail', 'Thorax, head, abdomen', 'Mouth, middle, end'], answer: 0, explain: 'Head (front) → thorax (middle, where legs attach) → abdomen (back).' },
+        { type: 'choice', q: 'Most animals on Earth are invertebrates. True or false?', options: ['True — invertebrates are the most common animals', 'False — vertebrates are more common', 'False — only insects are common', 'True — but only in the sea'], answer: 0, explain: 'Absolutely true! Insects alone make up a huge proportion of all animal species on Earth.' },
+        { type: 'choice', q: 'A scorpion has 8 legs. What group does it belong to?', options: ['Arachnid', 'Insect', 'Mollusc', 'Worm'], answer: 0, explain: 'Eight legs = arachnid. Scorpions are related to spiders.' },
+        { type: 'type', q: 'A slug is a mollusc. What group does a snail belong to? (one word)', answer: ['mollusc', 'molluscs'], explain: 'Snails and slugs are both molluscs — soft bodies, often with a shell.' },
+        { type: 'match', q: 'Match each fact to the invertebrate group it describes:', pairs: [
+          ['6 legs, 3 body parts, often wings', 'Insect'],
+          ['8 legs, 2 body parts', 'Arachnid'],
+          ['Soft body, often a shell, no legs', 'Mollusc'],
+          ['Long, soft, no legs at all', 'Worm']
+        ] },
+        { type: 'sort', q: 'Sort these minibeasts: do they have legs or no legs?', buckets: ['Has legs', 'No legs'], items: [
+          { text: 'Earthworm', bucket: 1 }, { text: 'Bee', bucket: 0 }, { text: 'Slug', bucket: 1 },
+          { text: 'Beetle', bucket: 0 }, { text: 'Spider', bucket: 0 }
+        ], explain: 'Worms and slugs have no legs; insects and arachnids do.' },
+        { type: 'choice', q: 'A butterfly goes through a big change in its life cycle. As an adult, how many legs does it have?', options: ['6 — it is an insect', '8 — it is an arachnid', '4 — it is a small mammal', 'None — it only uses wings'], answer: 0, explain: 'A butterfly is an insect, so it always has 6 legs — even though it flies!' },
+        { type: 'order', q: 'Dexter is trying to identify a minibeast. Put these questions in the best order:', items: [
+          'Does it have a backbone?',
+          'Does it have legs?',
+          'How many legs does it have — 6 or 8?',
+          'Does it have wings as well?'
+        ], explain: 'Start with the biggest question (backbone?) then narrow down with legs, leg count, then other features.' },
+        { type: 'choice', q: 'Which group would a wasp belong to?', options: ['Insect — it has 6 legs and 3 body parts', 'Arachnid — it can sting', 'Mollusc — it has a stripy shell', 'Worm — it wriggles'], answer: 0, explain: 'Wasps are insects: 6 legs, 3 body parts, and wings!' },
+        { type: 'type', q: 'The clue word for insects is "in___ = s__". Fill in: "insect = ___"', answer: ['six', '6'], explain: 'Insect = six! Six legs is the golden rule for insects.' }
       ]
     },
     {
@@ -168,7 +239,32 @@ window.SUBJECTS.push({
         ], explain: 'Start broad (backbone?) then narrow down (legs? how many?) until only the spider is left.' },
         { type: 'match', q: 'Match each yes/no question to the animal it would point to:', pairs: [
           ['Does it have feathers?', 'Bird'], ['Does it have fur?', 'Mammal'], ['Does it have gills and fins?', 'Fish'], ['Does it have dry scales and lay eggs on land?', 'Reptile']
-        ] }
+        ] },
+        { type: 'choice', q: 'Why is "Is it big?" a poor classification key question?', options: ['Big and small are not exact — different people may disagree', 'It is too short', 'Animals cannot be big', 'It should say "Is it very big?" instead'], answer: 0, explain: 'A key question needs a clear yes or no. "Big" is vague — one person\'s big is another\'s small!' },
+        { type: 'type', q: 'What is the name of the tool that uses yes/no questions to identify a living thing? (two words: classification ___)', answer: ['key', 'classification key'], explain: 'A classification key — your detective tool for naming any living thing!' },
+        { type: 'choice', q: 'In a classification key, what should the FIRST question do?', options: ['Split the whole group into two large groups', 'Name the animal straight away', 'Ask about colour first', 'Count the number of animals'], answer: 0, explain: 'Start big! A great opening question (like "does it have a backbone?") divides ALL the animals into two large groups.' },
+        { type: 'order', q: 'Use a key to identify a FROG. Put these clues in the right order:', items: [
+          'Does it have a backbone? — Yes (vertebrate)',
+          'Does it have feathers? — No',
+          'Does it have moist skin and live in water and on land? — Yes',
+          'It is a frog (amphibian)!'
+        ], explain: 'First check for backbone, then narrow down by features until only the frog is left.' },
+        { type: 'choice', q: 'Dexter uses a key and answers "Yes" to "Does it have a backbone?" and "Yes" to "Does it have feathers?". What has he found?', options: ['A bird', 'A mammal', 'A fish', 'An insect'], answer: 0, explain: 'Backbone + feathers = bird. The key has done its job!' },
+        { type: 'sort', q: 'Sort these: good classification key questions or not?', buckets: ['Good key question ✅', 'Not a good key question ❌'], items: [
+          { text: 'Does it have 6 legs?', bucket: 0 },
+          { text: 'Is it your favourite animal?', bucket: 1 },
+          { text: 'Does it have gills?', bucket: 0 },
+          { text: 'Is it friendly?', bucket: 1 },
+          { text: 'Does it have wings?', bucket: 0 }
+        ], explain: 'Good questions have clear yes/no answers based on observable features.' },
+        { type: 'match', q: 'Match each question to the group it identifies:', pairs: [
+          ['Does it have 6 legs?', 'Insect'],
+          ['Does it have 8 legs?', 'Arachnid'],
+          ['Does it have moist skin?', 'Amphibian'],
+          ['Does it have fur and feed milk?', 'Mammal']
+        ] },
+        { type: 'choice', q: 'Which word describes a classification key that works branch by branch, splitting into two at every step?', options: ['A branching key', 'A looping key', 'A sorting hat', 'A straight line key'], answer: 0, explain: 'A branching key splits like branches on a tree — each answer leads you along a different branch.' },
+        { type: 'choice', q: 'You are trying to tell apart a shark and a dolphin. Which key question would work best?', options: ['Does it breathe through gills?', 'Is it bigger than a person?', 'Does it live in the sea?', 'Is it grey?'], answer: 0, explain: 'The shark uses gills; the dolphin breathes air through a blowhole — a perfect yes/no split!' }
       ]
     },
     {
@@ -242,7 +338,28 @@ window.SUBJECTS.push({
         { type: 'choice', q: 'Inside which stage does a caterpillar turn into a butterfly?', options: ['The chrysalis', 'The egg', 'The frogspawn', 'The seed'], answer: 0, explain: 'The caterpillar forms a chrysalis and changes into a butterfly inside it.' },
         { type: 'match', q: 'Match each living thing to one stage of its life cycle:', pairs: [
           ['Butterfly', 'Caterpillar'], ['Frog', 'Tadpole'], ['Flowering plant', 'Germination'], ['Bee', 'Pollination']
-        ] }
+        ] },
+        { type: 'choice', q: 'What does a caterpillar do inside the chrysalis?', options: ['It changes completely into a butterfly', 'It grows an extra set of legs', 'It sleeps until spring', 'It lays eggs'], answer: 0, explain: 'Inside the chrysalis, the caterpillar goes through metamorphosis and becomes a butterfly.' },
+        { type: 'choice', q: 'What is <b>pollination</b>?', options: ['When pollen moves between flowers, often carried by bees', 'When a seed starts to sprout', 'When leaves fall in autumn', 'When a plant gets watered'], answer: 0, explain: 'Pollination happens when pollen travels from one flower to another — bees do a brilliant job of this!' },
+        { type: 'choice', q: 'Name ONE way seeds can be dispersed (spread away from the plant):', options: ['By wind, water or animals', 'By humans planting them only', 'By rain watering them in place', 'By growing extra roots'], answer: 0, explain: 'Wind, water and animals all help seeds travel to new places to grow.' },
+        { type: 'choice', q: 'Does a frog go through metamorphosis?', options: ['Yes — it changes from a tadpole into a frog', 'No — frogs are born looking like tiny frogs', 'No — only butterflies change', 'Yes — but only the female frog'], answer: 0, explain: 'Frogs absolutely go through metamorphosis — from frogspawn to tadpole to froglet to frog.' },
+        { type: 'type', q: 'What do we call a young frog that has just started growing legs? (one word, starts with F)', answer: ['froglet'], explain: 'A froglet is the stage between tadpole and adult frog — it has legs but is still small.' },
+        { type: 'sort', q: 'Sort these: are they stages of the butterfly life cycle or the frog life cycle?', buckets: ['Butterfly life cycle', 'Frog life cycle'], items: [
+          { text: 'Chrysalis', bucket: 0 },
+          { text: 'Tadpole', bucket: 1 },
+          { text: 'Caterpillar', bucket: 0 },
+          { text: 'Frogspawn', bucket: 1 },
+          { text: 'Froglet', bucket: 1 }
+        ], explain: 'Butterfly: egg → caterpillar → chrysalis → butterfly. Frog: frogspawn → tadpole → froglet → frog.' },
+        { type: 'choice', q: 'A butterfly lays eggs on a leaf. What hatches from those eggs?', options: ['Caterpillars', 'Baby butterflies', 'Chrysalises', 'Froglets'], answer: 0, explain: 'Butterfly eggs hatch into caterpillars, which then form a chrysalis and finally become butterflies.' },
+        { type: 'match', q: 'Match each life cycle word to its meaning:', pairs: [
+          ['Germination', 'A seed begins to sprout'],
+          ['Metamorphosis', 'An animal completely changes shape'],
+          ['Seed dispersal', 'Seeds spread away from the parent plant'],
+          ['Chrysalis', 'The stage where a caterpillar turns into a butterfly']
+        ] },
+        { type: 'choice', q: 'In the flowering plant life cycle, what comes AFTER germination?', options: ['The plant grows bigger', 'Seed dispersal', 'Pollination', 'The seed is made'], answer: 0, explain: 'After a seed germinates (sprouts), the plant grows taller before it flowers.' },
+        { type: 'order', q: 'What is the correct order for the FROG life cycle?', items: ['Frogspawn', 'Tadpole', 'Froglet', 'Adult frog'], explain: 'Frogspawn hatches into tadpoles, which grow legs to become froglets, then fully grown frogs.' }
       ]
     },
     {
@@ -281,7 +398,34 @@ window.SUBJECTS.push({
         ], explain: 'Planting, recycling and reserves help; litter, pollution and deforestation harm habitats.' },
         { type: 'match', q: 'Match each living thing to its habitat:', pairs: [
           ['Fox', 'Woodland'], ['Crab', 'Ocean'], ['Frog', 'Pond'], ['Seaweed', 'Ocean rock pool'], ['Oak tree', 'Forest floor']
-        ] }
+        ] },
+        { type: 'choice', q: 'If a woodland is cut down, what happens to the animals that live there?', options: ['They lose their home, food and shelter and may not survive', 'They move straight into the city', 'Nothing — animals don\'t need trees', 'They all become pets'], answer: 0, explain: 'Losing a habitat means losing food, shelter and a safe place to raise young — very serious for wildlife.' },
+        { type: 'choice', q: 'What does a <b>nature reserve</b> do?', options: ['It protects a natural area so wildlife can live and thrive', 'It sells animals to people', 'It is a zoo in the countryside', 'It is a place to play sports'], answer: 0, explain: 'Nature reserves are protected areas where habitats and wildlife are kept safe.' },
+        { type: 'choice', q: 'Which of these is a NATURAL change to a habitat (not caused by people)?', options: ['A flood after heavy rain', 'A factory polluting a river', 'Cutting down trees for farmland', 'Dropping litter in a pond'], answer: 0, explain: 'Floods happen naturally; pollution and deforestation are caused by people.' },
+        { type: 'type', q: 'What do we call the cutting down of large areas of forest? (one word, starts with D)', answer: ['deforestation'], explain: 'Deforestation — one of the biggest threats to habitats around the world.', hint: 'D _ _ _ _ _ _ _ _ _ _ _ _' },
+        { type: 'sort', q: 'Sort these: natural change to a habitat, or caused by people?', buckets: ['Natural change', 'Caused by people'], items: [
+          { text: 'A drought dries up a pond', bucket: 0 },
+          { text: 'Oil is spilled in the ocean', bucket: 1 },
+          { text: 'A storm blows down trees', bucket: 0 },
+          { text: 'A river is polluted by rubbish', bucket: 1 },
+          { text: 'A forest is flooded by heavy rain', bucket: 0 }
+        ], explain: 'Droughts, storms and floods are natural; spills, pollution and litter are human-caused.' },
+        { type: 'choice', q: 'Why might a pond full of litter be a problem for a frog?', options: ['The frog needs clean water to lay eggs and for tadpoles to survive', 'Frogs hate the colour of litter', 'Litter makes the water too cold', 'Frogs only live in litter-filled ponds'], answer: 0, explain: 'Pollution in water damages the habitat frogs depend on for every stage of their life cycle.' },
+        { type: 'match', q: 'Match each habitat threat to what causes it:', pairs: [
+          ['Deforestation', 'Cutting down forests'],
+          ['Pollution', 'Chemicals or litter in air and water'],
+          ['Drought', 'A long period without rain'],
+          ['Flooding', 'Too much rain, raising water levels']
+        ] },
+        { type: 'choice', q: 'Dexter wants to help local wildlife. Which of these would be most helpful?', options: ['Planting wildflowers in the garden', 'Pouring oil into the stream', 'Dropping crisp packets in the park', 'Cutting down the hedge'], answer: 0, explain: 'Wildflowers provide food and shelter for insects and birds — a brilliant way to help!' },
+        { type: 'choice', q: 'Which animal from the lesson lives in a WOODLAND habitat?', options: ['An owl', 'A crab', 'A whale', 'A dragonfly'], answer: 0, explain: 'Owls and foxes are typical woodland animals.' },
+        { type: 'order', q: 'Put these events in the order they would happen if a pond habitat was slowly destroyed:', items: [
+          'A factory starts dumping waste near the pond',
+          'The water becomes polluted',
+          'Plants and insects in the pond begin to die',
+          'Frogs and fish lose their food and shelter',
+          'The pond habitat is destroyed'
+        ], explain: 'Pollution starts a chain reaction — once the water is dirty, every living thing that depends on it is affected.' }
       ]
     }
   ]

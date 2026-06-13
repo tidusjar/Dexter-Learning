@@ -33,7 +33,21 @@ window.SUBJECTS.push({
           { text: '£2.05', bucket: 0 }, { text: '199p', bucket: 1 }, { text: '£1.99', bucket: 1 },
           { text: '250p', bucket: 0 }, { text: '£0.95', bucket: 1 }, { text: '201p', bucket: 0 }
         ], explain: 'Turning everything into pence makes comparing easy: £2 = 200p.' },
-        { type: 'coins', q: '🪙 You\'re the shopkeeper! Put coins in the till to make exactly <b>£1.35</b>, then press Pay.', target: 135, explain: '£1 + 20p + 10p + 5p is one way — there are lots of others!' }
+        { type: 'coins', q: '🪙 You\'re the shopkeeper! Put coins in the till to make exactly <b>£1.35</b>, then press Pay.', target: 135, explain: '£1 + 20p + 10p + 5p is one way — there are lots of others!' },
+        { type: 'type', q: 'Write 75p in pounds (like £3.20).', answer: ['£0.75', '0.75'], explain: '75p is less than £1, so it is £0.75.' },
+        { type: 'type', q: 'Write £5.08 in pence (just the number).', answer: ['508', '508p'], explain: '£5.08 = 500p + 8p = 508p.' },
+        { type: 'choice', q: 'Which is the <b>largest</b> amount?', options: ['305p', '£3.05', '£3.50', '35p'], answer: 2, explain: '£3.50 = 350p, which beats 305p and 35p.' },
+        { type: 'choice', q: 'Which is the <b>smallest</b> amount?', options: ['£2.00', '200p', '£2.01', '£0.99'], answer: 3, explain: '£0.99 = 99p — less than £2 = 200p and the others.' },
+        { type: 'type', q: 'Dexter has a £1 coin, two 20p coins and a 5p coin. How much does he have? (like £1.45)', answer: ['£1.45', '1.45', '145p', '145'], explain: '100 + 20 + 20 + 5 = 145p = £1.45.' },
+        { type: 'order', q: 'Put these amounts in order, <b>largest first</b>:', items: ['£10.00', '£9.99', '999p', '99p'] },
+        { type: 'match', q: 'Match each amount in pence to its pounds version:', pairs: [
+          ['250p', '£2.50'], ['107p', '£1.07'], ['60p', '£0.60'], ['500p', '£5.00']
+        ] },
+        { type: 'sort', q: 'Sort these amounts: are they MORE or LESS than £5?', buckets: ['More than £5', 'Less than £5'], items: [
+          { text: '£5.01', bucket: 0 }, { text: '499p', bucket: 1 }, { text: '£4.99', bucket: 1 },
+          { text: '510p', bucket: 0 }, { text: '£5.50', bucket: 0 }, { text: '£0.50', bucket: 1 }
+        ], explain: '£5 = 500p — compare everything to 500p.' },
+        { type: 'coins', q: '⚔️ A toy Viking sword costs <b>£2.85</b>. Put exactly the right coins in the till!', target: 285, explain: '£2 + 50p + 20p + 10p + 5p = 285p.' }
       ]
     },
     {
@@ -60,7 +74,15 @@ window.SUBJECTS.push({
         { type: 'choice', q: 'You have £10. You spend £6.50. Do you have enough left to buy something for £3.49?', options: ['Yes — you have £3.50 left', 'No — you only have £3.40 left', 'No — you have nothing left'], answer: 0, explain: '£10 − £6.50 = £3.50, which is just enough!' },
         { type: 'type', q: 'Two friends share the cost of an £8.40 pizza equally. How much does each pay? (like £2.15)', answer: ['£4.20', '4.20', '420p'], explain: '£8.40 ÷ 2 = £4.20.' },
         { type: 'coins', q: '🍎 An apple costs <b>85p</b>. Put exactly the right coins in the till and press Pay!', target: 85, explain: '50p + 20p + 10p + 5p works — or 20p + 20p + 20p + 20p + 5p!' },
-        { type: 'coins', q: '⛑️ A toy Viking helmet costs <b>£2.40</b>. Pay exactly!', target: 240, explain: '£2 + 20p + 20p is the quickest way.' }
+        { type: 'coins', q: '⛑️ A toy Viking helmet costs <b>£2.40</b>. Pay exactly!', target: 240, explain: '£2 + 20p + 20p is the quickest way.' },
+        { type: 'type', q: '£1.75 + £2.50 = ? (like £3.80)', answer: ['£4.25', '4.25', '425p'], explain: '75p + 50p = 125p = £1.25, so £3 + £1.25 = £4.25.' },
+        { type: 'type', q: 'A pen costs 65p and a ruler costs 45p. How much altogether? (in pence)', answer: ['110', '110p'], explain: '65 + 45 = 110p.' },
+        { type: 'type', q: 'A Viking book costs £6.00. You pay with a £10 note. How much change? (like £2.50)', answer: ['£4.00', '4.00', '400p', '£4', '4'], explain: '£10 − £6 = £4.00.' },
+        { type: 'type', q: 'Dexter buys 4 pencils at 25p each. How much does he spend? (in pence)', answer: ['100', '100p', '£1', '£1.00', '1.00'], explain: '4 × 25p = 100p = £1.00.' },
+        { type: 'choice', q: 'A shield costs £3.60 and a helmet costs £2.75. Roughly how much is that altogether?', options: ['About £6', 'About £5', 'About £7', 'About £4'], answer: 0, explain: '£3.60 is nearly £4 and £2.75 is nearly £3 — about £6 or £7; £6 is closest.' },
+        { type: 'type', q: 'Three friends share the cost of a £9.60 feast equally. How much does each pay? (like £2.30)', answer: ['£3.20', '3.20', '320p'], explain: '£9.60 ÷ 3 = £3.20.' },
+        { type: 'type', q: 'A drink costs £1.30 and a snack costs £1.90. You pay £5. How much change? (like £1.25)', answer: ['£1.80', '1.80', '180p'], explain: '£1.30 + £1.90 = £3.20; £5.00 − £3.20 = £1.80.' },
+        { type: 'coins', q: '🍞 A loaf of Viking bread costs <b>£1.60</b>. Pay exactly!', target: 160, explain: '£1 + 50p + 10p works perfectly.' }
       ]
     },
     {
@@ -68,7 +90,7 @@ window.SUBJECTS.push({
       title: 'Money practice game',
       emoji: '🪙',
       gen: 'money',
-      target: 8,
+      target: 14,
       learn: [
         { title: 'Shopkeeper challenge!', html: '<p>You are the shopkeeper! Add up the prices and work out the change. Answer like <b>£3.45</b>. A new set of questions every time — play it every day!</p>' }
       ]
@@ -106,7 +128,14 @@ window.SUBJECTS.push({
         { type: 'type', q: 'How many seconds are there in one minute?', answer: ['60'], explain: '60 seconds = 1 minute.' },
         { type: 'match', q: 'Match the times that mean the same thing:', pairs: [
           ['Quarter past 3', '3:15'], ['Half past 7', '7:30'], ['Quarter to 10', '9:45'], ['8 o\'clock in the evening', '20:00']
-        ] }
+        ] },
+        { type: 'clock', h: 2, m: 0, q: '🕑 The Viking lookout spots a ship at this time. What time is it?', options: ['2 o\'clock', '12 o\'clock', 'Half past 2', 'Quarter past 2'], answer: 0, explain: 'Long hand on 12 means o\'clock; short hand on 2 means 2 o\'clock.' },
+        { type: 'clock', h: 8, m: 15, q: '🕗 Warriors start training at this time. What does the clock say?', options: ['Quarter past 8', 'Quarter to 8', 'Quarter past 9', 'Half past 8'], answer: 0, explain: 'Long hand on 3 = quarter past; short hand just past 8.' },
+        { type: 'clock', h: 5, m: 30, q: '🕠 The longship returns at this time. Read the clock!', options: ['Half past 5', 'Half past 6', '5 o\'clock', 'Quarter to 6'], answer: 0, explain: 'Long hand on 6 = half past; short hand between 5 and 6.' },
+        { type: 'clock', h: 10, m: 45, q: '🕙 Time for the Viking council meeting! What time is shown?', options: ['Quarter to 11', 'Quarter past 10', 'Quarter to 10', 'Half past 10'], answer: 0, explain: 'Long hand on 9 = quarter TO the NEXT hour — quarter to 11.' },
+        { type: 'type', q: 'The long hand points at the 7. How many minutes past the hour is that?', answer: ['35', '35 minutes'], explain: 'Each number is 5 minutes: 7 × 5 = 35.' },
+        { type: 'choice', q: 'What time is 21:00 on a normal 12-hour clock?', options: ['9pm', '9am', '10pm', '8pm'], answer: 0, explain: '21 − 12 = 9, so 21:00 is 9 o\'clock in the evening — 9pm.' },
+        { type: 'type', q: 'Write 11pm in 24-hour time (like 14:00).', answer: ['23:00', '2300', '23.00'], explain: '11 + 12 = 23, so 11pm is 23:00.' }
       ]
     },
     {
@@ -131,7 +160,20 @@ window.SUBJECTS.push({
         { type: 'type', q: 'How many days are there in 3 weeks?', answer: ['21'], explain: '3 × 7 = 21 days.' },
         { type: 'choice', q: 'Which is the LONGEST time?', options: ['100 minutes', '1 hour', 'Half an hour', '90 seconds'], answer: 0, explain: '100 minutes is 1 hour 40 minutes — longer than the rest.' },
         { type: 'type', q: 'A cake needs 35 minutes in the oven. It went in at 2:40. What time does it come out? (like 4:25)', answer: ['3:15', '315', '15:15', '3.15'], explain: '2:40 + 20 min = 3:00, + 15 min = 3:15.' },
-        { type: 'order', q: 'Put these units of time in order, <b>shortest first</b>:', items: ['Second', 'Minute', 'Hour', 'Day', 'Week', 'Year'] }
+        { type: 'order', q: 'Put these units of time in order, <b>shortest first</b>:', items: ['Second', 'Minute', 'Hour', 'Day', 'Week', 'Year'] },
+        { type: 'type', q: 'How many minutes are there in half an hour?', answer: ['30', '30 minutes'], explain: 'Half of 60 = 30 minutes.' },
+        { type: 'type', q: 'How many months are there in a year?', answer: ['12', 'twelve'], explain: 'There are 12 months in a year.' },
+        { type: 'choice', q: 'A Viking voyage starts at 6:15 and ends at 8:45. How long does it last?', options: ['2 hours 30 minutes', '2 hours 15 minutes', '2 hours 45 minutes', '1 hour 30 minutes'], answer: 0, explain: '6:15 → 7:15 = 1 hr, → 8:15 = 2 hrs, → 8:45 = another 30 min. Total: 2 hours 30 minutes.' },
+        { type: 'type', q: 'How many seconds are there in 2 minutes?', answer: ['120'], explain: '2 × 60 = 120 seconds.' },
+        { type: 'choice', q: 'Dexter\'s reading time starts at 7:40 and lasts 25 minutes. When does it finish?', options: ['8:05', '8:15', '7:65', '8:00'], answer: 0, explain: '7:40 + 20 min = 8:00, + 5 more = 8:05.' },
+        { type: 'type', q: 'How many hours are there in 3 days?', answer: ['72'], explain: '3 × 24 = 72 hours.' },
+        { type: 'choice', q: 'Which is the SHORTEST time?', options: ['90 seconds', '2 minutes', '1 hour', '1 day'], answer: 0, explain: '90 seconds is 1 minute 30 seconds — shorter than 2 minutes, let alone an hour or a day!' },
+        { type: 'type', q: 'A Viking training session runs from 10:30 to 11:15. How long is that? (in minutes)', answer: ['45', '45 minutes'], explain: '10:30 → 11:00 = 30 min, → 11:15 = another 15 min. 30 + 15 = 45 minutes.' },
+        { type: 'sort', q: 'Sort these durations: are they MORE or LESS than 1 hour?', buckets: ['More than 1 hour', 'Less than 1 hour'], items: [
+          { text: '90 minutes', bucket: 0 }, { text: '45 minutes', bucket: 1 }, { text: '70 minutes', bucket: 0 },
+          { text: '30 minutes', bucket: 1 }, { text: '65 minutes', bucket: 0 }, { text: '59 minutes', bucket: 1 }
+        ], explain: '1 hour = 60 minutes. Anything over 60 minutes is more than 1 hour.' },
+        { type: 'choice', q: 'The feast starts at 5:50 and lasts 1 hour 30 minutes. When does it end?', options: ['7:20', '6:20', '7:50', '7:30'], answer: 0, explain: '5:50 + 1 hr = 6:50, + 30 min = 7:20.' }
       ]
     },
     {
@@ -161,7 +203,22 @@ window.SUBJECTS.push({
           { text: 'Circle', bucket: 0 }, { text: 'Cube', bucket: 1 }, { text: 'Sphere', bucket: 1 },
           { text: 'Triangle', bucket: 0 }, { text: 'Cylinder', bucket: 1 }, { text: 'Hexagon', bucket: 0 }
         ] },
-        { type: 'type', q: 'How many faces does a cube have?', answer: ['6', 'six'], explain: 'Top, bottom and four sides — like a dice.' }
+        { type: 'type', q: 'How many faces does a cube have?', answer: ['6', 'six'], explain: 'Top, bottom and four sides — like a dice.' },
+        { type: 'type', q: 'How many sides does an octagon have?', answer: ['8', 'eight'], explain: 'Oct- means eight — like an octopus!' },
+        { type: 'choice', q: 'An angle BIGGER than a right angle (but less than a straight line) is called…', options: ['Obtuse', 'Acute', 'Straight', 'Right'], answer: 0, explain: 'Obtuse angles are between 90° and 180°.' },
+        { type: 'choice', q: 'How many lines of symmetry does a rectangle have?', options: ['2', '4', '0', '1'], answer: 0, explain: 'A rectangle has one line through the middles of the long sides and one through the middles of the short sides — 2 in total.' },
+        { type: 'type', q: 'A quadrilateral has how many sides?', answer: ['4', 'four'], explain: 'Quad- means four. Squares and rectangles are quadrilaterals.' },
+        { type: 'choice', q: 'Dexter draws a shape with 5 sides. What is it called?', options: ['Pentagon', 'Hexagon', 'Octagon', 'Triangle'], answer: 0, explain: 'Pent- means five — a pentagon has 5 sides.' },
+        { type: 'sort', q: 'Sort these angles: are they acute (less than 90°) or obtuse (more than 90°)?', buckets: ['Acute (less than 90°)', 'Obtuse (more than 90°)'], items: [
+          { text: '45°', bucket: 0 }, { text: '120°', bucket: 1 }, { text: '30°', bucket: 0 },
+          { text: '150°', bucket: 1 }, { text: '60°', bucket: 0 }, { text: '100°', bucket: 1 }
+        ], explain: 'Acute angles are less than 90°; obtuse angles are between 90° and 180°.' },
+        { type: 'type', q: 'A straight line is an angle of how many degrees?', answer: ['180', '180°'], explain: 'A straight line is two right angles: 90° + 90° = 180°.' },
+        { type: 'match', q: 'Match each 3D shape to something it looks like:', pairs: [
+          ['Sphere', 'Football'], ['Cube', 'Dice'], ['Cylinder', 'Tin of beans'], ['Cone', 'Ice cream cone']
+        ] },
+        { type: 'choice', q: 'A triangle has how many corners (vertices)?', options: ['3', '4', '2', '6'], answer: 0, explain: 'A triangle has 3 sides and 3 corners — they always match!' },
+        { type: 'type', q: 'A full turn (going all the way round) is how many degrees?', answer: ['360', '360°'], explain: 'One full turn = 360°. A right angle is a quarter of that: 90°.' }
       ]
     },
     {
@@ -192,7 +249,14 @@ window.SUBJECTS.push({
         { type: 'match', q: 'Match the move to what happens to the coordinates:', pairs: [
           ['Move right', 'Across number gets bigger'], ['Move left', 'Across number gets smaller'],
           ['Move up', 'Up number gets bigger'], ['Move down', 'Up number gets smaller']
-        ] }
+        ] },
+        { type: 'choice', q: 'For the point (2, 6), what does the 6 tell you?', options: ['How far UP to go', 'How far ACROSS to go', 'The size of the grid', 'Nothing important'], answer: 0, explain: 'The second number is always the UP number.' },
+        { type: 'type', q: 'A longship is 4 across and 0 up. Write its coordinates like (3,4).', answer: ['(4,0)', '(4, 0)', '4,0'], explain: 'Across is 4, up is 0 → (4, 0).' },
+        { type: 'choice', q: 'Start at (3, 4). Move 2 left and 3 down. Where do you end up?', options: ['(1, 1)', '(5, 7)', '(1, 7)', '(5, 1)'], answer: 0, explain: 'Left 2: 3 − 2 = 1 across. Down 3: 4 − 3 = 1 up. → (1, 1).' },
+        { type: 'gridpick', q: '⚔️ Dexter hides a sword at <b>(2, 4)</b>. Tap that square!', cols: 6, rows: 6, target: [2, 4], explain: '2 along the corridor, then 4 up the stairs — (2, 4).' },
+        { type: 'gridpick', q: 'The Viking 🪖 at (0, 2) marches <b>4 squares right and 2 up</b>. Tap where he lands!', cols: 6, rows: 6, marks: [{ x: 0, y: 2, emoji: '🪖' }], target: [4, 4], explain: 'From (0, 2): right 4 → across = 4; up 2 → up = 4. Lands at (4, 4).' },
+        { type: 'gridpick', q: 'Tap the point <b>(5, 0)</b> — that\'s along the bottom edge!', cols: 6, rows: 6, target: [5, 0], explain: '5 across, 0 up — it sits right along the bottom edge of the grid.' },
+        { type: 'choice', q: 'A shape at (2, 3) is translated 3 right and 4 up. What are the new coordinates?', options: ['(5, 7)', '(5, 4)', '(3, 7)', '(2, 7)'], answer: 0, explain: 'Right 3: 2 + 3 = 5 across. Up 4: 3 + 4 = 7 up. → (5, 7).' }
       ]
     },
     {
@@ -200,7 +264,7 @@ window.SUBJECTS.push({
       title: 'Times-tables blast',
       emoji: '⚡',
       gen: 'tables',
-      target: 12,
+      target: 18,
       learn: [
         { title: 'Tables training!', html: '<p>12 quick-fire times-table questions, up to 12 × 12. Watch out for the sneaky missing-number ones! New questions every time — can you beat your best score? Try to play this <b>every day</b>.</p>' }
       ]
@@ -210,7 +274,7 @@ window.SUBJECTS.push({
       title: 'Arithmetic gym',
       emoji: '🏋️',
       gen: 'arith',
-      target: 10,
+      target: 16,
       learn: [
         { title: 'Brain workout!', html: '<p>Ten mixed questions: adding, subtracting, multiplying and dividing. Use a pencil and paper for the big ones — column method is your friend! New questions every visit.</p>' }
       ]

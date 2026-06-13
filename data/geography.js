@@ -40,7 +40,26 @@ window.SUBJECTS.push({
         ], explain: 'Water, food and shelter are needs; views, toys and sweets are nice extras.' },
         { type: 'match', q: 'Match each settler need to the reason for it:', pairs: [
           ['Fresh water', 'To drink and cook'], ['Good soil', 'To grow crops'], ['Hilltop', 'To defend against attack'], ['River crossing', 'To travel and trade']
-        ] }
+        ] },
+        { type: 'choice', q: 'Why would a river be useful to early settlers?', options: ['It provides fresh water, fish and a way to travel', 'It blocks enemies better than a wall', 'Rivers make good farmland because they are dry', 'Rivers only provided decoration'], answer: 0, explain: 'A river provided drinking water, fish to eat, and a route for travel and trade — brilliant for a settlement!' },
+        { type: 'choice', q: 'A place where you can cross a river safely is called a...', options: ['Ford', 'Spring', 'Moor', 'Mound'], answer: 0, explain: 'A ford is a shallow crossing point on a river — that\'s why so many place names end in -ford, like Oxford!' },
+        { type: 'type', q: 'A place where people build their homes and live together is called a s__________. What is the word?', answer: ['settlement'], explain: 'A settlement is any place where people live — from a tiny hamlet to a huge city.' },
+        { type: 'sort', q: 'Would Viking settlers want this feature, or avoid it?', buckets: ['Settlers WANTED this', 'Settlers AVOIDED this'], items: [
+          { text: 'A river nearby for fresh water', bucket: 0 },
+          { text: 'A boggy swamp to build on', bucket: 1 },
+          { text: 'A hilltop with a good view for defence', bucket: 0 },
+          { text: 'A steep cliff with no flat land', bucket: 1 },
+          { text: 'Good soil nearby for farming', bucket: 0 },
+          { text: 'Forests nearby for building timber', bucket: 0 }
+        ], explain: 'Settlers wanted water, defence, good soil and materials. Swamps and cliffs made building impossible.' },
+        { type: 'match', q: 'Match each building material to how settlers used it:', pairs: [
+          ['Wood', 'To build the frame and walls of houses'], ['Stone', 'For strong walls and fireplaces'], ['Thatch (straw)', 'For roofing'], ['River clay', 'For bricks or to fill in wall gaps']
+        ] },
+        { type: 'choice', q: 'Why was SHELTER from wind and weather important for a settlement?', options: ['To keep people and animals warm and dry in winter', 'Because wind is always dangerous', 'To keep the settlement hidden', 'Weather only matters near the sea'], answer: 0, explain: 'Without shelter, people and crops would suffer badly in cold, wet or windy conditions.' },
+        { type: 'order', q: 'Put these steps in the order an early settler might follow when choosing a place to live:', items: ['Find a river or spring for fresh water', 'Check the land is flat and dry for building', 'Look for forests nearby for wood', 'Check the spot can be defended from enemies', 'Build the settlement!'], explain: 'Finding water comes first, then checking land quality and materials, then thinking about defence.' },
+        { type: 'choice', q: 'Why would early settlers prefer a site near a <b>coast or river crossing</b>?', options: ['To make travel and trade easier', 'Because water is always warm there', 'Coasts make better farmland', 'There is no particular reason'], answer: 0, explain: 'Coasts and river crossings were ancient highways — they allowed trade, travel and communication with other settlements.' },
+        { type: 'type', q: 'What do we call a place in a river shallow enough to walk or ride across? (one word)', answer: ['ford'], explain: 'A ford is a shallow river crossing. Many towns grew up at fords — like Oxford!' },
+        { type: 'choice', q: 'Dexter, which is the MOST important thing a settlement needs to survive?', options: ['Fresh water to drink', 'A market', 'A tall wall', 'A road'], answer: 0, explain: 'Without fresh water, no settlement can survive for long — it is the most vital need of all.' }
       ]
     },
     {
@@ -74,7 +93,26 @@ window.SUBJECTS.push({
           { text: 'One small church', bucket: 0 }, { text: 'A huge cathedral', bucket: 1 },
           { text: 'A few shops', bucket: 0 }, { text: 'Many railway stations', bucket: 1 },
           { text: 'Quiet country lanes', bucket: 0 }, { text: 'Tall office buildings', bucket: 1 }
-        ], explain: 'Villages are small and quiet; cities are large and busy with lots of services.' }
+        ], explain: 'Villages are small and quiet; cities are large and busy with lots of services.' },
+        { type: 'choice', q: 'How many houses would you typically find in a hamlet?', options: ['Just a few', 'Thousands', 'Hundreds', 'Exactly ten'], answer: 0, explain: 'A hamlet is tiny — just a few houses, often without even a church or shop.' },
+        { type: 'choice', q: 'A village is BIGGER than a hamlet. What does a village have that a hamlet usually does not?', options: ['A church and some shops', 'A cathedral', 'A large hospital', 'An airport'], answer: 0, explain: 'Villages typically have a church and perhaps a few shops or a school — more than a hamlet.' },
+        { type: 'type', q: 'What do we call a very large, important church that is often found in a city? (one word)', answer: ['cathedral'], explain: 'A cathedral is a grand church — in the UK, having one is a sign that a place is a city.' },
+        { type: 'sort', q: 'Sort these features: would you find them in ALL settlements, or only in large towns and cities?', buckets: ['Found in most settlements', 'Only in large towns/cities'], items: [
+          { text: 'Houses for people to live in', bucket: 0 },
+          { text: 'A cathedral', bucket: 1 },
+          { text: 'A large general hospital', bucket: 1 },
+          { text: 'People living and working nearby', bucket: 0 },
+          { text: 'A university', bucket: 1 },
+          { text: 'A local road', bucket: 0 }
+        ], explain: 'Houses and roads are found everywhere; cathedrals, hospitals and universities only appear in large places.' },
+        { type: 'match', q: 'Match each settlement type to its correct description:', pairs: [
+          ['Hamlet', 'A handful of houses, usually no services'], ['Village', 'Small community with a church and basic shops'], ['Town', 'Larger, with a market, hospital and many services'], ['City', 'The largest, usually with a cathedral']
+        ] },
+        { type: 'choice', q: 'Which of these is the correct order from <b>largest to smallest</b>?', options: ['City, town, village, hamlet', 'Hamlet, village, town, city', 'Village, town, hamlet, city', 'Town, city, hamlet, village'], answer: 0, explain: 'Largest first: city → town → village → hamlet.' },
+        { type: 'type', q: 'What settlement type is bigger than a village but smaller than a city? (one word)', answer: ['town'], explain: 'The order is hamlet, village, TOWN, city. A town has markets, shops and a hospital.' },
+        { type: 'choice', q: 'Why do you think settlements grow over time from hamlet to village to town?', options: ['More people arrive, needing more homes and services', 'Hamlets magically turn into cities overnight', 'Villages shrink into cities', 'Settlements only grow when kings allow it'], answer: 0, explain: 'As more people come to live somewhere, the settlement grows and needs more services — shops, schools, hospitals.' },
+        { type: 'order', q: 'Put these settlement types in order from <b>most services</b> to <b>fewest services</b>:', items: ['City', 'Town', 'Village', 'Hamlet'], explain: 'Cities have everything (hospitals, universities, cathedrals); hamlets may have no services at all.' },
+        { type: 'choice', q: 'Jorvik (Viking York) was described as a busy town full of craftworkers and merchants. What type of settlement was it most like?', options: ['A town or city', 'A hamlet', 'A farm', 'A monastery'], answer: 0, explain: 'With busy markets, craftworkers and merchants, Jorvik was a large, thriving settlement — like a town or city.' }
       ]
     },
     {
@@ -114,13 +152,32 @@ window.SUBJECTS.push({
           ['-by', 'Viking farm or village'], ['-ford', 'River crossing'], ['-chester', 'Roman fort'], ['-bury', 'Fortified place'], ['-thorpe', 'Small Viking village']
         ] },
         { type: 'sort', q: 'Sort these real UK place names by who founded them:', buckets: ['Viking', 'Roman', 'Anglo-Saxon'], items: [
-          { text: 'Grimsby', bucket: 0, why: '-by is a Viking ending.' },
-          { text: 'Scunthorpe', bucket: 0, why: '-thorpe is a Viking ending.' },
-          { text: 'Manchester', bucket: 1, why: '-chester is a Roman fort ending.' },
-          { text: 'Lancaster', bucket: 1, why: '-caster is a Roman fort ending.' },
-          { text: 'Nottingham', bucket: 2, why: '-ham is an Anglo-Saxon ending.' },
-          { text: 'Oxford', bucket: 2, why: '-ford is an Anglo-Saxon ending.' }
-        ], explain: '-by/-thorpe = Viking; -chester/-caster = Roman; -ham/-ton/-ford = Anglo-Saxon.' }
+          { text: 'Grimsby', bucket: 0 },
+          { text: 'Scunthorpe', bucket: 0 },
+          { text: 'Manchester', bucket: 1 },
+          { text: 'Lancaster', bucket: 1 },
+          { text: 'Nottingham', bucket: 2 },
+          { text: 'Oxford', bucket: 2 }
+        ], explain: '-by/-thorpe = Viking; -chester/-caster = Roman; -ham/-ton/-ford = Anglo-Saxon.' },
+        { type: 'choice', q: 'What does the Anglo-Saxon ending <b>-ham</b> mean?', options: ['A homestead or village', 'A church', 'A Roman fort', 'A river crossing'], answer: 0, explain: '-ham means a homestead or village, like Nottingham or Birmingham.' },
+        { type: 'choice', q: 'Which place name ending tells you a place was DEFENDED or fortified by the Anglo-Saxons?', options: ['-bury', '-by', '-ford', '-chester'], answer: 0, explain: '-bury means a fortified (defended) place, like Canterbury.' },
+        { type: 'type', q: 'The Viking ending that means a farm or village is -___. What are the two letters?', answer: ['by'], explain: '-by is the Viking ending for a farm or village — as in Grimsby or Whitby.' },
+        { type: 'choice', q: 'Which of these place names has a ROMAN ending?', options: ['Cirencester', 'Grimsby', 'Oxford', 'Whitby'], answer: 0, explain: 'Cirencester ends in -cester, a Roman fort ending. The other three have Viking or Anglo-Saxon endings.' },
+        { type: 'match', q: 'Match each real place name to who probably founded it:', pairs: [
+          ['Whitby', 'Vikings (-by)'], ['Manchester', 'Romans (-chester)'], ['Nottingham', 'Anglo-Saxons (-ham)'], ['Ormskirk', 'Vikings (-kirk)']
+        ] },
+        { type: 'choice', q: 'Brighton ends in -ton. Who probably founded Brighton?', options: ['Anglo-Saxons', 'Vikings', 'Romans', 'Normans'], answer: 0, explain: '-ton is an Anglo-Saxon ending meaning a farm or village — so Brighton was founded by Anglo-Saxons.' },
+        { type: 'sort', q: 'Sort these place name endings: Viking or Anglo-Saxon?', buckets: ['Viking ending', 'Anglo-Saxon ending'], items: [
+          { text: '-by', bucket: 0 },
+          { text: '-thorpe', bucket: 0 },
+          { text: '-kirk', bucket: 0 },
+          { text: '-ton', bucket: 1 },
+          { text: '-ham', bucket: 1 },
+          { text: '-ford', bucket: 1 }
+        ], explain: 'Vikings left -by, -thorpe and -kirk; Anglo-Saxons left -ton, -ham and -ford.' },
+        { type: 'type', q: 'The Viking ending that means a church is -k___. What is the full ending? (4 letters)', answer: ['kirk'], explain: '-kirk is the Norse word for church. You can spot it in Ormskirk.' },
+        { type: 'choice', q: 'Dexter, if you found a place called "Dexterby" on a map, who probably founded it?', options: ['Vikings', 'Romans', 'Anglo-Saxons', 'Normans'], answer: 0, explain: '-by is a Viking place name ending! "Dexterby" would be a Viking farm or village.' },
+        { type: 'order', q: 'Put these place name clues in order from the OLDEST to the most RECENT settlers:', items: ['Romans (-chester/-caster)', 'Anglo-Saxons (-ton/-ham/-ford)', 'Vikings (-by/-thorpe/-kirk)'], explain: 'Romans came first (43 AD onwards), then Anglo-Saxons, then Vikings arrived from around 793 AD.' }
       ]
     },
     {
@@ -153,7 +210,32 @@ window.SUBJECTS.push({
           { text: 'Mountain', bucket: 0 }, { text: 'Bridge', bucket: 1 }, { text: 'Forest', bucket: 0 },
           { text: 'Road', bucket: 1 }, { text: 'River', bucket: 0 }, { text: 'Church', bucket: 1 }
         ], explain: 'Nature makes physical features; people build human features.' },
-        { type: 'order', q: 'Put the compass directions in order going clockwise, starting at North:', items: ['North', 'East', 'South', 'West'], explain: 'Clockwise from North: North, East, South, West.' }
+        { type: 'order', q: 'Put the compass directions in order going clockwise, starting at North:', items: ['North', 'East', 'South', 'West'], explain: 'Clockwise from North: North, East, South, West.' },
+        { type: 'choice', q: 'Which direction is OPPOSITE to East?', options: ['West', 'North', 'South', 'Down'], answer: 0, explain: 'East and West are opposite compass directions.' },
+        { type: 'choice', q: 'A helpful way to remember compass directions clockwise is "Never Eat Shrimp ________". What is the missing word?', options: ['Wholemeal', 'Whenever', 'Well', 'Wildly'], answer: 0, explain: 'Never Eat Shrimp Wholemeal — N, E, S, W. A silly sentence, but it works, Dexter!' },
+        { type: 'type', q: 'What do we call features on a map that are made by NATURE, like rivers and hills? (two words: physical ________)', answer: ['features', 'physical features'], explain: 'Physical features are natural ones — rivers, hills, forests and beaches.' },
+        { type: 'sort', q: 'Sort these: physical features (natural) or human features (built by people)?', buckets: ['Physical feature', 'Human feature'], items: [
+          { text: 'A sandy beach', bucket: 0 },
+          { text: 'A motorway', bucket: 1 },
+          { text: 'A hill', bucket: 0 },
+          { text: 'A school building', bucket: 1 },
+          { text: 'A lake', bucket: 0 },
+          { text: 'A castle', bucket: 1 }
+        ], explain: 'Beaches, hills and lakes are made by nature; motorways, schools and castles are built by people.' },
+        { type: 'match', q: 'Match each compass direction to the direction directly opposite it:', pairs: [
+          ['North', 'South'], ['East', 'West'], ['South', 'North'], ['West', 'East']
+        ] },
+        { type: 'choice', q: 'If you are facing North and turn to face the direction on your RIGHT, which direction are you facing?', options: ['East', 'West', 'South', 'Up'], answer: 0, explain: 'From North, turning clockwise (right) takes you to East.' },
+        { type: 'choice', q: 'A settlement built on a hilltop would be EASY to defend. Why?', options: ['Defenders can see enemies from far away and attackers must climb uphill', 'The hill makes attackers invisible', 'Hills are always surrounded by water', 'Enemies cannot climb any hills'], answer: 0, explain: 'Height gives defenders a big advantage — they can see further and attack downhill while enemies struggle uphill.' },
+        { type: 'type', q: 'Features on a map that are BUILT by people (like roads and bridges) are called h_____ features. What is the missing word?', answer: ['human'], explain: 'Human features are made by people — as opposed to physical features made by nature.' },
+        { type: 'sort', q: 'Sort these into good reasons to settle NEXT TO A RIVER or ON A HILLTOP:', buckets: ['Reason to settle by a river', 'Reason to settle on a hilltop'], items: [
+          { text: 'Easy to spot enemies approaching', bucket: 1 },
+          { text: 'Fresh water to drink every day', bucket: 0 },
+          { text: 'Hard for enemies to attack uphill', bucket: 1 },
+          { text: 'Fish in the river for food', bucket: 0 },
+          { text: 'Travel and trade by boat', bucket: 0 }
+        ], explain: 'Rivers give water, fish and transport. Hilltops give defence — you can see and fight from above.' },
+        { type: 'choice', q: 'Which of these BEST explains why geographers study both physical AND human features on a map?', options: ['Together they show the full picture of what a place is like', 'Physical features are more important than human ones', 'Human features are more interesting than rivers and hills', 'Maps only show one type of feature at a time'], answer: 0, explain: 'Both types of feature together tell the complete story of a place — its natural landscape AND how people have changed it.' }
       ]
     },
     {

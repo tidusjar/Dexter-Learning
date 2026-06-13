@@ -40,7 +40,32 @@ window.SUBJECTS.push({
           ['Church', 'A building for Christian worship'],
           ['Prayer', 'Talking to God']
         ] },
-        { type: 'choice', q: 'Do all Christians believe and worship in exactly the same way?', options: ['No — Christians can believe and worship in different ways', 'Yes — every single one is identical', 'Yes — it\'s the law', 'No one knows'], answer: 0, explain: 'In every religion, people understand and practise their faith in their own ways.' }
+        { type: 'choice', q: 'Do all Christians believe and worship in exactly the same way?', options: ['No — Christians can believe and worship in different ways', 'Yes — every single one is identical', 'Yes — it\'s the law', 'No one knows'], answer: 0, explain: 'In every religion, people understand and practise their faith in their own ways.' },
+        { type: 'choice', q: 'Which of these is NOT one of the three parts of the Trinity?', options: ['The Prophet', 'The Father', 'The Son', 'The Holy Spirit'], answer: 0, explain: 'The Trinity is Father, Son (Jesus) and Holy Spirit — "The Prophet" is not part of the Christian Trinity.' },
+        { type: 'type', q: 'What word do Christians use to describe God as the maker of the whole world? (one word)', answer: ['creator', 'the creator'], explain: 'God is called the creator — the one who made everything.', hint: 'It starts with C.' },
+        { type: 'sort', q: 'Sort these into: things Christians believe about God, or things that belong to a different religion:', buckets: ['Christian belief ✝️', 'Different tradition 🌍'], items: [
+          { text: 'God is a loving Father', bucket: 0 },
+          { text: 'The 99 beautiful names of Allah', bucket: 1 },
+          { text: 'The Holy Spirit is part of the Trinity', bucket: 0 },
+          { text: 'Brahman is the one supreme spirit', bucket: 1 },
+          { text: 'The Bible is the Christian holy book', bucket: 0 }
+        ] },
+        { type: 'choice', q: 'When do many Christians meet at church to pray and sing together?', options: ['Especially on Sundays', 'Only at Christmas', 'Every day at sunrise', 'Only on Mondays'], answer: 0, explain: 'Sunday is a special day for many Christians — it\'s when churches are often fullest.' },
+        { type: 'match', q: 'Match each form of water to the part of the Trinity it represents in the comparison:', pairs: [
+          ['Liquid water', 'The Father'],
+          ['Ice', 'The Son (Jesus)'],
+          ['Steam', 'The Holy Spirit']
+        ] },
+        { type: 'choice', q: 'Christians believe God is always ready to do what?', options: ['Listen and forgive', 'Play tricks', 'Award prizes', 'Give homework'], answer: 0, explain: 'Christians describe God as always ready to listen and forgive — like a caring parent.' },
+        { type: 'sort', q: 'Is each thing something Christians DO when they pray, or something else?', buckets: ['Reason to pray ✅', 'Not a reason to pray 🚫'], items: [
+          { text: 'Saying thank you to God', bucket: 0 },
+          { text: 'Asking God for help', bucket: 0 },
+          { text: 'Scoring goals in football', bucket: 1 },
+          { text: 'Saying sorry to God', bucket: 0 },
+          { text: 'Watching television', bucket: 1 }
+        ] },
+        { type: 'choice', q: 'Dexter, what is ONE thing the Bible is full of, according to the learn card?', options: ['Stories and teachings about God and Jesus', 'Viking sagas and battles', 'Science experiments', 'Maps of ancient Egypt'], answer: 0, explain: 'The Bible contains stories and teachings about God and Jesus — it\'s like a whole library in one book!' },
+        { type: 'type', q: 'What do Christians call the idea of one God known in three ways: Father, Son and Holy Spirit? (one word)', answer: ['trinity', 'the trinity'], explain: 'The Trinity — one God, three forms, like water can be liquid, ice or steam.', hint: 'It starts with T.' }
       ]
     },
     {
@@ -77,7 +102,32 @@ window.SUBJECTS.push({
           ['Calligraphy', 'Beautiful decorated writing'],
           ['The Merciful', 'One of the 99 names of Allah']
         ] },
-        { type: 'choice', q: 'Why might repeating geometric patterns remind Muslims of God?', options: ['The patterns seem to go on forever, like God', 'Patterns are easy to draw', 'Stars are Allah\'s favourite shape', 'They don\'t — patterns are just decoration'], answer: 0, explain: 'Endless repeating patterns can remind people that God has no beginning or end.' }
+        { type: 'choice', q: 'Why might repeating geometric patterns remind Muslims of God?', options: ['The patterns seem to go on forever, like God', 'Patterns are easy to draw', 'Stars are Allah\'s favourite shape', 'They don\'t — patterns are just decoration'], answer: 0, explain: 'Endless repeating patterns can remind people that God has no beginning or end.' },
+        { type: 'choice', q: 'How many Gods do Muslims believe in?', options: ['One', 'Three', 'Ninety-nine', 'Hundreds'], answer: 0, explain: 'Muslims believe in one God — this is called monotheism. The 99 names all describe the same one God.' },
+        { type: 'type', q: 'What is the Arabic word that Muslims use for God? (one word)', answer: ['allah', 'Allah'], explain: 'Allah is simply the Arabic word for God.', hint: 'It starts with A.' },
+        { type: 'choice', q: 'Which of these is one of the 99 beautiful names for Allah?', options: ['The All-Knowing', 'The Great Builder', 'The Swift Sailor', 'The Tallest Mountain'], answer: 0, explain: 'The All-Knowing is one of the 99 names — it means God understands and knows everything.' },
+        { type: 'sort', q: 'Sort these into: things associated with Islam, or things from a different tradition:', buckets: ['Islamic tradition ☪️', 'Different tradition 🌍'], items: [
+          { text: 'The Qur\'an', bucket: 0 },
+          { text: 'The Trinity', bucket: 1 },
+          { text: 'Calligraphy of Allah\'s names', bucket: 0 },
+          { text: 'The mandir', bucket: 1 },
+          { text: 'Worshipping at a mosque', bucket: 0 }
+        ] },
+        { type: 'match', q: 'Match each of Allah\'s names to what it means:', pairs: [
+          ['The Merciful', 'Full of kindness and forgiveness'],
+          ['The Creator', 'Maker of everything'],
+          ['The All-Knowing', 'God knows and understands everything']
+        ] },
+        { type: 'choice', q: 'Why do Muslim artists use calligraphy and geometric patterns instead of pictures?', options: ['Muslims believe Allah is too great to be drawn, so they use other art forms instead', 'They haven\'t invented painting yet', 'Painting is not allowed in Arabic countries', 'Pictures are only used in mosques'], answer: 0, explain: 'Calligraphy and patterns are a beautiful way to express faith without drawing God.' },
+        { type: 'choice', q: 'Dexter, how should a Muslim treat the Qur\'an?', options: ['With great respect and care', 'Like any old book — leave it anywhere', 'Only read it once and then put it away forever', 'Lend it out without asking'], answer: 0, explain: 'The Qur\'an is the holy book of Islam and Muslims treat it with great respect.' },
+        { type: 'sort', q: 'Is each statement true about the Qur\'an, or not?', buckets: ['True about the Qur\'an ✅', 'Not true about the Qur\'an 🚫'], items: [
+          { text: 'It is the Muslim holy book', bucket: 0 },
+          { text: 'It is written in Arabic', bucket: 0 },
+          { text: 'It is also called the Bible', bucket: 1 },
+          { text: 'Muslims treat it with great respect', bucket: 0 },
+          { text: 'It has 99 chapters named after warriors', bucket: 1 }
+        ] },
+        { type: 'type', q: 'What is the name for the beautiful decorated writing that Muslims use to show the names of Allah? (one word)', answer: ['calligraphy'], explain: 'Calligraphy — flowing, decorated writing that is considered a true art form in Islamic tradition.', hint: 'It starts with C.' }
       ]
     },
     {
@@ -115,7 +165,33 @@ window.SUBJECTS.push({
           ['Mandir', 'The Hindu temple'],
           ['Diva lamp', 'A small flame, a symbol of light and goodness']
         ] },
-        { type: 'choice', q: 'Vishnu is known as…', options: ['The protector, who cares for the world', 'The god of homework', 'The keeper of elephants', 'The first king of India'], answer: 0, explain: 'Vishnu is the protector — one of the most important Hindu deities.' }
+        { type: 'choice', q: 'Vishnu is known as…', options: ['The protector, who cares for the world', 'The god of homework', 'The keeper of elephants', 'The first king of India'], answer: 0, explain: 'Vishnu is the protector — one of the most important Hindu deities.' },
+        { type: 'choice', q: 'Where did Hinduism begin?', options: ['India', 'Egypt', 'Greece', 'China'], answer: 0, explain: 'Hinduism began in India and is one of the world\'s oldest religions.' },
+        { type: 'type', q: 'What is the Hindu word for the one supreme spirit that is believed to be in everything and everyone? (one word)', answer: ['brahman', 'Brahman'], explain: 'Brahman is the one supreme spirit in Hinduism.', hint: 'It starts with B.' },
+        { type: 'sort', q: 'Sort these into: Hindu traditions, or traditions from a different religion:', buckets: ['Hindu tradition 🪔', 'Different tradition 🌍'], items: [
+          { text: 'Lighting a diva lamp', bucket: 0 },
+          { text: 'Reading the Qur\'an', bucket: 1 },
+          { text: 'Worshipping at a mandir', bucket: 0 },
+          { text: 'The Trinity', bucket: 1 },
+          { text: 'Using a murti to help focus worship', bucket: 0 }
+        ] },
+        { type: 'match', q: 'Match each Hindu deity to what they are known for:', pairs: [
+          ['Ganesha', 'Remover of obstacles and good for new beginnings'],
+          ['Lakshmi', 'Goddess of good fortune and wealth'],
+          ['Vishnu', 'The protector who cares for the world']
+        ] },
+        { type: 'choice', q: 'What is a murti NOT?', options: ['God itself — the murti is only a statue that helps people focus', 'A statue of a deity', 'A tool used in Hindu worship', 'Something found in a mandir'], answer: 0, explain: 'Hindus don\'t believe the murti IS God — it helps them direct their thoughts during worship.' },
+        { type: 'choice', q: 'Which deity would a Hindu particularly think of when starting something new?', options: ['Ganesha', 'Lakshmi', 'Vishnu', 'Brahman'], answer: 0, explain: 'Ganesha is the remover of obstacles and is especially popular for new beginnings.' },
+        { type: 'sort', q: 'Is each statement true about Hinduism, or not?', buckets: ['True about Hinduism ✅', 'Not true about Hinduism 🚫'], items: [
+          { text: 'Brahman is the one supreme spirit', bucket: 0 },
+          { text: 'Hinduism began in India', bucket: 0 },
+          { text: 'Hindus have exactly one deity', bucket: 1 },
+          { text: 'A mandir is a Hindu place of worship', bucket: 0 },
+          { text: 'The diva lamp is a symbol of light and goodness', bucket: 0 }
+        ] },
+        { type: 'choice', q: 'Dexter, why do Hindus worship through MANY different deities rather than just one?', options: ['Each deity helps people understand a different part of God\'s character, which is easier to imagine', 'They are all completely separate gods with nothing in common', 'Each deity lives in a different country', 'Only the most important deity is actually worshipped'], answer: 0, explain: 'It\'s like one person being a parent, a teacher and a friend — many roles, one underlying reality (Brahman).' },
+        { type: 'type', q: 'What is the Hindu place of worship called? (starts with M)', answer: ['mandir', 'a mandir', 'the mandir', 'temple'], explain: 'The mandir — the Hindu temple, a place of worship and community.', hint: 'M _ _ _ _ _ — think "temple".' },
+        { type: 'choice', q: 'Many Hindus also have a place of worship where?', options: ['At home — a home shrine', 'Only at school', 'Only at the mandir', 'In a mosque'], answer: 0, explain: 'As well as the mandir, many Hindus have a small shrine at home for daily worship.' }
       ]
     },
     {
@@ -168,7 +244,27 @@ window.SUBJECTS.push({
           { text: 'The Trinity', bucket: 1, why: 'This is a Christian belief.' },
           { text: 'Telling the truth', bucket: 0 },
           { text: 'Murtis in the mandir', bucket: 1, why: 'These are part of Hindu worship.' }
-        ] }
+        ] },
+        { type: 'choice', q: 'Where do Jewish people worship?', options: ['A synagogue', 'A gurdwara', 'A mandir', 'A mosque'], answer: 0, explain: 'Jewish people worship at a synagogue.' },
+        { type: 'type', q: 'What is the name of the free meal shared at a Sikh gurdwara? (one word)', answer: ['langar'], explain: 'Langar is a free meal shared at the gurdwara — everyone is welcome, no matter who they are.', hint: 'It starts with L.' },
+        { type: 'choice', q: 'Which of these best describes what an AGNOSTIC believes?', options: ['They are not sure whether God exists or not', 'They definitely believe in God', 'They believe in many gods', 'They refuse to think about the question'], answer: 0, explain: 'Agnostics say "I don\'t know" — which is a thoughtful and honest answer.' },
+        { type: 'sort', q: 'Sort these into: world faiths, or non-religious views:', buckets: ['A world faith 🙏', 'A non-religious view 💭'], items: [
+          { text: 'Christianity', bucket: 0 },
+          { text: 'Atheism', bucket: 1 },
+          { text: 'Sikhism', bucket: 0 },
+          { text: 'Agnosticism', bucket: 1 },
+          { text: 'Islam', bucket: 0 }
+        ] },
+        { type: 'match', q: 'Match each faith or view to something that belongs to it:', pairs: [
+          ['Judaism', 'The Torah'],
+          ['Sikhism', 'Waheguru'],
+          ['Atheism', 'Does not believe in God'],
+          ['Agnosticism', 'Isn\'t sure if God exists']
+        ] },
+        { type: 'choice', q: 'What does "langar" mean in the Sikh tradition?', options: ['A free meal shared with everyone at the gurdwara', 'The Sikh holy book', 'A type of prayer', 'A special dance'], answer: 0, explain: 'Langar is the free communal meal at a gurdwara — a wonderful example of the Sikh value of sharing.' },
+        { type: 'choice', q: 'Dexter, which of these values do almost ALL faiths and worldviews share?', options: ['Kindness and love for others', 'Worshipping in exactly the same way', 'Using the same holy book', 'Meeting on the same day of the week'], answer: 0, explain: 'Across all the traditions we\'ve studied, kindness and caring for others is almost universal.' },
+        { type: 'type', q: 'What is the Sikh name for God, meaning "Wonderful Lord"? (one word)', answer: ['waheguru', 'Waheguru'], explain: 'Waheguru — the Sikh name for God, meaning Wonderful Lord.', hint: 'It starts with W.' },
+        { type: 'choice', q: 'Which of these is the Jewish holy text containing their most special teachings?', options: ['The Torah', 'The Qur\'an', 'The Bible', 'The Vedas'], answer: 0, explain: 'The Torah holds the most important teachings for Jewish people.' }
       ]
     }
   ]
