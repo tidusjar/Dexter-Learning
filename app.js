@@ -31,7 +31,7 @@
   function lessonKey(subId, lesId) { return subId + '/' + lesId; }
   function getLessonProg(subId, lesId) { return store.lessons[lessonKey(subId, lesId)] || null; }
 
-  function recordResult(subId, lesId, pct) {
+  function recordResult(subId, lesId, pct, detail) {
     var key = lessonKey(subId, lesId);
     var rec = store.lessons[key] || { best: 0, stars: 0, attempts: 0 };
     rec.attempts += 1;
@@ -40,12 +40,30 @@
     var stars = starsFor(rec.best);
     if (stars > rec.stars) rec.stars = stars;
     rec.completed = rec.best >= 50;
+    rec.lastPct = pct;
+    // Remember the most recent attempt's question-by-question breakdown so
+    // grown-ups can see exactly which questions Dexter got wrong, and where.
+    if (detail) {
+      rec.lastCorrect = detail.correct;
+      rec.lastTotal = detail.total;
+      rec.lastWrong = detail.wrong || [];
+    }
     store.lessons[key] = rec;
     store.points += Math.round(pct / 10);
     store.log.push({ d: todayStr(), l: key, s: pct });
     if (store.log.length > 500) store.log = store.log.slice(-500);
     saveStore();
     return rec;
+  }
+
+  // Short, plain-text summary of a question, for the grown-ups breakdown.
+  function questionLabel(q) {
+    var t = q.q || q.prompt || '';
+    if (!t && q.pairs) t = 'Match up: ' + q.pairs.map(function (p) { return p[0]; }).join(', ');
+    if (!t && q.items) t = 'Put the steps in order';
+    t = String(t).replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+    if (t.length > 120) t = t.slice(0, 117) + '…';
+    return t || 'Question';
   }
 
   function starsFor(pct) {
@@ -407,6 +425,8 @@
   function runQuiz(sub, les, questions, wrap) {
     var idx = 0;
     var score = 0; // may be fractional for sort questions
+    var fullyCorrect = 0; // questions answered perfectly
+    var wrong = []; // labels of questions Dexter got wrong (for the grown-ups breakdown)
     var peekOpen = false; // remember if the learn cards are unfolded between questions
     next();
 
@@ -439,6 +459,8 @@
       wrap.appendChild(card);
       renderQuestion(q, card, function (points) {
         score += points;
+        if (points >= 0.999) fullyCorrect++;
+        else wrong.push(questionLabel(q));
         idx++;
         next();
       });
@@ -446,7 +468,9 @@
 
     function finish() {
       var pct = Math.round(score / questions.length * 100);
-      var rec = recordResult(sub.id, les.id, pct);
+      var rec = recordResult(sub.id, les.id, pct, {
+        correct: fullyCorrect, total: questions.length, wrong: wrong
+      });
       var stars = starsFor(pct);
       if (pct >= 70) confetti();
       wrap.innerHTML = '';
@@ -1577,6 +1601,48 @@
       });
     }
     app.appendChild(act);
+
+    // breakdown by subject & topic — what Dexter got right and wrong, and where
+    var bd = el('div', { class: 'panel' });
+    bd.appendChild(el('h2', { text: '🎯 Breakdown by subject & topic' }));
+    bd.appendChild(el('p', { class: 'progress-label', text: 'Tap a subject to open it. Each topic shows the best score so far and the exact questions Dexter got wrong on his last go. Topics in red are below 70% — worth another try.' }));
+    var anyPlayed = false;
+    SUBJECTS.forEach(function (s) {
+      var played = s.lessons.filter(function (l) { return store.lessons[lessonKey(s.id, l.id)]; });
+      if (!played.length) return;
+      anyPlayed = true;
+      var bests = played.map(function (l) { return store.lessons[lessonKey(s.id, l.id)].best || 0; });
+      var avgBest = Math.round(bests.reduce(function (a, b) { return a + b; }, 0) / bests.length);
+      var needs = played.filter(function (l) { return (store.lessons[lessonKey(s.id, l.id)].best || 0) < 70; }).length;
+
+      var subWrap = el('details', { class: 'gb-subject' });
+      subWrap.appendChild(el('summary', {
+        html: s.icon + ' <b>' + esc(s.name) + '</b> — ' + played.length + ' topic' + (played.length > 1 ? 's' : '') +
+          ' tried · avg best ' + avgBest + '%' + (needs ? ' · <span class="gb-flag">' + needs + ' to practise</span>' : '')
+      }));
+      played.forEach(function (l) {
+        var rec = store.lessons[lessonKey(s.id, l.id)];
+        var weak = (rec.best || 0) < 70;
+        var row = el('div', { class: 'gb-topic' + (weak ? ' weak' : '') });
+        row.appendChild(el('div', {
+          class: 'gb-topic-head',
+          html: (l.emoji || '📘') + ' <b>' + esc(l.title) + '</b> — best ' + (rec.best || 0) + '% ' + starString(rec.stars || 0) +
+            (rec.lastTotal ? ' · last go ' + (rec.lastCorrect || 0) + '/' + rec.lastTotal : '')
+        }));
+        if (rec.lastWrong && rec.lastWrong.length) {
+          row.appendChild(el('div', { class: 'gb-wrong-label', text: 'Got these wrong last time:' }));
+          var ul = el('ul', { class: 'gb-wrong' });
+          rec.lastWrong.forEach(function (w) { ul.appendChild(el('li', { text: w })); });
+          row.appendChild(ul);
+        } else if (rec.lastTotal) {
+          row.appendChild(el('p', { class: 'gb-allright', text: '✅ All correct on the last go!' }));
+        }
+        subWrap.appendChild(row);
+      });
+      bd.appendChild(subWrap);
+    });
+    if (!anyPlayed) bd.appendChild(el('p', { text: 'Once Dexter plays some quizzes, a topic-by-topic breakdown will appear here.' }));
+    app.appendChild(bd);
 
     // writings
     var writes = el('div', { class: 'panel' });
