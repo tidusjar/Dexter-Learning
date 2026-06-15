@@ -428,6 +428,7 @@
     var fullyCorrect = 0; // questions answered perfectly
     var wrong = []; // labels of questions Dexter got wrong (for the grown-ups breakdown)
     var peekOpen = false; // remember if the learn cards are unfolded between questions
+    var padOpen = false; // remember if the Apple Pencil working-out pad is unfolded between questions
     next();
 
     function next() {
@@ -457,6 +458,11 @@
       }
       var card = el('div', { class: 'question-card' });
       wrap.appendChild(card);
+      // Maths often needs jotting things down — give Dexter a handwriting pad he
+      // can scribble his working out on with the Apple Pencil (or a finger).
+      if (sub.id === 'maths') {
+        wrap.appendChild(workingPad(padOpen, function (open) { padOpen = open; }));
+      }
       renderQuestion(q, card, function (points) {
         score += points;
         if (points >= 0.999) fullyCorrect++;
@@ -490,6 +496,137 @@
         ])
       ]));
     }
+  }
+
+  /* ---------------- Apple Pencil working-out pad ----------------
+     A little squared-paper scratch canvas for jotting working out by hand.
+     Built on Pointer Events so it understands the Apple Pencil: stroke width
+     follows pen pressure, coalesced events keep lines smooth, and once a
+     stylus has been used we ignore finger/palm touches (palm rejection). */
+  function workingPad(initiallyOpen, onToggle) {
+    var COLOURS = ['#1d3557', '#000000', '#e63946', '#2a9d8f'];
+    var colour = COLOURS[0];
+    var erasing = false;
+
+    var canvas = el('canvas', { class: 'workpad-canvas' });
+    var ctx = canvas.getContext('2d');
+    var dpr = Math.max(1, window.devicePixelRatio || 1);
+    var penSeen = false;  // once true we treat 'touch' pointers as palm rest
+    var active = null;    // id of the pointer currently drawing
+    var last = null;      // last point drawn, in CSS pixels
+
+    function fit() {
+      var w = canvas.clientWidth, h = canvas.clientHeight;
+      if (!w || !h) return;
+      var prev = null;
+      if (canvas.width) {
+        prev = document.createElement('canvas');
+        prev.width = canvas.width; prev.height = canvas.height;
+        prev.getContext('2d').drawImage(canvas, 0, 0);
+      }
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      if (prev) ctx.drawImage(prev, 0, 0, prev.width, prev.height, 0, 0, w, h);
+    }
+
+    function point(e) {
+      var r = canvas.getBoundingClientRect();
+      var p = (e.pressure > 0 && e.pointerType === 'pen') ? e.pressure : 0.5;
+      return { x: e.clientX - r.left, y: e.clientY - r.top, p: p };
+    }
+
+    function drawSeg(a, b) {
+      ctx.globalCompositeOperation = erasing ? 'destination-out' : 'source-over';
+      ctx.strokeStyle = colour;
+      ctx.lineWidth = erasing ? 24 : Math.max(1, 3.5 * (0.4 + b.p * 1.4));
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(b.x, b.y);
+      ctx.stroke();
+    }
+
+    canvas.addEventListener('pointerdown', function (e) {
+      if (e.pointerType === 'pen') penSeen = true;
+      if (penSeen && e.pointerType === 'touch') return; // palm rejection
+      if (active !== null) return;
+      active = e.pointerId;
+      try { canvas.setPointerCapture(e.pointerId); } catch (_) {}
+      last = point(e);
+      drawSeg(last, { x: last.x + 0.1, y: last.y, p: last.p }); // a tap leaves a dot
+      e.preventDefault();
+    });
+    canvas.addEventListener('pointermove', function (e) {
+      if (e.pointerId !== active) return;
+      var evs = (e.getCoalescedEvents && e.getCoalescedEvents()) || [];
+      if (!evs.length) evs = [e];
+      evs.forEach(function (ev) { var p = point(ev); drawSeg(last, p); last = p; });
+      e.preventDefault();
+    });
+    function endStroke(e) {
+      if (e.pointerId !== active) return;
+      active = null; last = null;
+      try { canvas.releasePointerCapture(e.pointerId); } catch (_) {}
+    }
+    canvas.addEventListener('pointerup', endStroke);
+    canvas.addEventListener('pointercancel', endStroke);
+
+    function clear() {
+      ctx.save();
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.restore();
+    }
+
+    // toolbar
+    var swatches = COLOURS.map(function (c) {
+      var b = el('button', { class: 'workpad-swatch', type: 'button', title: 'Pen colour', style: 'background:' + c });
+      if (c === colour) b.classList.add('active');
+      b.addEventListener('click', function () {
+        colour = c; erasing = false;
+        tools.querySelectorAll('.workpad-swatch').forEach(function (s) { s.classList.remove('active'); });
+        b.classList.add('active');
+        rubber.classList.remove('active');
+      });
+      return b;
+    });
+    var rubber = el('button', { class: 'workpad-tool', type: 'button', text: '🧽 Rubber' });
+    rubber.addEventListener('click', function () {
+      erasing = true;
+      tools.querySelectorAll('.workpad-swatch').forEach(function (s) { s.classList.remove('active'); });
+      rubber.classList.add('active');
+    });
+    var clearBtn = el('button', { class: 'workpad-tool', type: 'button', text: '🗑️ Clear' });
+    clearBtn.addEventListener('click', clear);
+
+    var tools = el('div', { class: 'workpad-tools' },
+      swatches.concat([rubber, clearBtn, el('span', { class: 'workpad-hint', text: '✍️ Use your Apple Pencil' })]));
+
+    var body = el('div', { class: 'workpad-body' }, [tools, canvas]);
+
+    // keep the canvas crisp when the iPad rotates; tidy the listener up once
+    // this pad is no longer on the page (a new one is built per question).
+    function onResize() {
+      if (!document.body.contains(canvas)) { window.removeEventListener('resize', onResize); return; }
+      if (!body.hidden) fit();
+    }
+    window.addEventListener('resize', onResize);
+
+    var toggle = el('button', { class: 'workpad-toggle', type: 'button' });
+    function setOpen(open) {
+      body.hidden = !open;
+      toggle.textContent = (open ? '✏️ Hide working out' : '✏️ Show working out');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open) requestAnimationFrame(fit);
+      if (onToggle) onToggle(open);
+    }
+    toggle.addEventListener('click', function () { setOpen(body.hidden); });
+
+    var node = el('div', { class: 'workpad' }, [toggle, body]);
+    setOpen(!!initiallyOpen);
+    return node;
   }
 
   /* ---------------- question renderers ---------------- */
